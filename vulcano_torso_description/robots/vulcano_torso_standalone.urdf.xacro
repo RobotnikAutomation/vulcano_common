@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<robot name="vulcano" xmlns:xacro="http://ros.org/wiki/xacro"> <!-- TODO: check robot name -->
+
+   <!-- Include all component files -->
+   <xacro:include filename="$(find vulcano_torso_description)/urdf/vulcano_torso.urdf.xacro" />
+
+   <xacro:include filename="$(find vulcano_torso_description)/urdf/vulcano_torso.gazebo.xacro" />
+  
+   <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+
+   <xacro:torso prefix="vulcano_torso_">
+     <!-- origin xyz="0.427 0 0.152" rpy="0 0 0" /-->
+     <origin xyz="0 0 0" rpy="0 0 0" />
+   </xacro:torso>
+
+</robot>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ros control plugin -->
+  <xacro:macro name="ros_control">
+    <gazebo>
+      <plugin name="ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/vulcano_torso</robotNamespace>
+        <robotParam>robot_description</robotParam>
+        <controlPeriod>0.001</controlPeriod> <!-- controlPeriod>0.003</controlPeriod --> 
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+    
+</robot>
+

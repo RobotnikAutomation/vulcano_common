@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="vulcano">
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <!-- ***************** -->
+  <!-- Imported elements -->
+  <!-- ***************** -->
+  <!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+  <!-- Import vulcano base -->
+  <xacro:include filename="$(find vulcano_base_description)/robots/vulcano_base.urdf.xacro" />
+
+  <!-- Import vulcano torso -->
+  <xacro:include filename="$(find vulcano_torso_description)/robots/vulcano_torso.urdf.xacro"/>
+
+  <!-- Import UR10 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur10.urdf.xacro"/>
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro"/>
+
+
+  <!-- Fix torso to base -->
+  <joint name="base_torso_joint" type="fixed">
+    <origin xyz="0.47 0.0 0.474" rpy="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="torso_base_link"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+
+  <!-- Fix right arm to torso -->
+  <joint name="torso_right_arm_base_joint" type="fixed">
+    <origin xyz="-0.1637 0.275533 0.021967" rpy="0 ${-PI/4.0} ${-PI/2.0}"/>  <!-- TODO: set correct orientation -->
+    <parent link="torso_tkd668_link"/>
+    <!--child link="right_arm_rotate_base_link"/-->
+    <child link="right_arm_base_link"/>
+  </joint>
+  <xacro:ur10_robot prefix="right_arm_" joint_limited="true"/>
+
+  <!-- Fix left arm to torso -->
+  <joint name="torso_left_arm_base_joint" type="fixed">
+    <origin xyz="-0.1637 -0.275533 0.021967" rpy="0 ${PI/4.0} ${-PI/2.0}"/>
+    <parent link="torso_tkd668_link"/>
+    <child link="left_arm_base_link"/>
+  </joint>
+  <xacro:ur10_robot prefix="left_arm_" joint_limited="true"/>
+
+</robot>
