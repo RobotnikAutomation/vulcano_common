@@ -4,16 +4,9 @@
   <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find vulcano_torso_description)/robots/vulcano_torso_standalone.urdf.xacro'" />
   <param name="robot_description" command="$(arg urdf_file)" />
 
-  <!-- send fake joint values -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="use_gui" value="TRUE"/>
-  </node>
 
   <!-- Combine joint values -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
 
-  <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find vulcano_torso_description)/launch/vulcano_torso.rviz" /> 
-  
 </launch>
 

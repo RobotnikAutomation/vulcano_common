@@ -9,9 +9,17 @@
   
    <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
 
-   <xacro:torso prefix="vulcano_torso_">
+  <link name="world"/>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="torso_base_link"/>
+  </joint>
+
+
+   <xacro:vulcano_torso prefix="torso_">
      <!-- origin xyz="0.427 0 0.152" rpy="0 0 0" /-->
      <origin xyz="0 0 0" rpy="0 0 0" />
-   </xacro:torso>
+   </xacro:vulcano_torso>
 
 </robot>
