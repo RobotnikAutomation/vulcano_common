@@ -59,30 +59,34 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        torso_base_link:
+        base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        torso_guidance_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        torso_guidance_main_link:
+        guidance_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        torso_guidance_slide_link:
+        guidance_main_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        torso_tkd668_link:
+        guidance_slide_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        tkd668_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -92,7 +96,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: torso_base_link
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -147,4 +151,4 @@ Window Geometry:
     collapsed: false
   Width: 1200
   X: 55
-  Y: 20
+  Y: 14

@@ -14,6 +14,7 @@
         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
       </inertial>
     </link>
+
     <joint name="${prefix}guidance_base_joint" type="fixed">
       <!--<origin xyz="0.47 0 0.474" rpy="0 0 0"/>-->
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
@@ -21,6 +22,7 @@
       <child link="${prefix}guidance_base_link"/>
       <axis xyz="0 0 1"/>
     </joint>
+    
     <link name="${prefix}guidance_base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -43,16 +45,30 @@
         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
       </inertial>
     </link>
-    <joint name="${prefix}revolution_joint" type="fixed"> <!-- type="revolute" -->
+    
+    <joint name="${prefix}revolution_joint" type="revolute">
       <!-- TODO: especificar zona muerta, limites de articulacion y parametros de simulacion -->
       <!--origin xyz="0 0 0" rpy="0 0 ${60*deg2rad}" /-->
-      <origin xyz="0 0 0" rpy="0 0 3.1415"/>
+      <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
       <parent link="${prefix}guidance_base_link"/>
       <child link="${prefix}guidance_main_link"/>
       <axis xyz="0 0 1"/>
       <limit lower="${-172*deg2rad}" upper="${172*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
+    
+	<transmission name="${prefix}revolution_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}revolution_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}revolution_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </actuator>
+    </transmission>
+
+    
     <link name="${prefix}guidance_main_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -75,7 +91,8 @@
         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
       </inertial>
     </link>
-    <joint name="${prefix}elevation_joint" type="fixed"> <!-- type="prismatic" -->
+    
+    <joint name="${prefix}elevation_joint" type="prismatic">
       <!-- TODO: especificar limites de articulacion y parametros de simulacion -->
       <origin xyz="0 0 0.115" rpy="0 0 0"/>
       <parent link="${prefix}guidance_main_link"/>
@@ -83,6 +100,18 @@
       <axis xyz="0 0 1"/>
       <limit lower="0" upper="0.739" effort="100" velocity="100"/>
     </joint>
+
+	<transmission name="${prefix}elevation_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}elevation_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}elevation_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </actuator>
+    </transmission>
+    
     <link name="${prefix}guidance_slide_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -105,12 +134,14 @@
         <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
       </inertial>
     </link>
+    
     <joint name="${prefix}tkd668_joint" type="fixed">
       <origin xyz="0.164 0 0.449" rpy="0 0 0"/>
       <parent link="${prefix}guidance_slide_link"/>
       <child link="${prefix}tkd668_link"/>
       <axis xyz="0 0 1"/>
     </joint>
+    
     <link name="${prefix}tkd668_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -128,5 +159,6 @@
         </geometry>
       </collision>
     </link>
+  
   </xacro:macro>
 </robot>
