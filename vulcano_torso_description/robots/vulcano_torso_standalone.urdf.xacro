@@ -1,25 +1,31 @@
 <?xml version="1.0"?>
 
-<robot name="vulcano" xmlns:xacro="http://ros.org/wiki/xacro"> <!-- TODO: check robot name -->
+<robot name="vulcano_torso" xmlns:xacro="http://ros.org/wiki/xacro"> <!-- TODO: check robot name -->
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+	
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
 
-   <!-- Include all component files -->
-   <xacro:include filename="$(find vulcano_torso_description)/urdf/vulcano_torso.urdf.xacro" />
+	<!-- Import vulcano torso elements -->
+    <xacro:include filename="$(find vulcano_torso_description)/urdf/vulcano_torso.urdf.xacro" />
+    <xacro:include filename="$(find vulcano_torso_description)/urdf/common.gazebo.xacro" />
+    
+    <xacro:property name="prefix" value="" />
+    <xacro:property name="hq" value="true" />
+    
+    <link name="world" />
 
-   <xacro:include filename="$(find vulcano_torso_description)/urdf/vulcano_torso.gazebo.xacro" />
+    <joint name="world_joint" type="fixed">
+        <parent link="world" />
+        <child link="${prefix}base_link" />
+        <origin xyz="0.0 0.0 0.5" rpy="0.0 0.0 0.0" />
+    </joint>
   
-   <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+    <xacro:vulcano_torso prefix="${prefix}" hq="${hq}">
+      <!-- origin xyz="0.427 0 0.152" rpy="0 0 0" /-->
+    </xacro:vulcano_torso>
 
-  <link name="world"/>
-
-  <joint name="fixed" type="fixed">
-    <parent link="world"/>
-    <child link="torso_base_link"/>
-  </joint>
-
-
-   <xacro:vulcano_torso prefix="torso_">
-     <!-- origin xyz="0.427 0 0.152" rpy="0 0 0" /-->
-     <origin xyz="0 0 0" rpy="0 0 0" />
-   </xacro:vulcano_torso>
+    <xacro:ros_control ns="/vulcano_torso" />
 
 </robot>
