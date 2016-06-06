@@ -59,26 +59,26 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
+        torso_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        guidance_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        guidance_main_link:
+        torso_guidance_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        guidance_slide_link:
+        torso_guidance_main_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        tkd668_link:
+        torso_guidance_slide_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        torso_tkd668_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -96,7 +96,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: torso_base_link
     Frame Rate: 30
   Name: root
   Tools:

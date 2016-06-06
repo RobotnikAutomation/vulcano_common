@@ -18,7 +18,7 @@
 
     <joint name="world_joint" type="fixed">
         <parent link="world" />
-        <child link="${prefix}base_link" />
+        <child link="${prefix}torso_base_link" />
         <origin xyz="0.0 0.0 0.6" rpy="0.0 0.0 0.0" />
     </joint>
   
