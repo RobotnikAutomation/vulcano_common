@@ -1,0 +1,25 @@
+<package>
+  <name>vulcano_common</name>
+  <version>1.0.0</version>
+  <description>URDF description of the Vulcano Base Omnidirectional Robot.</description>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/vulcano_common</url>
+  <url type="bugtracker">https://github.com/RobotnikAutomation/vulcano_common/issues</url>
+
+  <author email="info@robotnik.es">Robotnik</author>
+
+  <maintainer email="info@robotnik.es">Robotnik</maintainer>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>vulcano_description</run_depend>
+  <run_depend>vulcano_torso_description</run_depend>
+  <run_depend>vulcano_pad_description</run_depend>
+  <run_depend>vulcano_moveit_config</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
