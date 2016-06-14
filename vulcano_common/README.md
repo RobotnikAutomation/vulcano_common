@@ -1,3 +1,3 @@
 # vulcano\_common
 
-Mobile Dual Manipulator Vulcano - metapackage
+Vulcano Mobile Dual Manipulator - metapackage
