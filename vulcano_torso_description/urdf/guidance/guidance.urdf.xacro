@@ -6,19 +6,10 @@
   <xacro:property name="z_elevation_joint" value="0.442"/>
 
   <!-- Define the torso -->
-  <xacro:macro name="torso" params="prefix hq">
-    <link name="${prefix}torso_base_link">
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0 "/>
-        <mass value="5"/> <!-- TODO: check masses -->
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
-      </inertial>
-    </link>
-
+  <xacro:macro name="guidance" params="prefix parent hq">
     <joint name="${prefix}torso_guidance_base_joint" type="fixed">
-      <!--<origin xyz="0.47 0 0.474" rpy="0 0 0"/>-->
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-      <parent link="${prefix}torso_base_link"/>
+      <parent link="${parent}"/>
       <child link="${prefix}torso_guidance_base_link"/>
       <axis xyz="0 0 1"/>
     </joint>
@@ -27,7 +18,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance_base.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/base.stl"/>
         </geometry>
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
@@ -36,7 +27,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance_base.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/base.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -61,7 +52,7 @@
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}torso_revolution_joint">
         <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
-        <hardwareInterface>PositionJointInterface</hardwareInterface><!-- TODO: PositionJointInterface? EffortJointInterface? -->
+        <hardwareInterface>PositionJointInterface</hardwareInterface> <!-- TODO: PositionJointInterface? EffortJointInterface?  VelocityJointInterface? -->
       </joint>
       <actuator name="${prefix}torso_revolution_motor">
         <mechanicalReduction>1</mechanicalReduction>
@@ -74,7 +65,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance_main.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/main.stl"/>
         </geometry>
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
@@ -83,7 +74,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance_main.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/main.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -106,7 +97,7 @@
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}torso_elevation_joint">
         <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
-        <hardwareInterface>PositionJointInterface</hardwareInterface><!-- TODO: PositionJointInterface? EffortJointInterface? -->
+        <hardwareInterface>PositionJointInterface</hardwareInterface> <!-- TODO: PositionJointInterface? EffortJointInterface?  VelocityJointInterface? -->
       </joint>
       <actuator name="${prefix}torso_elevation_motor">
         <mechanicalReduction>1</mechanicalReduction>
@@ -118,7 +109,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance_slide.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/slide.stl"/>
         </geometry>
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
@@ -127,7 +118,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance_slide.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/slide.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -148,7 +139,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/tkd668.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/tkd668.stl"/>
         </geometry>
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
@@ -157,7 +148,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/tkd668.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/tkd668.stl"/>
         </geometry>
       </collision>
     </link>

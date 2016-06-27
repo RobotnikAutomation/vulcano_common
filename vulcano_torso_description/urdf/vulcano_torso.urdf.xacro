@@ -4,13 +4,53 @@
     <!-- Imported elements -->
     <!-- ***************** -->
     
+    <xacro:property name="deg2rad" value="0.01745329251"/>
     <!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
     
     <!-- Include vulcano torso elements -->
-    <xacro:include filename="$(find vulcano_torso_description)/urdf/torso/torso.urdf.xacro"/>
+    <xacro:include filename="$(find vulcano_torso_description)/urdf/guidance/guidance.urdf.xacro"/>
+    <xacro:include filename="$(find vulcano_torso_description)/urdf/pantilt/pantilt.urdf.xacro"/>
     <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
     
-    <xacro:macro name="vulcano_torso" params="prefix hq">
-        <xacro:torso prefix="${prefix}" hq="${hq}"/>
+    <xacro:macro name="vulcano_torso" params="prefix hq"> <!-- TODO: check hq variable -->
+        <link name="${prefix}torso_base_link">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0 "/>
+                <mass value="5"/> <!-- TODO: check masses -->
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+            </inertial>
+        </link>
+        
+        <xacro:guidance prefix="${prefix}" parent="${prefix}torso_base_link" hq="${hq}"/>
+
+        <joint name="${prefix}torso_guidance_pantilt_joint" type="fixed">
+          <origin xyz="-0.191 0.0 1.178" rpy="0 0 ${180*deg2rad}"/>
+          <parent link="${prefix}torso_guidance_main_link"/>
+          <child link="${prefix}torso_guidance_pantilt_link"/>
+          <axis xyz="0 0 1"/>
+        </joint>
+        <link name="${prefix}torso_guidance_pantilt_link">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0 "/>
+                <mass value="5"/> <!-- TODO: check masses -->
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+            </inertial>
+        </link>
+        <xacro:pantilt prefix="${prefix}" parent="${prefix}torso_guidance_pantilt_link" hq="${hq}"/>
+       
+        <!-- TODO: check kinect2 position -->
+        <xacro:sensor_kinectv2 name="${prefix}torso_kinect" parent="${prefix}torso_pantilt_link" base="true">
+            <origin xyz="0.01255 0 0.066" rpy="0 0 0"/>
+        </xacro:sensor_kinectv2>
+        
+        <xacro:sensor_ueye_cp_gige name="${prefix}torso_ueye_left" parent="${prefix}torso_pantilt_link">
+            <origin xyz="0.0258 -0.14975 0.0165" rpy="0 0 0"/>
+        </xacro:sensor_ueye_cp_gige> 
+        
+        <xacro:sensor_ueye_cp_gige name="${prefix}torso_ueye_right" parent="${prefix}torso_pantilt_link">
+            <origin xyz="0.0258 0.14975 0.0165" rpy="0 0 0"/>
+        </xacro:sensor_ueye_cp_gige> 
+
+
     </xacro:macro>
 </robot>
