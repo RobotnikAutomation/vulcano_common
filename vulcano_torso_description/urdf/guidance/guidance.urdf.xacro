@@ -4,7 +4,6 @@
   <xacro:property name="deg2rad" value="0.01745329251"/>
   <xacro:property name="elevation_max_longitude" value="0.7"/>
   <xacro:property name="z_elevation_joint" value="0.442"/>
-
   <!-- Define the torso -->
   <xacro:macro name="guidance" params="prefix parent hq">
     <joint name="${prefix}torso_guidance_base_joint" type="fixed">
@@ -39,12 +38,11 @@
     
     <joint name="${prefix}torso_revolution_joint" type="revolute">
       <!-- TODO: especificar zona muerta, limites de articulacion y parametros de simulacion -->
-      <!--origin xyz="0 0 0" rpy="0 0 ${60*deg2rad}" /-->
       <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
       <parent link="${prefix}torso_guidance_base_link"/>
       <child link="${prefix}torso_guidance_main_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-172*deg2rad}" upper="${172*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="${-135*deg2rad}" upper="${225*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
     
