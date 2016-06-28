@@ -48,6 +48,6 @@
   </joint>
   <xacro:ur10_robot prefix="left_arm_" joint_limited="true"/>
 
-  <xacro:ros_control ns="/vulcano"/>
+  <xacro:ros_control />
 
 </robot>
