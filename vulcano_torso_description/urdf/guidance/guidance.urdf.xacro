@@ -36,30 +36,30 @@
       </inertial>
     </link>
     
-    <joint name="${prefix}torso_revolution_joint" type="revolute">
+    <joint name="${prefix}torso_guidance_revolution_joint" type="revolute">
       <!-- TODO: especificar zona muerta, limites de articulacion y parametros de simulacion -->
       <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
       <parent link="${prefix}torso_guidance_base_link"/>
-      <child link="${prefix}torso_guidance_main_link"/>
+      <child link="${prefix}torso_guidance_revolution_link"/>
       <axis xyz="0 0 1"/>
       <limit lower="${-135*deg2rad}" upper="${225*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
     
-	<transmission name="${prefix}torso_revolution_trans">
+	<transmission name="${prefix}torso_guidance_revolution_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}torso_revolution_joint">
+      <joint name="${prefix}torso_guidance_revolution_joint">
         <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
         <hardwareInterface>PositionJointInterface</hardwareInterface> <!-- TODO: PositionJointInterface? EffortJointInterface?  VelocityJointInterface? -->
       </joint>
-      <actuator name="${prefix}torso_revolution_motor">
+      <actuator name="${prefix}torso_guidance_revolution_motor">
         <mechanicalReduction>1</mechanicalReduction>
         <hardwareInterface>EffortJointInterface</hardwareInterface>
       </actuator>
     </transmission>
 
     
-    <link name="${prefix}torso_guidance_main_link">
+    <link name="${prefix}torso_guidance_revolution_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -82,28 +82,28 @@
       </inertial>
     </link>
     
-    <joint name="${prefix}torso_elevation_joint" type="prismatic">
+    <joint name="${prefix}torso_guidance_elevation_joint" type="prismatic">
       <!-- TODO: especificar limites de articulacion y parametros de simulacion -->
       <origin xyz="0 0 0.115" rpy="0 0 0"/>
-      <parent link="${prefix}torso_guidance_main_link"/>
-      <child link="${prefix}torso_guidance_slide_link"/>
+      <parent link="${prefix}torso_guidance_revolution_link"/>
+      <child link="${prefix}torso_guidance_elevation_link"/>
       <axis xyz="0 0 1"/>
       <limit lower="0" upper="0.739" effort="100" velocity="100"/>
     </joint>
 
-	<transmission name="${prefix}torso_elevation_trans"> 
+	<transmission name="${prefix}torso_guidance_elevation_trans"> 
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}torso_elevation_joint">
+      <joint name="${prefix}torso_guidance_elevation_joint">
         <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
         <hardwareInterface>PositionJointInterface</hardwareInterface> <!-- TODO: PositionJointInterface? EffortJointInterface?  VelocityJointInterface? -->
       </joint>
-      <actuator name="${prefix}torso_elevation_motor">
+      <actuator name="${prefix}torso_guidance_elevation_motor">
         <mechanicalReduction>1</mechanicalReduction>
         <hardwareInterface>EffortJointInterface</hardwareInterface>
       </actuator>
     </transmission>
     
-    <link name="${prefix}torso_guidance_slide_link">
+    <link name="${prefix}torso_guidance_elevation_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -128,7 +128,7 @@
     
     <joint name="${prefix}torso_tkd668_joint" type="fixed">
       <origin xyz="0.164 0 0.449" rpy="0 0 0"/>
-      <parent link="${prefix}torso_guidance_slide_link"/>
+      <parent link="${prefix}torso_guidance_elevation_link"/>
       <child link="${prefix}torso_tkd668_link"/>
       <axis xyz="0 0 1"/>
     </joint>

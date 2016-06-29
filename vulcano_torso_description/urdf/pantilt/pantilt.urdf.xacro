@@ -2,8 +2,6 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:property name="deg2rad" value="0.01745329251"/>
-  <xacro:property name="elevation_max_longitude" value="0.7"/>
-  <xacro:property name="z_elevation_joint" value="0.442"/>
 
   <!-- Define the torso -->
   <xacro:macro name="pantilt" params="prefix parent hq">

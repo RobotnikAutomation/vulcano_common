@@ -25,7 +25,7 @@
 
         <joint name="${prefix}torso_guidance_pantilt_joint" type="fixed">
           <origin xyz="-0.191 0.0 1.178" rpy="0 0 ${180*deg2rad}"/>
-          <parent link="${prefix}torso_guidance_main_link"/>
+          <parent link="${prefix}torso_guidance_revolution_link"/>
           <child link="${prefix}torso_guidance_pantilt_link"/>
           <axis xyz="0 0 1"/>
         </joint>
