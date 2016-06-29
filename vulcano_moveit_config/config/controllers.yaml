@@ -3,8 +3,14 @@ controller_list:
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
-        - revolution_joint
-        - elevation_joint
+        - torso_guidance_revolution_joint
+        - torso_guidance_elevation_joint
+  - name: /vulcano/pantilt_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+        - torso_pantilt_pan_joint
+        - torso_pantilt_tilt_joint
   - name: /vulcano/left_arm_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
