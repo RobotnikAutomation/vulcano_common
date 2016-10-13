@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <group ns="vulcano">
+  <!-- joy node -->
+  <node name="joy_torso" pkg="joy" type="joy_node" respawn="true">
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+    <param name="autorepeat_rate" value="10.0" type="double" />
+  </node>
+
+  <!-- Parameters -->
+  <rosparam command="load" file="$(find vulcano_torso_pad)/launch/ps3.yaml" />
+  <param name="torso_joy" value="/joy"/>
+  <node name="vulcano_torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">       
+  </node>
+  </group>
+   
+</launch>
+
+
