@@ -1,0 +1,12 @@
+num_of_buttons: 17
+axis_angular: 1
+scale_angular: 0.5
+
+button_dead_man: 8
+
+button_next_joint: 4
+button_previous_joint: 6
+button_speed_up: 12
+button_speed_down: 14
+
+arm_prefix: left_arm_
