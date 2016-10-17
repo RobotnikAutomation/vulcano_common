@@ -63,6 +63,7 @@ class VulcanoTorsoPad
         void jointStatesCallback(const sensor_msgs::JointState::ConstPtr& joint_states);
 
         ros::NodeHandle nh_;
+        ros::NodeHandle pnh_;
 
         // TODO: improve by vectorizing
         int axis_linear_z_;
@@ -131,26 +132,27 @@ class VulcanoTorsoPad
 VulcanoTorsoPad::VulcanoTorsoPad()
 {
     current_vel = 0.1;
+    pnh_ = ros::NodeHandle("~");
     // 
-    nh_.param("num_of_buttons", num_of_buttons_, DEFAULT_NUM_OF_BUTTONS);
+    pnh_.param("num_of_buttons", num_of_buttons_, DEFAULT_NUM_OF_BUTTONS);
 
     // MOTION CONF
-    nh_.param("axis_linear_z", axis_linear_z_, DEFAULT_AXIS_LINEAR_Z);
-    nh_.param("scale_linear_z", scale_linear_z_, DEFAULT_SCALE_LINEAR_Z);
-    nh_.param("axis_angular_z", axis_angular_z_, DEFAULT_AXIS_ANGULAR_Z);
-    nh_.param("scale_angular_z", scale_angular_z_, DEFAULT_SCALE_ANGULAR_Z);
+    pnh_.param("axis_linear_z", axis_linear_z_, DEFAULT_AXIS_LINEAR_Z);
+    pnh_.param("scale_linear_z", scale_linear_z_, DEFAULT_SCALE_LINEAR_Z);
+    pnh_.param("axis_angular_z", axis_angular_z_, DEFAULT_AXIS_ANGULAR_Z);
+    pnh_.param("scale_angular_z", scale_angular_z_, DEFAULT_SCALE_ANGULAR_Z);
 
-    nh_.param("axis_pan", axis_pan_, DEFAULT_AXIS_PAN);	
-    nh_.param("scale_pan", scale_pan_, DEFAULT_SCALE_PAN);
-    nh_.param("axis_tilt", axis_tilt_, DEFAULT_AXIS_TILT);	
-    nh_.param("axis_tilt", scale_tilt_, DEFAULT_SCALE_TILT);	
+    pnh_.param("axis_pan", axis_pan_, DEFAULT_AXIS_PAN);	
+    pnh_.param("scale_pan", scale_pan_, DEFAULT_SCALE_PAN);
+    pnh_.param("axis_tilt", axis_tilt_, DEFAULT_AXIS_TILT);	
+    pnh_.param("axis_tilt", scale_tilt_, DEFAULT_SCALE_TILT);	
 
-    nh_.param("button_dead_man_torso", dead_man_button_, dead_man_button_);
-    nh_.param("button_speed_up", speed_up_button_, speed_up_button_);  
-    nh_.param("button_speed_down", speed_down_button_, speed_down_button_); 
+    pnh_.param("button_dead_man_torso", dead_man_button_, dead_man_button_);
+    pnh_.param("button_speed_up", speed_up_button_, speed_up_button_);  
+    pnh_.param("button_speed_down", speed_down_button_, speed_down_button_); 
 
 
-    ROS_INFO("VulcanoTorsoPad num_of_buttons_ = %d", num_of_buttons_);	
+    ROS_INFO("VulcanoTorsoPad::num_of_buttons_ = %d", num_of_buttons_);	
     for(int i = 0; i < num_of_buttons_; i++){
         bRegisteredButtonEvent[i] = false;
         ROS_INFO("bREG %d", i);
@@ -241,7 +243,7 @@ void VulcanoTorsoPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
                 if(current_vel > 0.1){
                     current_vel = current_vel - 0.1;
                     bRegisteredButtonEvent[speed_down_button_] = true;
-                    ROS_INFO("Velocity: %f%%", current_vel*100.0);	
+                    ROS_INFO("VulcanoTorsoPad::Velocity: %f%%", current_vel*100.0);	
                 }
             }
         } else {
@@ -253,7 +255,7 @@ void VulcanoTorsoPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
                 if(current_vel < 0.9){
                     current_vel = current_vel + 0.1;
                     bRegisteredButtonEvent[speed_up_button_] = true;
-                    ROS_INFO("Velocity: %f%%", current_vel*100.0);
+                    ROS_INFO("VulcanoTorsoPad::Velocity: %f%%", current_vel*100.0);
                 }
             }
         } else {

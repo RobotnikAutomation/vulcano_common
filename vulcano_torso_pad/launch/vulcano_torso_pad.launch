@@ -10,9 +10,8 @@
   </node>
 
   <!-- Parameters -->
-  <rosparam command="load" file="$(find vulcano_torso_pad)/launch/ps3.yaml" />
-  <param name="torso_joy" value="/joy"/>
   <node name="vulcano_torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">       
+    <rosparam command="load" file="$(find vulcano_torso_pad)/launch/torso_ps3.yaml" />
   </node>
   </group>
    

@@ -9,5 +9,5 @@ axis_tilt: 1
 scale_tilt: -3.1416
 button_speed_up: 12
 button_speed_down: 14
-button_dead_man_torso: 9
+button_dead_man_torso: 10
 cmd_topic:  /joint_commands
