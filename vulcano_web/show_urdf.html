@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+	<script type="text/javascript" src="javascript_libraries/eventemitter2.min.js"></script>
+	<script type="text/javascript" src="javascript_libraries/roslib.js"></script>
+	<script type="text/javascript" src="javascript_libraries/three.js"></script>
+	<script type="text/javascript" src="javascript_libraries/Ros3D.js"></script>
+	<script type="text/javascript" src="javascript_libraries/visualization/Viewer.js"></script>
+	<script type="text/javascript" src="javascript_libraries/visualization/SceneNode.js"></script>
+	<script type="text/javascript" src="javascript_libraries/visualization/interaction/OrbitControls.js"></script>
+	<script type="text/javascript" src="javascript_libraries/visualization/interaction/MouseHandler.js"></script>
+	<script type="text/javascript" src="javascript_libraries/visualization/interaction/Highlighter.js"></script>
+	<script type="text/javascript" src="javascript_libraries/models/Grid.js"></script>
+	<script type="text/javascript" src="javascript_libraries/models/Axes.js"></script>
+	<script type="text/javascript" src="javascript_libraries/models/MeshResource.js"></script>
+	<script type="text/javascript" src="javascript_libraries/urdf/UrdfClient.js"></script>
+	<script type="text/javascript" src="javascript_libraries/urdf/Urdf.js"></script>
+	
+	
+	<script type="text/javascript" src="javascript_libraries/ColladaLoader2.js"></script>
+
+<script>
+  /**
+   * Setup all visualization elements when the page is loaded.
+   */
+  function init() {
+    // Connect to ROS.
+    var ros = new ROSLIB.Ros({
+      url : 'ws://localhost:9090'
+    });
+
+	ros.on('error', function(error){
+		console.log(error);
+	});
+
+    // Create the main viewer.
+    var viewer = new ROS3D.Viewer({
+      divID : 'urdf',
+      width : 800,
+      height : 600
+      
+    });
+
+    // Add a grid.
+    viewer.addObject(new ROS3D.Grid());
+
+    // Setup a client to listen to TFs.
+    var tfClient = new ROSLIB.TFClient({
+      ros : ros,
+      angularThres : 0.01,
+      transThres : 0.01,
+      rate : 10.0
+    });
+
+    // Setup the URDF client.
+    var urdfClient = new ROS3D.UrdfClient({
+      ros : ros,
+      tfClient : tfClient,
+      //path : 'http://resources.robotwebtools.org/',    // the base path to the associated Collada models that will be loaded
+      rootObject : viewer.scene
+    });
+  }
+</script>
+</head>
+
+<body onload="init()">
+  <h1>Simple URDF Example</h1>
+  <div id="urdf"></div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!Doctype html>
+<meta charset="UTF-8">
+<!-- author Robotnik -->
+
+
+<html>
+
+<link rel="stylesheet" href="css_files/my_mini.css"></link>
+<link rel="stylesheet" href="css_files/bootOver.css"/>
+<link rel="stylesheet" href="css_files/jquery-ui.css"/>
+
+<head>
+	<script type="text/javascript" src="javascript_libraries/eventemitter2.min.js"></script>
+	<script type="text/javascript" src="javascript_libraries/roslib.min.js"></script>
+	<script type="text/javascript" src="javascript_libraries/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="javascript_libraries/jquery-ui-1.10.4.min.js"></script>
+	<script type="text/javascript" src="javascript_libraries/Ros3D.js"></script>
+	<script type="text/javascript" src="javascript_libraries/three.js"></script>
+	<script type="text/javascript" src="javascript_libraries/ColladaLoader2.js"></script>
+	   
+  <script type="text/javascript" src="index.js"></script>
+    
+  
+</head>
+
+<body>
+    <div id="tabs" style="height: auto;">
+		 <ul>
+			<a href="http://www.robotnik.es/en/"><img width="200" src="robotnik.png" style="float: left; border:2px; margin:0px 0px 0px 0px"></a>
+			<li><a href="#tabs-3">Robot Status</a></li>
+		</ul>
+		<!-- ROBOT STATE TAB -->
+		<!------------------ -->
+		<div id="tabs-3">
+		<div id = "sensortopic">
+			  <br>
+			  <table border="0px">
+				  <tr >
+					<td>	  
+						IMU state &nbsp;&nbsp;&nbsp;&nbsp;    
+					</td>
+					<td>
+						Battery State &nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						IMU temperature &nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						Stop Button
+					</td>
+				  </tr>
+				  <tr>
+					<td style="text-align:center">
+						<div id="imu_status"> <span></span></div>
+					</td>
+					<td style="text-align:center">
+						<div id="battery_ok" > <span></span></div>
+					</td>
+					<td style="text-align:center">
+						<div id="imu_temperature_alarm"> <span></span></div>
+					</td>
+					<td  style="text-align:center">
+						<div id="emergency_stop"> <span></span></div>
+					</td>
+				  </tr>
+			  </table>
+			  <br>
+			  
+			  <h3>Battery</h3>
+			  <div id="progressbar_battery" style="width: 20em; float:left; margin-left:1em" class="ui-progressbar3" ></div><br>
+			  &nbsp;&nbsp;
+			  0% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  25% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  50% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  75% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  100%
+			  <br><br>
+			  <div id="battery_status">Battery level = <span></span></div>
+			  <div id="imu_temperature">IMU temperature = <span></span></div>
+			  <div id="gps_latitude">GPS latitude = <span></span></div>
+			  <div id="gps_longitude">GPS longitude = <span></span></div>
+			  <div id="gps_satellites_visible">Satellites visible = <span></span></div>
+			  <div id="gps_satellites_used">Satellites used = <span></span></div>
+		  </div>
+		  
+		  <h3>Odometry</h3>
+		  
+		  <table>
+			  <tr>
+				  <td style="width: 4em"></td>
+				  <td style="width: 4em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</td>
+				  <td style="width: 4em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y</td>
+				  <td style="width: 4em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z</td>
+			  </tr>
+			  <tr>
+				  <td>Position</td>
+				  <td style="width: 4em"><div id="odometry_position_x" style="float:right"><span></span></div></td>
+				  <td style="width: 4em"><div id="odometry_position_y" style="float:right"><span></span></div></td>
+				  <td style="width: 4em"><div id="odometry_position_z" style="float:right"><span></span></div></td>
+			  
+			  </tr>
+			  <tr>
+				  <td>Orientation</td>
+			  	  <td style="width: 4em"><div id="odometry_orientation_x" style="float:right"><span></span></div></td>
+				  <td style="width: 4em"><div id="odometry_orientation_y" style="float:right"><span></span></div></td>
+				  <td style="width: 4em"><div id="odometry_orientation_z" style="float:right"><span></span></div></td>
+			  </tr>
+		  </table>
+		  <br>
+		  <input type="button" Value="Reset odometry" onClick="reset_odometry()" class = "btn btn-danger"/>
+		  		   
+		  <br><br>		   
+		  
+		  <h3>Motor Status</h3>
+		  
+		  <table border="0px">
+				  <tr>
+					<td>	  
+						Front Left Direction Wheel &nbsp;&nbsp;&nbsp;&nbsp;    
+					</td>
+					<td width="125">
+					
+					</td>
+					<td>
+						Front Right Direction Wheel &nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+					
+					</td>
+					
+					<td>	  
+						Front Left Traction Wheel &nbsp;&nbsp;&nbsp;&nbsp;    
+					</td>
+					<td width="125">
+					
+					</td>
+					<td>
+						Front Right Traction Wheel &nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+					
+					</td>
+				  </tr>
+				  <tr>
+					<td style="text-align:center">
+						<div id="front_left_direction_wheel_status"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_flw_direction"/>
+					</td>
+					<td style="text-align:center">
+						<div id="front_right_direction_wheel_status" > <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_frw_direction"/>
+					</td>
+					<td style="text-align:center">
+						<div id="front_left_wheel_status"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_flw"/>
+					</td>
+					<td style="text-align:center">
+						<div id="front_right_wheel_status" > <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_frw"/>
+					</td>
+				  </tr>
+				  <tr>
+					<td>
+						Back Left Direction Wheel
+					</td>
+					<td>
+					
+					</td>
+					<td>
+						Back Right Direction Wheel
+					</td>
+					<td>
+					
+					</td>
+					<td>
+						Back Left Traction Wheel
+					</td>
+					<td>
+					
+					</td>
+					<td>
+						Back Right Traction Wheel
+					</td>
+					<td>
+					
+					</td>
+				  </tr>
+				  <tr>
+					<td style="text-align:center">
+						<div id="back_left_direction_wheel_status"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_blw_direction"/>
+					</td>
+					<td style="text-align:center">
+						<div id="back_right_direction_wheel_status"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_brw_direction"/>
+					</td>
+					<td style="text-align:center">
+						<div id="back_left_wheel_status"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_blw"/>
+					</td>
+					<td style="text-align:center">
+						<div id="back_right_wheel_status"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_brw"/>
+					</td>
+				  </tr>
+		  </table>		   
+		  
+		  <br>
+		  		  
+		  <!--input type="button" Value="Flags front left wheel" class = "btn btn-danger" id="button_flw"/>
+		  <input type="button" Value="Flags front right wheel" class = "btn btn-danger" id="button_frw"/>
+		  <br><br>
+		  <input type="button" Value="Flags back left wheel" class = "btn btn-danger" id="button_blw"/>
+		  <input type="button" Value="Flags back right wheel" class = "btn btn-danger" id="button_brw"/-->
+		  
+		  
+		  <!-- DIRECTION WHEEL DIALOGS -->
+		  <div id="dialog_flw_direction" title="Flags Front Left Direction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="flw_direction_state">State = <span></span></div>
+			  <div id="flw_direction_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="flw_direction_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="flw_direction_driver_status_words"><span></span></div>
+		  </div>
+		  
+		  <div id="dialog_frw_direction" title="Flags Front Right Direction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="frw_direction_state">State = <span></span></div>
+			  <div id="frw_direction_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="frw_direction_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="frw_direction_driver_status_words"><span></span></div>
+		  </div>
+		  	  
+		  <div id="dialog_blw_direction" title="Flags Back Left Direction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="blw_direction_state">State = <span></span></div>
+			  <div id="blw_direction_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="blw_direction_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="blw_direction_driver_status_words"><span></span></div>
+		  </div>
+		  
+		  <div id="dialog_brw_direction" title="Flags Back Right Direction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="brw_direction_state">State = <span></span></div>
+			  <div id="brw_direction_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="brw_direction_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="brw_direction_driver_status_words"><span></span></div>
+		  </div>
+		  
+		  
+		  <!-- TRACTION WHEEL DIALOGS -->
+		  <div id="dialog_flw" title="Flags Front Left Traction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="flw_state">State = <span></span></div>
+			  <div id="flw_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="flw_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="flw_driver_status_words"><span></span></div>
+		  </div>
+		  
+		  <div id="dialog_frw" title="Flags Front Right Traction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="frw_state">State = <span></span></div>
+			  <div id="frw_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="frw_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="frw_driver_status_words"><span></span></div>
+		  </div>
+		  	  
+		  <div id="dialog_blw" title="Flags Back Left Traction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="blw_state">State = <span></span></div>
+			  <div id="blw_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="blw_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="blw_driver_status_words"><span></span></div>
+		  </div>
+		  
+		  <div id="dialog_brw" title="Flags Back Right Traction Wheel">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="brw_state">State = <span></span></div>
+			  <div id="brw_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="brw_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="brw_driver_status_words"><span></span></div>
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

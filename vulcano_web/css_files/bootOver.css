@@ -1,0 +1,16 @@
+.navbar-inner
+{
+/*#DF0101*/
+  background:#BA122B !important;
+}
+.btn-danger{
+  background:#BA122B !important;
+}
+
+img 
+{
+float:center;
+border:0px dotted black;
+margin:0px 0px 0px 0px;
+}
+

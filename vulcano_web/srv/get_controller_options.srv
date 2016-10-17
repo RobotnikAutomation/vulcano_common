@@ -1,0 +1,9 @@
+---
+bool takeOver
+string kinematicMode
+float32 gearboxReduction
+float32 diameterWheel
+string motionOdometry
+string motorsEncoder
+int32  motorsEncoderFactor
+string xWam 
