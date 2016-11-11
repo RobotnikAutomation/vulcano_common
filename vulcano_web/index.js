@@ -40,6 +40,8 @@ var flw_direction_data = ["","","",""];
 var blw_direction_data = ["","","",""];
 var frw_direction_data = ["","","",""];
 var brw_direction_data = ["","","",""];
+var torso_elevation_data = ["","","",""];
+var torso_rotation_data = ["","","",""];
 var status_word_string = "";
 var status_word_sub_string = "";
 
@@ -52,6 +54,8 @@ var flw_direction_data_history = ["","","",""];
 var blw_direction_data_history = ["","","",""];
 var frw_direction_data_history = ["","","",""];
 var brw_direction_data_history = ["","","",""];
+var torso_elevation_data_history = ["","","",""];
+var torso_rotation_data_history = ["","","",""];
 
 //controller options
 var gearbox_reduction = 12.52;
@@ -374,7 +378,7 @@ imuStateListener.subscribe(function(message) {
 	brw_direction_data[1] = message.motor_status[3].status;
 	brw_direction_data[2] = message.motor_status[3].statusword;
 	brw_direction_data[3] = message.motor_status[3].driveflags;		
-	
+	// TODO fill torso data
 		
 	// space is required for the comparison
 	if(flw_data[1] == "OPERATION_ENABLED "){
@@ -425,6 +429,20 @@ imuStateListener.subscribe(function(message) {
 	}else{
 		document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";	
 	}
+	
+	// space is required for the comparison //TODO check OPERATION_ENABLED?
+	if(torso_elevation_data[1] == "OPERATION_ENABLED "){
+		document.querySelector('#torso_elevation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
+	}else{
+		document.querySelector('#torso_elevation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";	
+	}
+	
+	if(torso_rotation_data[1] == "OPERATION_ENABLED "){
+		document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
+	}else{
+		document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";	
+	}
+	
 	
 	
 });
@@ -1102,6 +1120,10 @@ sensor.subscribe(function(mes){
 			frw_direction_data_history[2] = "0000000000000000";
 			blw_direction_data_history[2] = "0000000000000000";
 			brw_direction_data_history[2] = "0000000000000000";
+			
+			// TODO check all this 0
+			torso_elevation_data_history[2] = "0000000000000000";
+			torso_rotation_data_history[2] = "0000000000000000";
 		}
 		for(var i=0; i<drive_status_codes.length; i++)
 		{
@@ -1114,6 +1136,11 @@ sensor.subscribe(function(mes){
 			frw_direction_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
 			blw_direction_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
 			brw_direction_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
+			
+			
+			// TODO check all this 0
+			torso_elevation_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
+			torso_rotation_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
 		}
 	};
 	
@@ -1701,6 +1728,136 @@ sensor.subscribe(function(mes){
 		};
 		document.querySelector('#brw_direction_driver_status_words span').innerHTML = status_word_string;
 	    
+	    
+	    //Torso //TODO check
+	    
+	    // Torso Elevation Motor
+		// ----------------
+	    document.querySelector('#torso_elevation_state span').innerHTML = torso_elevation_data[0];
+		document.querySelector('#torso_elevation_status span').innerHTML = torso_elevation_data[1];
+		
+		status_word_string = "";
+		status_word_sub_string = "";
+		for( var i = 0; i < torso_elevation_data[2].length ; i++)
+		{
+				if(torso_elevation_data[2][i] == 1)
+				{
+					status_word_sub_string = status_codes[i];
+					status_word_string = status_word_string.concat("<br><b>",status_word_sub_string,"</b>");
+					
+					// updating history
+					torso_elevation_data_history[2] = torso_elevation_data_history[2].substr(0, i) + '1' + torso_elevation_data_history[2].substr(i + 1);
+				}
+				else 
+				{
+					if(torso_elevation_data_history[2][i] == 1) // flag used in the past
+					{
+						status_word_sub_string = status_codes[i];
+						status_word_string = status_word_string.concat("<br><ins>",status_word_sub_string,"</ins>");
+						//console.log("flag used in the past");
+					}
+					else // flag off
+					{
+						status_word_sub_string = status_codes[i];
+						status_word_string = status_word_string.concat("<br>",status_word_sub_string);
+					}
+				}
+		};
+		document.querySelector('#torso_elevation_status_words span').innerHTML = status_word_string;
+
+		status_word_string = "";
+		status_word_sub_string = "";
+		for( var i = 0; i < torso_elevation_data[3].length ; i++)
+		{
+				if(torso_elevation_data[3][i] == 1)
+				{
+					status_word_sub_string = drive_status_codes[i];
+					status_word_string = status_word_string.concat("<br><b>",status_word_sub_string,"</b>");
+				
+					// updating history
+					torso_elevation_data_history[3] = torso_elevation_data_history[3].substr(0, i) + '1' + torso_elevation_data_history[3].substr(i + 1);
+				}
+				else 
+				{
+					if(torso_elevation_data_history[3][i] == 1) // flag used in the past
+					{
+						status_word_sub_string = drive_status_codes[i];
+						status_word_string = status_word_string.concat("<br><ins>",status_word_sub_string,"</ins>");
+						//console.log("flag used in the past");
+					}
+					else // flag off
+					{
+						status_word_sub_string = drive_status_codes[i];
+						status_word_string = status_word_string.concat("<br>",status_word_sub_string);
+					}
+				}
+		};
+		document.querySelector('#torso_elevation_driver_status_words span').innerHTML = status_word_string;
+			    
+		// Torso Rotation Motor
+		// ----------------
+	    document.querySelector('#torso_rotation_state span').innerHTML = torso_rotation_data[0];
+		document.querySelector('#torso_rotation_status span').innerHTML = torso_rotation_data[1];
+		
+		status_word_string = "";
+		status_word_sub_string = "";
+		for( var i = 0; i < torso_rotation_data[2].length ; i++)
+		{
+				if(torso_rotation_data[2][i] == 1)
+				{
+					status_word_sub_string = status_codes[i];
+					status_word_string = status_word_string.concat("<br><b>",status_word_sub_string,"</b>");
+					
+					// updating history
+					torso_rotation_data_history[2] = torso_rotation_data_history[2].substr(0, i) + '1' + torso_rotation_data_history[2].substr(i + 1);
+				}
+				else 
+				{
+					if(torso_rotation_data_history[2][i] == 1) // flag used in the past
+					{
+						status_word_sub_string = status_codes[i];
+						status_word_string = status_word_string.concat("<br><ins>",status_word_sub_string,"</ins>");
+						//console.log("flag used in the past");
+					}
+					else // flag off
+					{
+						status_word_sub_string = status_codes[i];
+						status_word_string = status_word_string.concat("<br>",status_word_sub_string);
+					}
+				}
+		};
+		document.querySelector('#torso_rotation_status_words span').innerHTML = status_word_string;
+
+		status_word_string = "";
+		status_word_sub_string = "";
+		for( var i = 0; i < torso_rotation_data[3].length ; i++)
+		{
+				if(torso_rotation_data[3][i] == 1)
+				{
+					status_word_sub_string = drive_status_codes[i];
+					status_word_string = status_word_string.concat("<br><b>",status_word_sub_string,"</b>");
+				
+					// updating history
+					torso_rotation_data_history[3] = torso_rotation_data_history[3].substr(0, i) + '1' + torso_rotation_data_history[3].substr(i + 1);
+				}
+				else 
+				{
+					if(torso_rotation_data_history[3][i] == 1) // flag used in the past
+					{
+						status_word_sub_string = drive_status_codes[i];
+						status_word_string = status_word_string.concat("<br><ins>",status_word_sub_string,"</ins>");
+						//console.log("flag used in the past");
+					}
+					else // flag off
+					{
+						status_word_sub_string = drive_status_codes[i];
+						status_word_string = status_word_string.concat("<br>",status_word_sub_string);
+					}
+				}
+		};
+		document.querySelector('#torso_rotation_driver_status_words span').innerHTML = status_word_string;
+			    
+	    
 	} 
 	 
 	//jquery init
@@ -1805,6 +1962,8 @@ sensor.subscribe(function(mes){
 		document.querySelector('#front_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
 		document.querySelector('#back_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
 		document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
+		document.querySelector('#torso_elevation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
+		document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
 		
 		//init messages
 		max_angle_message = new ROSLIB.Message({
@@ -1844,6 +2003,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
 
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
 			$("#dialog_flw_direction").dialog("open");
 		});
 		
@@ -1868,6 +2031,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_frw").dialog("close");
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
+
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
 
 			$("#dialog_frw_direction").dialog("open");
 		});
@@ -1894,6 +2061,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
 
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
 			$("#dialog_blw_direction").dialog("open");
 		});
 				
@@ -1918,6 +2089,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_frw").dialog("close");
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
+
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
 
 			$("#dialog_brw_direction").dialog("open");
 		});
@@ -1944,6 +2119,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
 
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
 			$("#dialog_flw").dialog("open");
 		});
 		
@@ -1967,6 +2146,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_frw").dialog("close");
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
+
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
 
 			$("#dialog_frw").dialog("open");
 		});
@@ -1993,6 +2176,10 @@ sensor.subscribe(function(mes){
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
 
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
 			$("#dialog_blw").dialog("open");
 		});
 				
@@ -2018,10 +2205,74 @@ sensor.subscribe(function(mes){
 			$("#dialog_blw").dialog("close");
 			$("#dialog_brw").dialog("close");
 
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
 			$("#dialog_brw").dialog("open");
 		});
 		
+
+		// Torso Elevation Motor
+		// ----------------
 		
+		$("#dialog_torso_elevation").dialog({
+			autoOpen: false
+		});
+		
+		$("#button_torso_elevation").click(function(){
+			
+			//close other dialogs
+			// fist direction dialogs
+			$("#dialog_flw_direction").dialog("close");
+			$("#dialog_frw_direction").dialog("close");
+			$("#dialog_blw_direction").dialog("close");
+			$("#dialog_brw_direction").dialog("close");
+			
+			// then traction dialogs
+			$("#dialog_flw").dialog("close");
+			$("#dialog_frw").dialog("close");
+			$("#dialog_blw").dialog("close");
+			$("#dialog_brw").dialog("close");
+			
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
+			$("#dialog_torso_elevation").dialog("open");
+		});
+
+
+		// Torso Elevation Motor
+		// ----------------
+		
+		$("#dialog_torso_rotation").dialog({
+			autoOpen: false
+		});
+		
+		$("#button_torso_rotation").click(function(){
+			
+			//close other dialogs
+			// fist direction dialogs
+			$("#dialog_flw_direction").dialog("close");
+			$("#dialog_frw_direction").dialog("close");
+			$("#dialog_blw_direction").dialog("close");
+			$("#dialog_brw_direction").dialog("close");
+			
+			// then traction dialogs
+			$("#dialog_flw").dialog("close");
+			$("#dialog_frw").dialog("close");
+			$("#dialog_blw").dialog("close");
+			$("#dialog_brw").dialog("close");
+			
+			// and finally the torso dialogs
+			$("#dialog_torso_elevation").dialog("close");
+			$("#dialog_torso_rotation").dialog("close");
+
+			$("#dialog_torso_rotation").dialog("open");
+		});
+
+
 		// reset drivers data history
 		resetDriverHistory();
 		

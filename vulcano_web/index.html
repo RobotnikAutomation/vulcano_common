@@ -111,7 +111,7 @@
 		  		   
 		  <br><br>		   
 		  
-		  <h3>Motor Status</h3>
+		  <h3>Base Motor Status</h3>
 		  
 		  <table border="0px">
 				  <tr>
@@ -220,6 +220,60 @@
 					</td>
 				  </tr>
 		  </table>		   
+		  
+		  <h3>Torso Motor Status</h3>
+		  
+		  <table border="0px">
+				  <tr>
+					<td>	  
+						Elevation Motor &nbsp;&nbsp;&nbsp;&nbsp;    
+					</td>
+					<td width="125">
+					
+					</td>
+					<td>
+						Rotation Motor &nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+
+				  </tr>
+				  <tr>
+					<td style="text-align:center">
+						<div id="torso_elevation_status_flash"> <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_torso_elevation"/>
+					</td>
+					<td style="text-align:center">
+						<div id="torso_rotation_status_flash" > <span></span></div>
+					</td>
+					<td>
+						<input type="button" Value="Flags" class = "btn btn-danger" id="button_torso_rotation"/>
+					</td>
+				  </tr>
+		  </table>		   
+		  
+		  <h3>I/O Status</h3>
+		  
+		  <table border="0px">
+				  <tr>
+					<td>	  
+						Digital Output 1 (Fan) &nbsp;&nbsp;&nbsp;&nbsp;    
+					</td>
+					<td style="text-align:center">
+						<div id="digital_output_1"> <span></span></div>
+					</td>
+				  </tr>
+					<tr>
+					<td>
+						Digital Output 2 (Compressor) &nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td style="text-align:center">
+						<div id="digital_output_2"> <span></span></div>
+					</td>
+				  </tr>
+		  </table>		   		  
+		  
+		  
 		  
 		  <br>
 		  		  
@@ -351,6 +405,36 @@
 			  <br>
 			  Driver flags:
 			  <div id="brw_driver_status_words"><span></span></div>
+		  </div>
+		  
+		  <!-- TORSO DIALOGS -->
+		  <div id="dialog_torso_elevation" title="Flags Torso Elevation Motor">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="torso_elevation_state">State = <span></span></div>
+			  <div id="torso_elevation_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="torso_elevation_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="torso_elevation_driver_status_words"><span></span></div>
+		  </div>
+		  <div id="dialog_torso_rotation" title="Flags Torso Rotation Motor">
+				Flags info: <br>
+				Flag is off <br>
+				<b>Flag is on</b><br>
+				<ins>Flag has been activated before</ins> <br><br>
+			  <div id="torso_rotation_state">State = <span></span></div>
+			  <div id="torso_rotation_status">Status = <span></span></div>
+			  <br>
+			  Flags:
+			  <div id="torso_rotation_status_words"><span></span></div>
+			  <br>
+			  Driver flags:
+			  <div id="torso_rotation_driver_status_words"><span></span></div>
 		  </div>
 		</div>
 	</div>
