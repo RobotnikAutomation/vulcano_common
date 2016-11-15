@@ -31,8 +31,7 @@
 		</ul>
 		<!-- ROBOT STATE TAB -->
 		<!------------------ -->
-		<div id="tabs-3">
-		<div id = "sensortopic">
+		<div id="robot_status">
 			  <br>
 			  <table border="0px">
 				  <tr >
@@ -76,11 +75,7 @@
 			  100%
 			  <br><br>
 			  <div id="battery_status">Battery level = <span></span></div>
-			  <div id="imu_temperature">IMU temperature = <span></span></div>
-			  <div id="gps_latitude">GPS latitude = <span></span></div>
-			  <div id="gps_longitude">GPS longitude = <span></span></div>
-			  <div id="gps_satellites_visible">Satellites visible = <span></span></div>
-			  <div id="gps_satellites_used">Satellites used = <span></span></div>
+			  <div id="imu_temperature">IMU temperature = <span></span></div> <!-- TODO: temperatures! -->
 		  </div>
 		  
 		  <h3>Odometry</h3>
@@ -255,7 +250,7 @@
 		  <h3>I/O Status</h3>
 		  
 		  
-		  <style type="text/css">
+		  <style type="text/css"> <!-- style for the io_table -->
 			  td
 			  {
 				  padding:0 15px 0 15px;
@@ -278,16 +273,7 @@
 			</tr>		   		
 		  </table>		   		  
 		  
-		  
-		  
 		  <br>
-		  		  
-		  <!--input type="button" Value="Flags front left wheel" class = "btn btn-danger" id="button_flw"/>
-		  <input type="button" Value="Flags front right wheel" class = "btn btn-danger" id="button_frw"/>
-		  <br><br>
-		  <input type="button" Value="Flags back left wheel" class = "btn btn-danger" id="button_blw"/>
-		  <input type="button" Value="Flags back right wheel" class = "btn btn-danger" id="button_brw"/-->
-		  
 		  
 		  <!-- DIRECTION WHEEL DIALOGS -->
 		  <div id="dialog_flw_direction" title="Flags Front Left Direction Wheel">
@@ -440,8 +426,7 @@
 			  <br>
 			  Driver flags:
 			  <div id="torso_rotation_driver_status_words"><span></span></div>
-		  </div>
-		</div>
+		</div> <!--  id: robot_status -->
 	</div>
 </body>
 </html>

@@ -161,45 +161,22 @@ var drive_status_codes = [
     "FLAG NOT USED"
 ]; //68
 
-/*
-var ros = new ROSLIB.Ros({
-	url : 'ws://localhost:9090'
-});*/
-
-
 var ros = new ROSLIB.Ros({
     //url : 'ws://192.168.0.200:9090'
     url: 'ws://localhost:9090'
 });
 
 
-// Publishers
-// -----------
-var aux = new ROSLIB.Topic({
-    ros: ros,
-    name: '/axis_camera/ptz_command',
-    messageType: 'robotnik_msgs/ptz'
-});
-
-// Subscribing to Topics
-// ----------------------
-
-
 //battery topic
-var listener = new ROSLIB.Topic({
+var battery_listener = new ROSLIB.Topic({
     ros: ros,
     name: '/summit_xl_controller/battery',
     messageType: 'std_msgs/Float32'
 });
 
-//imu yaw angle topic
-/*
-	var yawListener = new ROSLIB.Topic({
-		ros : ros,
-		name : '/imu/yaw_acc',
-		messageType : 'std_msgs/Float32',
-	});
-	*/
+battery_listener.subscribe(function(message) {
+    battery_level = message.data;
+});
 
 //imu state topic
 var imuStateListener = new ROSLIB.Topic({
@@ -207,85 +184,6 @@ var imuStateListener = new ROSLIB.Topic({
     name: '/imu/data_ok',
     messageType: 'std_msgs/Bool'
 });
-
-
-// IMU temperature topic (Arduimu)
-//var imu_temperature_listener = new ROSLIB.Topic({
-//ros : ros,
-//name : '/imu/temperature',
-//messageType : 'std_msgs/Float32'
-//});
-
-// IMU temperature topic (Arduimu)
-var imu_temperature_listener = new ROSLIB.Topic({
-    ros: ros,
-    name: '/mavros/imu/temperature',
-    messageType: 'sensor_msgs/Temperature'
-});
-
-//emergency stop topic
-var emergency_stop_listener = new ROSLIB.Topic({
-    ros: ros,
-    name: '/summit_xl_controller/emergency_stop',
-    messageType: 'std_msgs/Bool'
-});
-
-// Odometry topic
-var odometry_listener = new ROSLIB.Topic({
-    ros: ros,
-    name: '/odom',
-    messageType: 'nav_msgs/Odometry'
-});
-
-// Motor Status topic
-var motor_status_listener = new ROSLIB.Topic({
-    ros: ros,
-    name: '/vulcano_base_hw/status',
-    messageType: '/vulcano_base_hw/VulcanoMotorsStatus'
-});
-
-//gps topic
-var gps_listener = new ROSLIB.Topic({
-    ros: ros,
-    name: '/extended_fix',
-    messageType: 'gps_common/GPSFix'
-});
-
-var io_listener = new ROSLIB.Topic({
-	ros: ros,
-	name: '/io_topic', //TODO: check topic name
-	messageType: 'robotnik_msgs/inputs_outputs'
-});
-
-// Message Handlers
-// ----------------------
-
-// Battery
-listener.subscribe(function(message) {
-    battery_level = message.data;
-});
-
-// Yaw Angle
-/*
-	yawListener.subscribe(function(message) {
-	if ( message.data >= 90.0 )
-	{
-		yaw_angle_right = message.data - 90.0;
-		yaw_angle_left = 0.0;
-	}
-	if ( message.data < 90.0 ) 
-	{
-		yaw_angle_right = 0.0;
-		yaw_angle_left = 90.0 - message.data;
-	}
-	yaw_angle = message.data;
-	
-	document.querySelector('#yaw_angle span').innerHTML = Math.round(yaw_angle * 10000) / 10000;
-	//document.querySelector('#yaw_angle_left span').innerHTML = Math.round(yaw_angle_left * 10000) / 10000;
-	//document.querySelector('#yaw_angle_right span').innerHTML = Math.round(yaw_angle_right * 10000) / 10000;
-
-});
-*/
 
 // IMU State
 imuStateListener.subscribe(function(message) {
@@ -305,17 +203,12 @@ imuStateListener.subscribe(function(message) {
     }
 });
 
-// IMU temperature listener (Arduimu)
-//imu_temperature_listener.subscribe(function(message){
-//imu_temperature = message.data;
-//});
-
-// IMU temperature listener (Arduimu)
-imu_temperature_listener.subscribe(function(message) {
-    imu_temperature = message.temperature;
+//emergency stop topic
+var emergency_stop_listener = new ROSLIB.Topic({
+    ros: ros,
+    name: '/summit_xl_controller/emergency_stop',
+    messageType: 'std_msgs/Bool'
 });
-
-
 
 // Emergency Stop Listener
 emergency_stop_listener.subscribe(function(message) {
@@ -329,10 +222,15 @@ emergency_stop_listener.subscribe(function(message) {
     }
 });
 
+// Odometry topic
+var odometry_listener = new ROSLIB.Topic({
+    ros: ros,
+    name: '/odom',
+    messageType: 'nav_msgs/Odometry'
+});
+
 // Odometry Listener
 odometry_listener.subscribe(function(message) {
-
-
     x_position = message.pose.pose.position.x;
     y_position = message.pose.pose.position.y;
     z_position = message.pose.pose.position.z;
@@ -340,8 +238,13 @@ odometry_listener.subscribe(function(message) {
     x_orientation = message.pose.pose.orientation.x;
     y_orientation = message.pose.pose.orientation.y;
     z_orientation = message.pose.pose.orientation.z;
+});
 
-
+// Motor Status topic
+var motor_status_listener = new ROSLIB.Topic({
+    ros: ros,
+    name: '/vulcano_base_hw/status',
+    messageType: '/vulcano_base_hw/VulcanoMotorsStatus'
 });
 
 // Motor Status Listener
@@ -450,17 +353,13 @@ motor_status_listener.subscribe(function(message) {
         document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-
-
 });
 
-gps_listener.subscribe(function(message) {
 
-    document.querySelector('#gps_satellites_visible span').innerHTML = message.status.satellites_visible;
-    document.querySelector('#gps_satellites_used span').innerHTML = message.status.satellites_used;
-    document.querySelector('#gps_latitude span').innerHTML = message.latitude;
-    document.querySelector('#gps_longitude span').innerHTML = message.longitude;
-
+var io_listener = new ROSLIB.Topic({
+	ros: ros,
+	name: '/io_topic', //TODO: check topic name
+	messageType: 'robotnik_msgs/inputs_outputs'
 });
 
 io_listener.subscribe(function(message) {
@@ -479,539 +378,6 @@ io_listener.subscribe(function(message) {
 
 });
 
-
-/*function startTime()
-{
-aux.subscribe(function(mes){console.log('Received message on ' + mes.pan + ': ' + mes.tilt + ':' + mes.zoom + ':' + mes.relative);
-			var divelement = document.getElementById("rosmessage");
-			var content =mes.pan + ";" + mes.tilt + ";" + mes.zoom + ";" + mes.relative; 
-			divelement.innerHTML = content;    					 
-			} 
-);
-var ros2 = new ROSLIB.Ros({
-	url:'ws://localhost:9090'
-});
-var sensor = new ROSLIB.Topic({
-	ros : ros2,
-	name : '/tilt_scan',
-	massageTyper : 'sensor_msgs/LaserScan'
-});
-sensor.subscribe(function(message){console.log('Recived message on' + message.angle_min );
-		 var divelement = document.getElementById("sensortopic");
-		 var content =message.angle_min; 
-		 divelement.innerHTML = content; )	
-
-}
-function startTime2(){
-
-	var ros = new ROSLIB.Ros({
-	url : 'ws://localhost:9090'   
-});
-
-var sensor = new ROSLIB.Topic({
-	ros : ros,
-	name : '/tilt_scan',
-	messageType : 'sensor_msgs/LaserScan'
-});
-
-sensor.subscribe(function(mes){
-		console.log('Recived message on' + mes.angle_min + ":");				
-		var divelement = document.getElementById("sensortopic");
-		var content = mes.angle_min; 
-		divelement.innerHTML = content;
-	
- });
-
-}
-*/
-
-
-
-function stopJo() {
-    var ros = new ROSLIB.Ros({
-        url: 'ws://summit:9090'
-    });
-
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/summit_xl_pad/enable_disable_pad',
-        messageType: 'summit_xl_pad/enable_disable_pad'
-    });
-
-    var data = new ROSLIB.ServiceRequest({
-        value: true
-    });
-
-    aux2.callService(data, function(res) {
-        console.log("disable joystick");
-    });
-
-}
-
-function startJo() {
-    var ros = new ROSLIB.Ros({
-        url: 'ws://summit:9090'
-    });
-
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/summit_xl_pad/enable_disable_pad',
-        messageType: 'summit_xl_pad/enable_disable_pad'
-    });
-
-    var data = new ROSLIB.ServiceRequest({
-        value: false
-    });
-
-    aux2.callService(data, function(res) {
-        console.log("enable joystick");
-    });
-
-}
-
-function initial() {
-
-    pos_x = 0.0;
-    pos_y = 0.0;
-    pos_zoom = 0.0;
-    $("#slider_zoom").slider("value", 0);
-    var pos = new ROSLIB.Message({
-        pan: 0.0,
-        tilt: 0.0,
-        zoom: 0.0,
-        relative: false
-
-    });
-    aux.publish(pos);
-}
-
-function move_cam_right() {
-
-    if (pos_zoom > 4000) {
-        pos_x = pos_x + 2.5;
-    } else {
-        pos_x = pos_x + 10.0;
-    }
-    move();
-
-}
-
-function move_cam_left() {
-    if (pos_zoom > 4000) {
-        pos_x = pos_x - 2.5;
-    } else {
-        pos_x = pos_x - 10.0;
-    }
-    move();
-}
-
-function move_cam_top() {
-
-
-    //limit to 90º?
-    if (pos_y < 180) {
-        if (pos_zoom > 4000) {
-            pos_y = pos_y + 2.5;
-        } else {
-            pos_y = pos_y + 10.0;
-        }
-    }
-    move();
-}
-
-//function flip180(){}
-function move_cam_dowm() {
-
-    if (pos_y > 0) {
-        if (pos_zoom > 4000) {
-            pos_y = pos_y - 2.5;
-        } else {
-            pos_y = pos_y - 10.0;
-        }
-    }
-    move();
-}
-
-function zoomx0() {
-
-    pos_zoom = 0.0;
-    move();
-}
-
-function zoomx15() {
-
-    pos_zoom = 600.0;
-    move();
-}
-
-function zoomx2() {
-
-    pos_zoom = 1550.0;
-    move();
-}
-
-function zoomx3() {
-
-    pos_zoom = 2550.0;
-    move();
-}
-
-function zoomx4() {
-
-    pos_zoom = 5000.0;
-    move();
-}
-
-function zoomx5() {
-
-    pos_zoom = 8000.0;
-    move();
-}
-
-function zoomx6() {
-
-    pos_zoom = 10000.0;
-    move();
-}
-
-function zoomx7() {
-
-    pos_zoom = 13000.0;
-    move();
-}
-
-function zoomx8() {
-
-    pos_zoom = 17200.0;
-    move();
-}
-
-function move() {
-    var pos = new ROSLIB.Message({
-        pan: pos_x,
-        tilt: pos_y,
-        zoom: pos_zoom,
-        relative: false
-
-    });
-    aux.publish(pos);
-
-}
-
-function pos1() {
-    pos_x = 180.0;
-    pos_y = 30.0;
-    pos_zoom = 0.0;
-    var pos = new ROSLIB.Message({
-        pan: 180.0,
-        tilt: 30.0,
-        zoom: 0.0,
-        relative: false
-
-    });
-    aux.publish(pos);
-}
-
-function pos2() {
-    pos_x = 100.0;
-    pos_y = 30.0;
-    pos_zoom = 0.0;
-    var pos = new ROSLIB.Message({
-        pan: 100.0,
-        tilt: 30.0,
-        zoom: 0.0,
-        relative: false
-
-    });
-    aux.publish(pos);
-}
-
-function pos3() {
-    pos_x = 50.0;
-    pos_y = 30.0;
-    pos_zoom = 0.0;
-    var pos = new ROSLIB.Message({
-        pan: 50.0,
-        tilt: 30.0,
-        zoom: 0.0,
-        relative: false
-
-    });
-    aux.publish(pos);
-}
-
-function pos4() {
-    pos_x = 0.0;
-    pos_y = 80.0;
-    pos_zoom = 0.0;
-    var pos = new ROSLIB.Message({
-        pan: 0.0,
-        tilt: 80.0,
-        zoom: 0.0,
-        relative: false
-
-    });
-    aux.publish(pos);
-}
-
-function Foward() {
-
-
-
-
-    var aux2 = new ROSLIB.Topic({
-        ros: ros,
-        name: '/summit_xl_controller/command',
-        messageType: 'geometry_msgs/Twist'
-    });
-
-
-    var twist = new ROSLIB.Message({
-        linear: {
-            x: 0.2,
-            y: 0.0,
-            z: 0.0
-        },
-        angular: {
-            x: 0.0,
-            y: 0.0,
-            z: 0.0
-        }
-    });
-
-    aux2.publish(twist);
-
-}
-
-function Back() {
-
-
-
-
-    var aux2 = new ROSLIB.Topic({
-        ros: ros,
-        name: '/summit_xl_controller/command',
-        messageType: 'geometry_msgs/Twist'
-    });
-
-
-    var twist = new ROSLIB.Message({
-        linear: {
-            x: -0.2,
-            y: 0.0,
-            z: 0.0
-        },
-        angular: {
-            x: 0.0,
-            y: 0.0,
-            z: 0.0
-        }
-    });
-
-    aux2.publish(twist);
-
-}
-
-function Right() {
-
-
-    var aux2 = new ROSLIB.Topic({
-        ros: ros,
-        name: '/summit_xl_controller/command',
-        messageType: 'geometry_msgs/Twist'
-    });
-
-
-    var twist = new ROSLIB.Message({
-        linear: {
-            x: 0.0,
-            y: 0.0,
-            z: 0.0
-        },
-        angular: {
-            x: 0.0,
-            y: 0.0,
-            z: -0.2
-        }
-    });
-
-    aux2.publish(twist);
-
-}
-
-function Left() {
-
-
-
-    var aux2 = new ROSLIB.Topic({
-        ros: ros,
-        name: '/summit_xl_controller/command',
-        messageType: 'geometry_msgs/Twist'
-    });
-
-
-    var twist = new ROSLIB.Message({
-        linear: {
-            x: 0.0,
-            y: 0.0,
-            z: 0.0
-        },
-        angular: {
-            x: 0.0,
-            y: 0.0,
-            z: 0.2
-        }
-    });
-
-    aux2.publish(twist);
-
-}
-
-function startRecording() {
-
-    if (is_recording == 0)
-        is_recording = 1;
-
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/start_recording',
-        messageType: 'summit_xl_web/RecordVideo'
-    });
-
-    var data = new ROSLIB.ServiceRequest({
-        startRecording: 1
-    });
-
-    aux2.callService(data, function(res) {
-        console.log("start recording");
-        filename = res.filename;
-
-
-    });
-    updateStrings(filename = "");
-}
-
-function stopRecording() {
-
-    if (is_recording == 1)
-        is_recording = 0;
-
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/start_recording',
-        messageType: 'summit_xl_web/RecordVideo'
-    });
-
-    var data = new ROSLIB.ServiceRequest({
-        startRecording: 0
-    });
-
-    aux2.callService(data, function(res) {
-        console.log("stop recording");
-        filename = res.filename;
-        console.log('Saved file on ' + res.filename);
-        updateStrings(filename);
-    });
-
-
-}
-
-function saveImage() {
-
-    //console.log("Saving Image");
-
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/start_recording',
-        messageType: 'summit_xl_web/RecordVideo'
-    });
-
-    var data = new ROSLIB.ServiceRequest({
-        startRecording: 2
-    });
-
-    aux2.callService(data, function(res) {
-        //console.log("Image saved");
-
-        document.querySelector('#imageStatus').innerHTML = "Image saved at " + res.filename;
-    });
-
-}
-
-/*
-function callkeydownhandler(evnt, event2) {
-   var ev = (evnt) ? evnt : event;
-   var ev2 = (evnt) ? evnt : event2;
-   var code=(ev.which) ? ev.which : event.keyCode;
-   var code2=(ev.which) ? ev.which : event.keyCode;
-	
-   if(code == 37)
-	Left();
-   else if(code2 == 38)
-	Foward();
-   else if(code == 39)
-	Right();
-   else if(code2 == 40 )
-	Back();
-}
-	
-
-if (window.document.addEventListener) {
-   window.document.addEventListener("keydown", callkeydownhandler, false);
-} else {
-   window.document.attachEvent("onkeydown", callkeydownhandler);
-}
-*/
-
-function updateStrings(filename) {
-    if (is_recording == 0)
-        document.querySelector('#videoStatus').innerHTML = filename + ' recorded';
-    else if (is_recording == 1)
-        document.querySelector('#videoStatus').innerHTML = 'Recording video';
-}
-
-
-function setMaximumAngle() {
-    console.log("Set maximum angle");
-    maxAngle = $("#max_angle_spinner").spinner("value");
-    maxAngle = parseFloat(maxAngle);
-    console.log(maxAngle);
-
-    max_angle_message = new ROSLIB.Message({
-        data: maxAngle
-    });
-
-    //set parameter
-    //max_angle_param.set(maxAngle);
-}
-
-function setTrimAngle() {
-    console.log("Set trim angle");
-    trim_angle = $("#trim_spinner").spinner("value");
-    trim_angle = parseFloat(trim_angle);
-
-    trim_angle_message = new ROSLIB.Message({
-        data: trim_angle
-    });
-
-    //set parameter
-    //trim_angle_param.set(trim_angle);
-}
-
-function saveSettings() {
-    maxAngle = $("#max_angle_spinner").spinner("value");
-    maxAngle = parseFloat(maxAngle);
-    trim_angle = $("#trim_spinner").spinner("value");
-    trim_angle = parseFloat(trim_angle);
-    min_radius = $("#min_radius_spinner").spinner("value");
-    min_radius = parseFloat(min_radius);
-    reverse_direction = document.getElementById("reverse_direction_checkbox").checked;
-    //console.log(maxAngle + " " + trim_angle + " " + min_radius + " " + reverse_direction);
-
-
-
-}
-
 function deactivateIMU() {
     deactivate_imu_msg.data = true;
     document.querySelector('#imu_connected span').innerHTML = "NO";
@@ -1024,7 +390,7 @@ function activateIMU() {
 
 function reset_odometry() {
 
-    var aux2 = new ROSLIB.Service({
+    var reset_odometry_service = new ROSLIB.Service({
         ros: ros,
         name: '/set_odometry',
         messageType: 'robotnik_msgs/set_odometry'
@@ -1037,108 +403,8 @@ function reset_odometry() {
         orientation: 0.0
     });
 
-    aux2.callService(data, function(res) {
+    reset_odometry_service.callService(data, function(res) {
 
-    });
-
-}
-
-function saveControllerOptions() {
-
-    //get options from ui
-
-    take_over = document.getElementById("take_over_checkbox").checked;
-
-    x_wam = document.getElementById("robot_type").value;
-
-    kinematic_mode = document.getElementById("kinematic_mode").value;
-
-    gearbox_reduction = $("#gearbox_reduction_spinner").spinner("value");
-    gearbox_reduction = parseFloat(gearbox_reduction);
-
-    diameter_wheel = $("#diameter_wheel_spinner").spinner("value");
-    diameter_wheel = parseFloat(diameter_wheel);
-
-    motion_odometry = document.getElementById("motion_odometry_checkbox").checked;
-    if (motion_odometry)
-        motion_odometry = "true";
-    else
-        motion_odometry = "false";
-
-    motors_encoders = document.getElementById("motors_encoders_checkbox").checked;
-    if (motors_encoders)
-        motors_encoders = "true";
-    else
-        motors_encoders = "false";
-
-    motors_encoders_factor = $("#motors_encoders_factor_spinner").spinner("value");
-    motors_encoders_factor = parseFloat(motors_encoders_factor);
-
-
-
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/set_controller_options',
-        messageType: 'summit_xl_web/set_controller_options'
-    });
-
-    var data = new ROSLIB.ServiceRequest({
-        takeOver: take_over,
-        kinematicMode: kinematic_mode,
-        gearboxReduction: gearbox_reduction,
-        diameterWheel: diameter_wheel,
-        motionOdometry: motion_odometry,
-        motorsEncoder: motors_encoders,
-        motorsEncoderFactor: motors_encoders_factor,
-        xWam: x_wam
-    });
-
-    aux2.callService(data, function(res) {});
-
-}
-
-function update_controller_options() {
-    var aux2 = new ROSLIB.Service({
-        ros: ros,
-        name: '/get_controller_options',
-        messageType: 'summit_xl_web/get_controller_options'
-    });
-    var data = new ROSLIB.ServiceRequest({});
-
-    aux2.callService(data, function(res) {
-        console.log(res.takeOver);
-        console.log(res.kinematicMode);
-        console.log(res.gearboxReduction);
-        console.log(res.diameterWheel);
-        console.log(res.motionOdometry);
-        console.log(res.motorsEncoder);
-        console.log(res.motorsEncoderFactor);
-        console.log(res.xWam);
-
-
-        if (res.motionOdometry == "true")
-            motion_odometry = true;
-        else
-            motion_odometry = false;
-
-        if (res.motorsEncoder == "true")
-            motors_encoder = true;
-        else
-            motors_encoder = false;
-
-        document.getElementById("take_over_checkbox").checked = res.takeOver;
-
-
-        document.getElementById("motion_odometry_checkbox").checked = motion_odometry;
-
-
-        document.getElementById("motors_encoders_checkbox").checked = motors_encoder;
-
-        $("#gearbox_reduction_spinner").spinner("value", res.gearboxReduction);
-        $("#diameter_wheel_spinner").spinner("value", res.diameterWheel);
-        $("#motors_encoders_factor_spinner").spinner("value", res.motorsEncoderFactor);
-        document.getElementById("robot_type").value = res.xWam;
-        document.getElementById("kinematic_mode").value = res.kinematicMode;
     });
 
 }
@@ -1180,7 +446,7 @@ function resetDriverHistory() {
 
 function mainLoop() {
 
-    //min valuye = 23, max value = 27.2
+	// TODO: check battery
     battery_level_corrected = battery_level - minimum_battery_level;
     $("#progressbar_battery").progressbar({
         value: battery_level_corrected
@@ -1203,20 +469,6 @@ function mainLoop() {
         //console.log("Bateria ok");
         battery_status = true;
     }
-
-
-    // update imu temperature
-    // -------------
-    imu_temperature = Math.round(imu_temperature * 100) / 100;
-    document.querySelector('#imu_temperature span').innerHTML = imu_temperature;
-
-    if (imu_temperature < limit_temperature && !imu_temperature_status) {
-        document.querySelector('#imu_temperature_alarm span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
-        imu_temperature_status = true;
-    } else if (imu_temperature >= limit_temperature && imu_temperature_status)
-        document.querySelector('#imu_temperature_alarm span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
-    imu_temperature_status = false;
-
 
     // update odometry
     // -------------
@@ -1800,100 +1052,11 @@ $(document).ready(function() {
     //set tab
     $("#tabs").tabs();
 
-    $("#tabs").on("tabsactivate", function(event, ui) {
-        //console.log("before activate");
-        console.log(event);
-        //console.log(ui.newPanel.selector);
-
-        // update displays (controller)
-        update_controller_options();
-
-        if (ui.newPanel.selector == "#tabs-2") {
-            var pass1 = prompt('Introduzca contraseña', '');
-            if (pass1 == "robotnik") {
-                console.log("correct password");
-
-                //update displays (elliot)
-                /*
-                $("#max_angle_spinner").spinner("value",max_angle);
-                $("#trim_spinner").spinner("value",trim_angle);
-                $("#min_radius_spinner").spinner("value",min_radius);
-                document.getElementById("reverse_direction_checkbox").checked = reverse_direction
-                */
-
-            } else {
-                console.log("incorrect password");
-                $("#tabs").tabs("option", "active", 0);
-                //$( "#tabs" ).tabs( "load", 0 );
-            }
-        }
-
-        var active = $("#tabs").tabs("option", "active");
-        console.log("panel active: " + active);
-    });
-
-    var yaw_angle_left_100 = 0.0;
-    var yaw_angle_right_100 = 0.0;
-
     //Progress bars
     $("#progressbar_battery").progressbar({
         value: battery_level
     });
     $("#progressbar_battery").progressbar("option", "max", maximum_battery_level - minimum_battery_level);
-
-    $("#progressbar_left").progressbar({
-        value: yaw_angle_left
-    });
-    $("#progressbar_right").progressbar({
-        value: yaw_angle_right
-    });
-
-
-    //Spinners (elliot options
-    /*
-    $("#max_angle_spinner").spinner({step: 0.1, min: 0.0, max: 90.0});
-    $("#max_angle_spinner").spinner("value",max_angle);
-    $("#trim_spinner").spinner({step: 0.1, min: -1.0, max: 1.0});
-    $("#trim_spinner").spinner("value",trim_angle);
-    $("#min_radius_spinner").spinner({step: 0.1, min: 0.0, max: 10.0});
-    $("#min_radius_spinner").spinner("value",1.0);
-    */
-
-    //Spinners (controller options)
-    $("#gearbox_reduction_spinner").spinner({
-        step: 0.01,
-        min: 0.0,
-        max: 100.0
-    });
-    $("#gearbox_reduction_spinner").spinner("value", gearbox_reduction);
-    $("#diameter_wheel_spinner").spinner({
-        step: 0.001,
-        min: 0.0,
-        max: 1.0
-    });
-    $("#diameter_wheel_spinner").spinner("value", diameter_wheel);
-    $("#motors_encoders_factor_spinner").spinner({
-        step: 1,
-        min: 0,
-        max: 100000
-    });
-    $("#motors_encoders_factor_spinner").spinner("value", motors_encoders_factor);
-
-
-    //document.querySelector('#imu_connected span').innerHTML = "SI";
-
-
-    // Sliders
-    $("#slider_zoom").slider();
-    $("#slider_focus").slider();
-    $("#slider_zoom").on("slidechange", function(event, ui) {
-
-
-        var slider_value = $("#slider_zoom").slider("value");
-        pos_zoom = slider_value * 172;
-        //console.log(pos_zoom);
-        move();
-    });
 
     // init alarms
     document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg border=\"0\">";
