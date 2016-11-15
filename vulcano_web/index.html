@@ -254,23 +254,28 @@
 		  
 		  <h3>I/O Status</h3>
 		  
-		  <table border="0px">
-				  <tr>
-					<td>	  
-						Digital Output 1 (Fan) &nbsp;&nbsp;&nbsp;&nbsp;    
-					</td>
-					<td style="text-align:center">
-						<div id="digital_output_1"> <span></span></div>
-					</td>
-				  </tr>
-					<tr>
-					<td>
-						Digital Output 2 (Compressor) &nbsp;&nbsp;&nbsp;&nbsp;
-					</td>
-					<td style="text-align:center">
-						<div id="digital_output_2"> <span></span></div>
-					</td>
-				  </tr>
+		  
+		  <style type="text/css">
+			  td
+			  {
+				  padding:0 15px 0 15px;
+			  }
+		  </style>
+		  <table border="0px" id="digital_io_table">
+			  <tr><td>INPUTS</td><td>OUTPUTS</td></tr>
+			<tr>
+				<td>
+					<table border="1px" id="digital_inputs_table">
+						<tr><td>NUMBER</td><td>NAME</td><td>STATUS</td></tr>
+					</table>
+				</td>
+				
+				<td>
+					<table border="1px" id="digital_outputs_table">
+						<tr><td>NUMBER</td><td>NAME</td><td>STATUS</td></tr>
+					</table>
+				</td>
+			</tr>		   		
 		  </table>		   		  
 		  
 		  

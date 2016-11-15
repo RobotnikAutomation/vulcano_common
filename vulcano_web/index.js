@@ -172,6 +172,7 @@ var ros = new ROSLIB.Ros({
     url: 'ws://localhost:9090'
 });
 
+
 // Publishers
 // -----------
 var aux = new ROSLIB.Topic({
@@ -179,7 +180,6 @@ var aux = new ROSLIB.Topic({
     name: '/axis_camera/ptz_command',
     messageType: 'robotnik_msgs/ptz'
 });
-
 
 // Subscribing to Topics
 // ----------------------
@@ -251,7 +251,11 @@ var gps_listener = new ROSLIB.Topic({
     messageType: 'gps_common/GPSFix'
 });
 
-
+var io_listener = new ROSLIB.Topic({
+	ros: ros,
+	name: '/io_topic', //TODO: check topic name
+	messageType: 'robotnik_msgs/inputs_outputs'
+});
 
 // Message Handlers
 // ----------------------
@@ -459,6 +463,21 @@ gps_listener.subscribe(function(message) {
 
 });
 
+io_listener.subscribe(function(message) {
+	for (var i = 0; i < message.digital_inputs.length; i++) {
+		var text = "1";
+		if (message.digital_inputs[i] == false)
+			text = "0";
+		document.getElementById("digital_input_status_" + (i+1)).innerHTML = text;
+	}
+	for (var i = 0; i < message.digital_outputs.length; i++) {
+		var text = "1";
+		if (message.digital_outputs[i] == false)
+			text = "0";
+		document.getElementById("digital_output_status_" + (i+1)).innerHTML = text;
+	}
+
+});
 
 
 /*function startTime()
@@ -1161,13 +1180,13 @@ function resetDriverHistory() {
 
 function mainLoop() {
 
-
     //min valuye = 23, max value = 27.2
     battery_level_corrected = battery_level - minimum_battery_level;
     $("#progressbar_battery").progressbar({
         value: battery_level_corrected
     });
 
+	
 
 
     // update battery
@@ -1892,6 +1911,46 @@ $(document).ready(function() {
     document.querySelector('#torso_elevation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
 
+
+	// init io table
+	var number_of_digital_inputs = 16;
+	for(var i=1; i<= number_of_digital_inputs; i++) { // check! is <= not, <!!
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> 0 </div> </td> </tr>");
+	}
+	
+	var number_of_digital_outputs = 16;
+	for(var i=1; i <= number_of_digital_outputs; i++) {
+		$('#digital_outputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_output_name_"+i+"\"> OUTPUT_" + i + " </div> </td> <td> <div id=\"digital_output_status_"+i+"\"> 0 </div> </td> </tr>");
+	}
+	
+	// it would be nicer to read the io names from the param server, but 
+	// roslibjs reads params with a callback that receives the value of the
+	// param, without the name of the param, so we hardcode it hear
+	document.getElementById("digital_input_name_1").innerHTML = "E_STOP";
+	document.getElementById("digital_input_name_2").innerHTML = "LASER_STOP";
+	document.getElementById("digital_input_name_3").innerHTML = "BACK_SWITCH_LEFT";
+	document.getElementById("digital_input_name_4").innerHTML = "BACK_SWITCH_RIGHT";
+	document.getElementById("digital_input_name_5").innerHTML = "TORSO_INPUT_1";
+	document.getElementById("digital_input_name_6").innerHTML = "TORSO_INPUT_2";
+	document.getElementById("digital_input_name_7").innerHTML = "FRONT_CONNECTOR_1";
+	document.getElementById("digital_input_name_8").innerHTML = "FRONT_CONNECTOR_2";
+	document.getElementById("digital_input_name_9").innerHTML = "PRESSURE_OK";
+	
+	document.getElementById("digital_output_name_1").innerHTML = "ELECTROVALVE_1";
+	document.getElementById("digital_output_name_2").innerHTML = "ELECTROVALVE_2";
+	document.getElementById("digital_output_name_3").innerHTML = "ELECTROVALVE_3";
+	document.getElementById("digital_output_name_4").innerHTML = "ELECTROVALVE_4";
+	document.getElementById("digital_output_name_5").innerHTML = "ELECTROVALVE_5";
+	document.getElementById("digital_output_name_6").innerHTML = "ELECTROVALVE_6";
+	document.getElementById("digital_output_name_7").innerHTML = "FLASHING_LIGHT_1";
+	document.getElementById("digital_output_name_8").innerHTML = "FLASHING_LIGHT_2";
+	document.getElementById("digital_output_name_9").innerHTML = "FRONT_CONNECTOR_1";
+	document.getElementById("digital_output_name_11").innerHTML = "PILOT_LIGHT";
+	document.getElementById("digital_output_name_12").innerHTML = "BUZZER";
+	document.getElementById("digital_output_name_13").innerHTML = "AIR_PUMP";
+	document.getElementById("digital_output_name_14").innerHTML = "LOWER_FAN";
+	document.getElementById("digital_output_name_15").innerHTML = "UPPER_FAN";
+	document.getElementById("digital_output_name_16").innerHTML = "SAFETY_RELAY";
 
     //init messages
     max_angle_message = new ROSLIB.Message({
