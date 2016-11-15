@@ -57,6 +57,10 @@ var brw_direction_data_history = ["","","",""];
 var torso_elevation_data_history = ["","","",""];
 var torso_rotation_data_history = ["","","",""];
 
+// digital inputs/outputs
+var digital_inputs = [];
+var digital_outputs = [];
+
 //controller options
 var gearbox_reduction = 12.52;
 var diameter_wheel = 0.207;
@@ -1876,8 +1880,6 @@ sensor.subscribe(function(mes){
 			
 			if(ui.newPanel.selector == "#tabs-2" )
 			{
-				
-				
 				var pass1 = prompt('Introduzca contraseña','');
 				if(pass1 == "robotnik")
 				{
@@ -1890,8 +1892,7 @@ sensor.subscribe(function(mes){
 					$("#min_radius_spinner").spinner("value",min_radius);
 					document.getElementById("reverse_direction_checkbox").checked = reverse_direction
 					*/
-					
-					
+
 				}
 				else {
 					console.log("incorrect password");
@@ -1988,25 +1989,10 @@ sensor.subscribe(function(mes){
 			autoOpen: false
 		});
 		
-		$("#button_flw_direction").click(function(){
-			
+		$("#button_flw_direction").click(function(){	
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_flw_direction").dialog("open");
 		});
 		
@@ -2020,22 +2006,8 @@ sensor.subscribe(function(mes){
 		$("#button_frw_direction").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_frw_direction").dialog("open");
 		});
 		
@@ -2049,22 +2021,8 @@ sensor.subscribe(function(mes){
 		$("#button_blw_direction").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_blw_direction").dialog("open");
 		});
 				
@@ -2078,22 +2036,8 @@ sensor.subscribe(function(mes){
 		$("#button_brw_direction").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_brw_direction").dialog("open");
 		});
 		
@@ -2107,22 +2051,8 @@ sensor.subscribe(function(mes){
 		$("#button_flw").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_flw").dialog("open");
 		});
 		
@@ -2134,23 +2064,10 @@ sensor.subscribe(function(mes){
 		});
 		
 		$("#button_frw").click(function(){
-			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
 			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			//close other dialogs
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_frw").dialog("open");
 		});
 		
@@ -2164,22 +2081,8 @@ sensor.subscribe(function(mes){
 		$("#button_blw").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_blw").dialog("open");
 		});
 				
@@ -2193,22 +2096,8 @@ sensor.subscribe(function(mes){
 		$("#button_brw").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_brw").dialog("open");
 		});
 		
@@ -2223,22 +2112,8 @@ sensor.subscribe(function(mes){
 		$("#button_torso_elevation").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-			
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_torso_elevation").dialog("open");
 		});
 
@@ -2253,22 +2128,8 @@ sensor.subscribe(function(mes){
 		$("#button_torso_rotation").click(function(){
 			
 			//close other dialogs
-			// fist direction dialogs
-			$("#dialog_flw_direction").dialog("close");
-			$("#dialog_frw_direction").dialog("close");
-			$("#dialog_blw_direction").dialog("close");
-			$("#dialog_brw_direction").dialog("close");
-			
-			// then traction dialogs
-			$("#dialog_flw").dialog("close");
-			$("#dialog_frw").dialog("close");
-			$("#dialog_blw").dialog("close");
-			$("#dialog_brw").dialog("close");
-			
-			// and finally the torso dialogs
-			$("#dialog_torso_elevation").dialog("close");
-			$("#dialog_torso_rotation").dialog("close");
-
+			$('[id^="dialog_"]').dialog("close");
+			// open selected dialog
 			$("#dialog_torso_rotation").dialog("open");
 		});
 
