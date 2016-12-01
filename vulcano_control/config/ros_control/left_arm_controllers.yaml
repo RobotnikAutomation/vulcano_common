@@ -90,6 +90,6 @@ vel_based_pos_traj_controller:
    # action_monitor_rate: 20 # Defaults to 20
    #hold_trajectory_duration: 0 # Defaults to 0.5
 
-joint_read_state_controller:
+joint_state_controller:
   type: joint_state_controller/JointStateController 
   publish_rate: 100.0
