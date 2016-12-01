@@ -1,12 +1,36 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find vulcano_control)/config/controllers.yaml" command="load"/>
 
-  <!-- load the controllers -->
-  <node name="arm_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="left_arm_controller right_arm_controller --shutdown-timeout 1"/>                      
+    <group ns="vulcano">
+        <group ns="left_arm">
+            <include file="$(find vulcano_control)/launch/ur10_ros_control.launch" >
+            <!--<include file="$(find vulcano_arms_moveit)/launch/ur10_bringup.launch" >-->
+                <arg name="sim" value="False" />
+                <arg name="robot_ip" value="192.168.0.210" />
+                <arg name="reverse_port" value="50001"/>
+                <arg name="prefix" value="left_arm_" />
+            </include>
+        </group>
+    
+        <group ns="right_arm">
+            <include file="$(find vulcano_control)/launch/ur10_ros_control.launch" >
+            <!--<include file="$(find vulcano_arms_moveit)/launch/ur10_bringup.launch" >-->
+                <arg name="sim" value="False" />
+                <arg name="robot_ip" value="192.168.0.211" />
+                <arg name="reverse_port" value="50003" />
+                <arg name="prefix" value="right_arm_" />
+            </include>
+        </group>
+        <group ns="torso_guidance">
+            <include file="$(find vulcano_control)/launch/torso_ros_control.launch" >
+                <arg name="sim" value="False" />
+            </include>
+        </group>
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+            <rosparam param="source_list">["left_arm/joint_states", "right_arm/joint_states", "torso_guidance/joint_states"]</rosparam> 
+        </node>
+    </group>
                         
 
 </launch>
