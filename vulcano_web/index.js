@@ -162,8 +162,8 @@ var drive_status_codes = [
 ]; //68
 
 var ros = new ROSLIB.Ros({
-    //url : 'ws://192.168.0.200:9090'
-    url: 'ws://localhost:9090'
+    url : 'ws://vulcano-base:9090'
+    //url: 'ws://localhost:9090'
 });
 
 
@@ -358,7 +358,7 @@ motor_status_listener.subscribe(function(message) {
 
 var io_listener = new ROSLIB.Topic({
 	ros: ros,
-	name: '/io_topic', //TODO: check topic name
+	name: '/io/input_output', //TODO: check topic name
 	messageType: 'robotnik_msgs/inputs_outputs'
 });
 
@@ -1078,12 +1078,12 @@ $(document).ready(function() {
 	// init io table
 	var number_of_digital_inputs = 16;
 	for(var i=1; i<= number_of_digital_inputs; i++) { // check! is <= not, <!!
-		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> 0 </div> </td> </tr>");
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
 	}
 	
 	var number_of_digital_outputs = 16;
 	for(var i=1; i <= number_of_digital_outputs; i++) {
-		$('#digital_outputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_output_name_"+i+"\"> OUTPUT_" + i + " </div> </td> <td> <div id=\"digital_output_status_"+i+"\"> 0 </div> </td> </tr>");
+		$('#digital_outputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_output_name_"+i+"\"> OUTPUT_" + i + " </div> </td> <td> <div id=\"digital_output_status_"+i+"\"> NA </div> </td> </tr>");
 	}
 	
 	// it would be nicer to read the io names from the param server, but 
