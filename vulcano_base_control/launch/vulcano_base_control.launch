@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- load the controllers -->
+  <!-- note: load these controllers only if the joints are not going to be controlled by the provided omnidrive plugin -->
+  <!--                joint_blw_velocity_controller
+                      joint_brw_velocity_controller
+                      joint_frw_velocity_controller
+                      joint_flw_velocity_controller
+                      joint_blw_position_controller
+                      joint_brw_position_controller
+                      joint_frw_position_controller
+                      joint_flw_position_controller  -->
+  
+  <!-- node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/vulcano_base" args="- -namespace=/vulcano_base
+                      joint_read_state_controller
+                      "/-->
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find vulcano_base_control)/config/controllers.yaml" command="load"/>
+
+  <!-- load the controllers --> <!-- TODO: add controllers , etc -->
+  <node name="vulcano_base_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="--shutdown-timeout 1 omni_drive_controller " />
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux"> 
+    <rosparam command="load" file="$(find vulcano_base_control)/config/twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="cmd_vel" />   <!-- TODO: review topic name -->
+  </node>
+    
+
+</launch>
