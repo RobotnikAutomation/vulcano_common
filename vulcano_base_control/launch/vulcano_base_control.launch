@@ -2,7 +2,7 @@
 <launch>
     <arg name="omni" default="true" />
     
-    <rosparam file="$(find vulcano_base_control)/config/vulcano_base_controllers.yaml" command="load"/>
+    <rosparam file="$(find vulcano_base_control)/config/base_controllers.yaml" command="load"/>
     
     <group if="$(arg omni)">
         <node name="omni_spawner" pkg="controller_manager" type="controller_manager" args="spawn omni_drive_controller" respawn="false" output="screen" />
