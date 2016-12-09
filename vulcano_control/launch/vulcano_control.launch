@@ -2,7 +2,6 @@
 <launch>
 
 
-    <group ns="vulcano">
         <group ns="left_arm">
             <include file="$(find vulcano_control)/launch/ur10_ros_control.launch" >
             <!--<include file="$(find vulcano_arms_moveit)/launch/ur10_bringup.launch" >-->
@@ -30,7 +29,6 @@
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
             <rosparam param="source_list">["left_arm/joint_states", "right_arm/joint_states", "torso_guidance/joint_states"]</rosparam> 
         </node>
-    </group>
                         
 
 </launch>
