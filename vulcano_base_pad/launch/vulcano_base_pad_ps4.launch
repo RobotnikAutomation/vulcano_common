@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+ <!-- joy node -->
+  <node pkg="joy" type="joy_node" name="ps3_joy" output="screen" respawn="true">
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+    <param name="autorepeat_rate" value="10.0" type="double" />
+  </node>
+  
+  <!-- Parameters -->
+  <param name="cmd_topic_vel" value="/pad_teleop/cmd_vel" type="string"/>
+  <param name="cmd_service_io" value="/modbus_io/write_digital_output" type="string"/>
+  <param name="cmd_topic_ptz" value="/vulcano_base/robot_control/command_ptz" type="string"/>
+  <rosparam command="load" file="$(find vulcano_base_pad)/config/ps4.yaml" />
+  <node name="vulcano_base_pad" pkg="vulcano_base_pad" type="vulcano_base_pad" output="screen"/>
+  
+</launch>
+

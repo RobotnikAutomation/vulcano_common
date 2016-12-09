@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+    <!-- ***************** -->
+    <!-- Imported elements -->
+    <!-- ***************** -->
+    
+    <!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+
+    <!-- Import vulcano base elements -->
+    <xacro:include filename="$(find vulcano_base_description)/urdf/bases/base.urdf.xacro" />
+    <xacro:include filename="$(find vulcano_base_description)/urdf/bases/base.gazebo.xacro" />
+  
+    <!-- Import vulcano wheels -->
+    <xacro:include filename="$(find vulcano_base_description)/urdf/wheels/motor_wheel.urdf.xacro" />
+    
+    <!-- Import all available sensors -->
+    <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+            
+    <!-- ***************** -->
+    <!-- Global parameters -->
+    <!-- ***************** -->  
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="deg2rad" value="0.01745329251"/>  
+    
+    <!-- Wheel parameters -->
+    <xacro:property name="wheel_offset_x" value="0.467" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+    <xacro:property name="wheel_offset_y" value="0.285" />    
+    <xacro:property name="wheel_offset_z" value="0.0" />
+
+    <!-- *************** -->
+    <!-- Robots Elements -->
+    <!-- *************** -->
+
+    <!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
+    
+    <!-- Vulcano base -->
+    <xacro:macro name="vulcano_base" params="prefix publish_bf hq">
+        <xacro:base prefix="${prefix}" publish_bf="${publish_bf}" hq="${hq}"/>
+        
+        <xacro:motor_wheel prefix="${prefix}front_right_" parent="${prefix}base_link" reflect="false" hq="true">
+          <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+        </xacro:motor_wheel>
+        
+        <xacro:motor_wheel prefix="${prefix}front_left_" parent="${prefix}base_link" reflect="false" hq="true">
+          <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 ${180.0*deg2rad}"/>
+        </xacro:motor_wheel>
+        
+        <xacro:motor_wheel prefix="${prefix}back_left_" parent="${prefix}base_link" reflect="false" hq="true">
+          <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 ${180.0*deg2rad}"/>
+        </xacro:motor_wheel>
+        
+        <xacro:motor_wheel prefix="${prefix}back_right_" parent="${prefix}base_link" reflect="false" hq="true">
+          <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+        </xacro:motor_wheel>
+      
+        <!-- SENSORS see robotnik_sensors for the specific configuration -->
+        <xacro:sensor_imu name="imu" parent="${prefix}base_link">
+          <origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+        </xacro:sensor_imu>
+
+        <xacro:sensor_sick_s300 name="front_left_laser" parent="${prefix}base_link">
+            <origin xyz="0.606321 0.345821 0.3095" rpy="${180*deg2rad} 0 ${45*deg2rad}"/>
+        </xacro:sensor_sick_s300>
+        
+        <xacro:sensor_sick_s300 name="back_right_laser" parent="${prefix}base_link">
+            <origin xyz="-0.606321 -0.345821 0.3095" rpy="${180*deg2rad} 0 ${225*deg2rad}"/>
+        </xacro:sensor_sick_s300>
+        
+        <joint name="merged_base_laser_joint" type="fixed"> <!-- front and back laser will be merged into this link -->
+            <origin xyz="0 0 0.234" rpy="0 0 0" /> 
+            <parent link="${prefix}base_link"/>
+            <child link="${prefix}merged_base_laser_link" />
+        </joint>
+        <link name="merged_base_laser_link" />
+   </xacro:macro>    
+</robot>
+

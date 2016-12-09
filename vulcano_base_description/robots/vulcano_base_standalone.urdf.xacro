@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot name="vulcano_base" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+	
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+
+	<!-- Import vulcano base elements -->
+	<xacro:include filename="$(find vulcano_base_description)/urdf/vulcano_base.urdf.xacro" />
+	<xacro:include filename="$(find vulcano_base_description)/urdf/common.gazebo.xacro" />
+ 
+    <xacro:property name="prefix" value="" />
+    <xacro:property name="publish_bf" value="true" />
+    <xacro:property name="hq" value="true" />
+
+    <xacro:vulcano_base prefix="${prefix}" publish_bf="${publish_bf}" hq="${hq}"/>
+    <xacro:ros_control /> 
+</robot>
+
