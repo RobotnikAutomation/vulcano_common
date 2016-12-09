@@ -10,6 +10,7 @@
     <!-- Include vulcano torso elements -->
     <xacro:include filename="$(find vulcano_torso_description)/urdf/guidance/guidance.urdf.xacro"/>
     <xacro:include filename="$(find vulcano_torso_description)/urdf/pantilt/pantilt.urdf.xacro"/>
+    <xacro:include filename="$(find vulcano_torso_description)/urdf/tube_support/tube_support.urdf.xacro"/>
     <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
     
     <xacro:macro name="vulcano_torso" params="prefix hq"> <!-- TODO: check hq variable -->

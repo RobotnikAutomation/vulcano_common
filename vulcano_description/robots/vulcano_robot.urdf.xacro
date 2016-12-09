@@ -42,11 +42,21 @@
 
   <!-- Fix left arm to torso -->
   <joint name="torso_left_arm_base_joint" type="fixed">
-    <origin xyz="-0.1637 -0.275533 0.021967" rpy="0 ${PI/4.0} ${-PI/2.0}"/>
+    <origin xyz="-0.1622 -0.275533 0.021967" rpy="0 ${PI/4.0} ${-PI/2.0}"/>
     <parent link="torso_tkd668_link"/>
     <child link="left_arm_base_link"/>
   </joint>
   <xacro:ur10_robot prefix="left_arm_" joint_limited="true"/>
+
+  <xacro:tube_support prefix="left_arm_ee_" parent="left_arm_ee_link">
+    <origin xyz="0.014 0 0.0975" rpy="0 0 0"/>
+    <box size="0.102 0.075 0.075" />
+  </xacro:tube_support>
+  
+  <xacro:tube_support prefix="right_arm_ee_" parent="right_arm_ee_link">
+    <origin xyz="0.014 0 0.0975" rpy="0 0 0"/>
+    <box size="0.102 0.075 0.075" />
+  </xacro:tube_support>
 
   <xacro:ros_control />
 

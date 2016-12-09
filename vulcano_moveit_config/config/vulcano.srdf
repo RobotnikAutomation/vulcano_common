@@ -154,6 +154,8 @@
     <disable_collisions link1="back_left_motor_wheel" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="left_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="back_left_motor_wheel" link2="left_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="back_left_motor_wheel" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="right_arm_ee_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="right_arm_forearm_link" reason="Never" />
@@ -164,8 +166,8 @@
     <disable_collisions link1="back_left_motor_wheel" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="back_left_motor_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="back_left_motor_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="back_left_motor_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="back_left_motor_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -190,11 +192,17 @@
     <disable_collisions link1="back_left_wheel" link2="front_right_wheel" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="imu_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="left_arm_base_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="left_arm_ee_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="left_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="left_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="left_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="left_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="right_arm_ee_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="right_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="right_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="right_arm_upper_arm_link" reason="Never" />
@@ -203,8 +211,8 @@
     <disable_collisions link1="back_left_wheel" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="back_left_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="back_left_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="back_left_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -228,21 +236,24 @@
     <disable_collisions link1="back_right_laser_fix_link" link2="front_right_wheel" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="imu_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_base_link" reason="Never" />
+    <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_ee_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="back_right_laser_fix_link" link2="left_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_ee_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="back_right_laser_fix_link" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="back_right_laser_fix_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="back_right_laser_fix_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="back_right_laser_fix_link" link2="torso_pantilt_link" reason="Never" />
@@ -266,20 +277,25 @@
     <disable_collisions link1="back_right_motor_wheel" link2="imu_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_base_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_ee_link" reason="Never" />
+    <disable_collisions link1="back_right_motor_wheel" link2="left_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="back_right_motor_wheel" link2="left_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="right_arm_ee_link" reason="Never" />
+    <disable_collisions link1="back_right_motor_wheel" link2="right_arm_ee_pipe_support_link" reason="Never" />
+    <disable_collisions link1="back_right_motor_wheel" link2="right_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="right_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="back_right_motor_wheel" link2="right_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="back_right_motor_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="back_right_motor_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="back_right_motor_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="back_right_motor_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -302,6 +318,7 @@
     <disable_collisions link1="back_right_wheel" link2="imu_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="left_arm_base_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="left_arm_ee_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="left_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="left_arm_upper_arm_link" reason="Never" />
@@ -310,14 +327,17 @@
     <disable_collisions link1="back_right_wheel" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="right_arm_ee_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="right_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="right_arm_forearm_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="right_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="right_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="back_right_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="back_right_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="back_right_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -339,6 +359,7 @@
     <disable_collisions link1="base_footprint" link2="imu_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="left_arm_base_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="left_arm_ee_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="left_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="left_arm_upper_arm_link" reason="Never" />
@@ -347,6 +368,7 @@
     <disable_collisions link1="base_footprint" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="right_arm_ee_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="right_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="right_arm_forearm_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="right_arm_upper_arm_link" reason="Never" />
@@ -355,8 +377,8 @@
     <disable_collisions link1="base_footprint" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="base_footprint" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="base_footprint" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="base_footprint" link2="torso_pantilt_link" reason="Never" />
@@ -383,8 +405,8 @@
     <disable_collisions link1="base_link" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="base_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="base_link" link2="torso_guidance_base_link" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="base_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="base_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="base_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="base_link" link2="torso_pantilt_link" reason="Never" />
@@ -408,8 +430,8 @@
     <disable_collisions link1="cabinet_link" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="cabinet_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="cabinet_link" link2="torso_guidance_base_link" reason="Default" />
-    <disable_collisions link1="cabinet_link" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="cabinet_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="cabinet_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="cabinet_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="cabinet_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="cabinet_link" link2="torso_pantilt_link" reason="Never" />
@@ -427,6 +449,7 @@
     <disable_collisions link1="front_left_laser_fix_link" link2="front_right_wheel" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="imu_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="left_arm_base_link" reason="Never" />
+    <disable_collisions link1="front_left_laser_fix_link" link2="left_arm_ee_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="left_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="right_arm_base_link" reason="Never" />
@@ -434,8 +457,8 @@
     <disable_collisions link1="front_left_laser_fix_link" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="front_left_laser_fix_link" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="front_left_laser_fix_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="front_left_laser_fix_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="front_left_laser_fix_link" link2="torso_pantilt_link" reason="Never" />
@@ -455,13 +478,12 @@
     <disable_collisions link1="front_left_motor_wheel" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="left_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="right_arm_base_link" reason="Never" />
-    <disable_collisions link1="front_left_motor_wheel" link2="right_arm_ee_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="front_left_motor_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="front_left_motor_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="front_left_motor_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="front_left_motor_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -480,13 +502,12 @@
     <disable_collisions link1="front_left_wheel" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="left_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="right_arm_base_link" reason="Never" />
-    <disable_collisions link1="front_left_wheel" link2="right_arm_ee_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="front_left_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="front_left_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="front_left_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -508,8 +529,8 @@
     <disable_collisions link1="front_right_motor_wheel" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_right_motor_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="front_right_motor_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="front_right_motor_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="front_right_motor_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="front_right_motor_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="front_right_motor_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="front_right_motor_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="front_right_motor_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -530,8 +551,8 @@
     <disable_collisions link1="front_right_wheel" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="front_right_wheel" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="front_right_wheel" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="front_right_wheel" link2="torso_pantilt_link" reason="Never" />
@@ -545,24 +566,23 @@
     <disable_collisions link1="front_right_wheel" link2="torso_ueye_right_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="left_arm_base_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="left_arm_ee_link" reason="Never" />
+    <disable_collisions link1="imu_link" link2="left_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="left_arm_forearm_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="left_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="left_arm_upper_arm_link" reason="Never" />
-    <disable_collisions link1="imu_link" link2="left_arm_wrist_1_link" reason="Never" />
-    <disable_collisions link1="imu_link" link2="left_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_base_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_ee_link" reason="Never" />
+    <disable_collisions link1="imu_link" link2="right_arm_ee_pipe_support_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_forearm_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="right_arm_wrist_2_link" reason="Never" />
-    <disable_collisions link1="imu_link" link2="right_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="torso_guidance_base_link" reason="Never" />
-    <disable_collisions link1="imu_link" link2="torso_guidance_revolution_link" reason="User" />
     <disable_collisions link1="imu_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="imu_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="imu_link" link2="torso_pantilt_link" reason="Never" />
@@ -582,6 +602,7 @@
     <disable_collisions link1="left_arm_base_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="left_arm_base_link" link2="torso_guidance_base_link" reason="Never" />
     <disable_collisions link1="left_arm_base_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="left_arm_base_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="left_arm_base_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="left_arm_base_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="left_arm_base_link" link2="torso_pantilt_link" reason="Never" />
@@ -593,10 +614,14 @@
     <disable_collisions link1="left_arm_base_link" link2="torso_tkd668_link" reason="Adjacent" />
     <disable_collisions link1="left_arm_base_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="left_arm_base_link" link2="torso_ueye_right_link" reason="Never" />
+    <disable_collisions link1="left_arm_ee_link" link2="left_arm_ee_pipe_support_link" reason="Adjacent" />
     <disable_collisions link1="left_arm_ee_link" link2="left_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="left_arm_ee_link" link2="left_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="left_arm_ee_link" link2="left_arm_wrist_3_link" reason="Adjacent" />
     <disable_collisions link1="left_arm_ee_link" link2="right_arm_ee_link" reason="Never" />
+    <disable_collisions link1="left_arm_ee_link" link2="right_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="left_arm_ee_pipe_support_link" link2="left_arm_wrist_2_link" reason="Default" />
+    <disable_collisions link1="left_arm_ee_pipe_support_link" link2="left_arm_wrist_3_link" reason="Default" />
     <disable_collisions link1="left_arm_forearm_link" link2="left_arm_upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="left_arm_forearm_link" link2="left_arm_wrist_1_link" reason="Adjacent" />
     <disable_collisions link1="left_arm_shoulder_link" link2="left_arm_upper_arm_link" reason="Adjacent" />
@@ -607,6 +632,7 @@
     <disable_collisions link1="left_arm_shoulder_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="left_arm_shoulder_link" link2="torso_guidance_base_link" reason="Never" />
     <disable_collisions link1="left_arm_shoulder_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="left_arm_shoulder_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="left_arm_shoulder_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="left_arm_shoulder_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="left_arm_shoulder_link" link2="torso_pantilt_link" reason="Never" />
@@ -622,13 +648,13 @@
     <disable_collisions link1="left_arm_wrist_1_link" link2="left_arm_wrist_2_link" reason="Adjacent" />
     <disable_collisions link1="left_arm_wrist_1_link" link2="left_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="left_arm_wrist_2_link" link2="left_arm_wrist_3_link" reason="Adjacent" />
-    <disable_collisions link1="left_arm_wrist_3_link" link2="right_arm_ee_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="right_arm_shoulder_link" reason="Adjacent" />
     <disable_collisions link1="right_arm_base_link" link2="right_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="right_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_guidance_base_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="right_arm_base_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_pantilt_link" reason="Never" />
@@ -640,17 +666,22 @@
     <disable_collisions link1="right_arm_base_link" link2="torso_tkd668_link" reason="Adjacent" />
     <disable_collisions link1="right_arm_base_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="right_arm_base_link" link2="torso_ueye_right_link" reason="Never" />
+    <disable_collisions link1="right_arm_ee_link" link2="right_arm_ee_pipe_support_link" reason="Adjacent" />
     <disable_collisions link1="right_arm_ee_link" link2="right_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="right_arm_ee_link" link2="right_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="right_arm_ee_link" link2="right_arm_wrist_3_link" reason="Adjacent" />
+    <disable_collisions link1="right_arm_ee_pipe_support_link" link2="right_arm_wrist_2_link" reason="Default" />
+    <disable_collisions link1="right_arm_ee_pipe_support_link" link2="right_arm_wrist_3_link" reason="Default" />
     <disable_collisions link1="right_arm_forearm_link" link2="right_arm_upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="right_arm_forearm_link" link2="right_arm_wrist_1_link" reason="Adjacent" />
+    <disable_collisions link1="right_arm_forearm_link" link2="torso_guidance_revolution_link" reason="Default" />
     <disable_collisions link1="right_arm_shoulder_link" link2="right_arm_upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="right_arm_shoulder_link" link2="right_arm_wrist_1_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="right_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="torso_effi_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="torso_guidance_base_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="right_arm_shoulder_link" link2="torso_guidance_revolution_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="torso_kinect_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="right_arm_shoulder_link" link2="torso_pantilt_link" reason="Never" />
@@ -669,17 +700,16 @@
     <disable_collisions link1="torso_effi_link" link2="torso_guidance_base_link" reason="Never" />
     <disable_collisions link1="torso_effi_link" link2="torso_kinect_link" reason="Default" />
     <disable_collisions link1="torso_effi_link" link2="torso_pantilt_link" reason="Adjacent" />
-    <disable_collisions link1="torso_effi_link" link2="torso_pantilt_pan_link" reason="User" />
     <disable_collisions link1="torso_effi_link" link2="torso_pantilt_tilt_base_link" reason="Never" />
     <disable_collisions link1="torso_effi_link" link2="torso_pantilt_tilt_link" reason="Never" />
     <disable_collisions link1="torso_effi_link" link2="torso_pantilt_tilt_support_link" reason="Never" />
     <disable_collisions link1="torso_effi_link" link2="torso_tkd668_link" reason="Never" />
     <disable_collisions link1="torso_effi_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="torso_effi_link" link2="torso_ueye_right_link" reason="Never" />
-    <disable_collisions link1="torso_guidance_base_link" link2="torso_guidance_revolution_link" reason="User" />
-    <disable_collisions link1="torso_guidance_base_link" link2="torso_guidance_elevation_link" reason="Adjacent" />
+    <disable_collisions link1="torso_guidance_base_link" link2="torso_guidance_elevation_link" reason="Never" />
+    <disable_collisions link1="torso_guidance_base_link" link2="torso_guidance_revolution_link" reason="Adjacent" />
     <disable_collisions link1="torso_guidance_base_link" link2="torso_kinect_link" reason="Never" />
-    <disable_collisions link1="torso_guidance_base_link" link2="torso_pantilt_base_link" reason="Adjacent" />
+    <disable_collisions link1="torso_guidance_base_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="torso_guidance_base_link" link2="torso_pantilt_link" reason="Never" />
     <disable_collisions link1="torso_guidance_base_link" link2="torso_pantilt_pan_base_link" reason="Never" />
     <disable_collisions link1="torso_guidance_base_link" link2="torso_pantilt_pan_link" reason="Never" />
@@ -689,18 +719,8 @@
     <disable_collisions link1="torso_guidance_base_link" link2="torso_tkd668_link" reason="Never" />
     <disable_collisions link1="torso_guidance_base_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="torso_guidance_base_link" link2="torso_ueye_right_link" reason="Never" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_guidance_elevation_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_base_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_pan_base_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_pan_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_tilt_base_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_tilt_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_tilt_support_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_tkd668_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_ueye_left_link" reason="User" />
-    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_ueye_right_link" reason="User" />
-    <disable_collisions link1="torso_guidance_elevation_link" link2="torso_kinect_link" reason="User" />
-    <disable_collisions link1="torso_guidance_elevation_link" link2="torso_pantilt_base_link" reason="Adjacent" />
+    <disable_collisions link1="torso_guidance_elevation_link" link2="torso_guidance_revolution_link" reason="Adjacent" />
+    <disable_collisions link1="torso_guidance_elevation_link" link2="torso_pantilt_base_link" reason="Never" />
     <disable_collisions link1="torso_guidance_elevation_link" link2="torso_pantilt_link" reason="Never" />
     <disable_collisions link1="torso_guidance_elevation_link" link2="torso_pantilt_pan_base_link" reason="Never" />
     <disable_collisions link1="torso_guidance_elevation_link" link2="torso_pantilt_pan_link" reason="Never" />
@@ -710,14 +730,18 @@
     <disable_collisions link1="torso_guidance_elevation_link" link2="torso_tkd668_link" reason="Adjacent" />
     <disable_collisions link1="torso_guidance_elevation_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="torso_guidance_elevation_link" link2="torso_ueye_right_link" reason="Never" />
-    <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_base_link" reason="User" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_base_link" reason="Adjacent" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_pan_base_link" reason="Never" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_pan_link" reason="Never" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_tilt_base_link" reason="Never" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_tilt_link" reason="Never" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_pantilt_tilt_support_link" reason="Never" />
+    <disable_collisions link1="torso_guidance_revolution_link" link2="torso_tkd668_link" reason="Never" />
     <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_link" reason="Adjacent" />
-    <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_pan_base_link" reason="User" />
     <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_pan_link" reason="Never" />
     <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_tilt_base_link" reason="Never" />
     <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_tilt_link" reason="Never" />
     <disable_collisions link1="torso_kinect_link" link2="torso_pantilt_tilt_support_link" reason="Never" />
-    <disable_collisions link1="torso_kinect_link" link2="torso_tkd668_link" reason="User" />
     <disable_collisions link1="torso_kinect_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="torso_kinect_link" link2="torso_ueye_right_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_base_link" link2="torso_pantilt_pan_base_link" reason="Adjacent" />
@@ -726,10 +750,6 @@
     <disable_collisions link1="torso_pantilt_base_link" link2="torso_pantilt_tilt_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_base_link" link2="torso_pantilt_tilt_support_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_base_link" link2="torso_tkd668_link" reason="Never" />
-    <disable_collisions link1="torso_pantilt_base_link" link2="torso_ueye_left_link" reason="User" />
-    <disable_collisions link1="torso_pantilt_base_link" link2="torso_ueye_right_link" reason="User" />
-    <disable_collisions link1="torso_pantilt_link" link2="torso_pantilt_pan_base_link" reason="User" />
-    <disable_collisions link1="torso_pantilt_link" link2="torso_pantilt_pan_link" reason="User" />
     <disable_collisions link1="torso_pantilt_link" link2="torso_pantilt_tilt_base_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_link" link2="torso_pantilt_tilt_link" reason="Adjacent" />
     <disable_collisions link1="torso_pantilt_link" link2="torso_pantilt_tilt_support_link" reason="Never" />
@@ -743,7 +763,6 @@
     <disable_collisions link1="torso_pantilt_pan_base_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_pan_base_link" link2="torso_ueye_right_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_pan_link" link2="torso_pantilt_tilt_base_link" reason="Adjacent" />
-    <disable_collisions link1="torso_pantilt_pan_link" link2="torso_pantilt_tilt_link" reason="User" />
     <disable_collisions link1="torso_pantilt_pan_link" link2="torso_pantilt_tilt_support_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_pan_link" link2="torso_tkd668_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_pan_link" link2="torso_ueye_left_link" reason="Never" />
@@ -760,7 +779,5 @@
     <disable_collisions link1="torso_pantilt_tilt_support_link" link2="torso_tkd668_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_tilt_support_link" link2="torso_ueye_left_link" reason="Never" />
     <disable_collisions link1="torso_pantilt_tilt_support_link" link2="torso_ueye_right_link" reason="Never" />
-    <disable_collisions link1="torso_tkd668_link" link2="torso_ueye_left_link" reason="User" />
-    <disable_collisions link1="torso_tkd668_link" link2="torso_ueye_right_link" reason="User" />
     <disable_collisions link1="torso_ueye_left_link" link2="torso_ueye_right_link" reason="Never" />
 </robot>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Define the tube support -->
+  <xacro:macro name="tube_support" params="prefix parent *origin *box">
+    <joint name="${prefix}tube_support_joint" type="fixed">
+        <insert_block name="origin" />
+        <parent link="${parent}" />
+        <child link="${prefix}tube_support_link"/>
+    </joint>
+
+    <link name="${prefix}tube_support_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <insert_block name="box" />
+        </geometry>
+      </collision>    
+      <!--<inertial>-->
+        <!--<mass value="0.1" />-->
+        <!--<origin xyz="0 0 0" />-->
+        <!--<inertia  ixx="1" ixy="0.0"  ixz="0.0"  iyy="1"  iyz="0.0"  izz="1" />-->
+      <!--</inertial>    -->
+    </link>
+   </xacro:macro>
+
+</robot>

@@ -37,24 +37,21 @@
     </link>
     
     <joint name="${prefix}torso_guidance_revolution_joint" type="revolute">
-      <!-- TODO: especificar zona muerta, limites de articulacion y parametros de simulacion -->
       <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
       <parent link="${prefix}torso_guidance_base_link"/>
       <child link="${prefix}torso_guidance_revolution_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-135*deg2rad}" upper="${225*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="${-180*deg2rad}" upper="${180*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
     
 	<transmission name="${prefix}torso_guidance_revolution_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}torso_guidance_revolution_joint">
-        <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
-        <hardwareInterface>PositionJointInterface</hardwareInterface> <!-- TODO: PositionJointInterface? EffortJointInterface?  VelocityJointInterface? -->
+        <hardwareInterface>PositionJointInterface</hardwareInterface> 
       </joint>
       <actuator name="${prefix}torso_guidance_revolution_motor">
         <mechanicalReduction>1</mechanicalReduction>
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
       </actuator>
     </transmission>
 
@@ -94,12 +91,10 @@
 	<transmission name="${prefix}torso_guidance_elevation_trans"> 
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}torso_guidance_elevation_joint">
-        <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
-        <hardwareInterface>PositionJointInterface</hardwareInterface> <!-- TODO: PositionJointInterface? EffortJointInterface?  VelocityJointInterface? -->
+        <hardwareInterface>PositionJointInterface</hardwareInterface> 
       </joint>
       <actuator name="${prefix}torso_guidance_elevation_motor">
         <mechanicalReduction>1</mechanicalReduction>
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
       </actuator>
     </transmission>
     
