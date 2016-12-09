@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <group ns="vulcano">
+        <!-- things that have vulcano-specific code, such as the base  -->
+       <include file="$(find vulcano_description)/launch/vulcano_state.launch" />
+       
+       <include file="$(find vulcano_torso_hw)/launch/vulcaso_torso_hw.launch" >
+       </include>
+
+       <!-- things that come from generic packages, such as the laser sensors, the io module... -->
+       <include file="$(find vulcano_bringup)/launch/vulcano_multimaster.launch" />
+       
+    </group>
+</launch>

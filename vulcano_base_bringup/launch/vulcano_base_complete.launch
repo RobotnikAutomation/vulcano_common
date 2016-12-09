@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <group ns="vulcano">
+        <!-- things that have vulcano-specific code, such as the base  -->
+       <include file="$(find vulcano_base_description)/launch/vulcano_base_state.launch" />
+       
+       <include file="$(find vulcano_base_hw)/launch/vulcano_base_hw.launch">
+           <arg name="omni" value="true" />
+       </include>
+
+       <!-- things that come from generic packages, such as the laser sensors, the io module... -->
+
+       <include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />
+      
+       <include file="$(find vulcano_base_bringup)/launch/vulcano_base_lasers.launch" />
+       
+       <include file="$(find vulcano_base_bringup)/launch/vulcano_base_imu.launch" />
+
+       <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
+
+       <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />
+       
+    </group>
+</launch>

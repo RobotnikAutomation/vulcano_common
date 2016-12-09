@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+   <group ns="torso_guidance">
+       <rosparam file="$(find vulcano_torso_control)/config/ros_control/torso_controllers.yaml" command="load"/>
+       <node name="torso_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller torso_guidance_pos_traj_controller" respawn="false" output="screen"/>
+       <node name="torso_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+            output="screen" args="load torso_guidance_elevation_joint_controller torso_guidance_revolution_joint_controller" />
+        
+        <!-- Convert joint states to /tf tranforms -->
+        <node name="torso_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+   </group>
+
+   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+       <rosparam param="source_list">["torso_guidance/joint_states"]</rosparam> 
+   </node>
+</launch>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+  <rosparam command="load" file="$(find vulcano_io_managers)/config/io_mapping.yaml" />
+
+  <node pkg="robotnik_modbus_io" type="robotnik_modbus_io_node" name="io" output="screen">
+    <param name="ip_address" type="string" value="192.168.0.220" />
+    <param name="port" value="502"/>
+    <param name="digital_inputs_addr" value="8192" />
+    <param name="digital_outputs_addr" value="9216"/>
+    <param name="digital_outputs" value="16"/>
+    <param name="digital_inputs" value="16"/>
+    <param name="big_endian" value="true"/>
+  </node>
+  
+  <node name="vulcano_safety_manager" pkg="vulcano_io_managers" type="vulcano_safety_manager.py" args="" respawn="false" output="screen"/>
+
+</launch>

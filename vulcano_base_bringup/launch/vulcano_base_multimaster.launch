@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="base_master_discovery" pkg="master_discovery_fkie" type="master_discovery" >
+	<rosparam command="load" file="$(find vulcano_base_bringup)/config/multimaster.yaml" />
+  </node> 
+
+  <node name="base_master_synchronize" pkg="master_sync_fkie" type="master_sync" >
+  </node> 
+
+</launch>
+

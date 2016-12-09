@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start Ros Web Tools rosbridge_server -->   
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/> 
+
+
+</launch>
+

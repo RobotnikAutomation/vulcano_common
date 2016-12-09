@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load controller settings -->
+  <rosparam file="$(find vulcano_torso_control)/config/ros_control/$(arg prefix)controllers.yaml" command="load"/>
+
+  <!-- spawn controller manager -->
+  <node name="$(arg prefix)controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_state_controller force_torque_sensor_controller pos_based_pos_traj_controller --shutdown-timeout 1" />
+
+  <!-- load other controller -->
+  <node name="$(arg prefix)controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+    output="screen" args="load vel_based_pos_traj_controller" />
+
+  <!-- Convert joint states to /tf tranforms -->
+  <node name="$(arg prefix)state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+</launch>
+

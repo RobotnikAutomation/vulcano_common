@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- vim: set ft=xml noet : -->
+    <!-- example launch script for PX4 based FCU's -->
+
+    <arg name="fcu_url" default="/dev/ttyUSB_PX4:921600" />
+    <arg name="gcs_url" default="" />
+    <arg name="tgt_system" default="1" />
+    <arg name="tgt_component" default="1" />
+    <arg name="log_output" default="screen" />
+
+    <include file="$(find mavros)/launch/node.launch">
+        <arg name="pluginlists_yaml" value="$(find vulcano_base_bringup)/config/px4_pluginlists.yaml" />
+        <arg name="config_yaml" value="$(find mavros)/launch/px4_config.yaml" />
+
+        <arg name="fcu_url" value="$(arg fcu_url)" />
+        <arg name="gcs_url" value="$(arg gcs_url)" />
+        <arg name="tgt_system" value="$(arg tgt_system)" />
+        <arg name="tgt_component" value="$(arg tgt_component)" />
+        <arg name="log_output" value="$(arg log_output)" />
+    </include>
+
+    <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node" output="screen">
+      <remap from="imu/data_raw" to="mavros/imu/data_raw"/>
+      <remap from="imu/mag" to="mavros/imu/mag"/>
+      <param name="fixed_frame" value="fcu"/>
+      <param name="publish_tf" value="false"/>
+      <param name="publish_debug_topics" value="true"/>
+      <param name="do_bias_estimation" value="false"/>
+      <param name="do_adaptive_gain" value="true"/>
+      <param name="use_mag" value="true"/>
+      <param name="gain_acc" value="0.005"/>
+      <param name="gain_mag" value="0.001"/>
+    </node> 
+
+</launch>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>vulcano_control</name>
+  <name>vulcano_arm_control</name>
   <version>0.0.0</version>
-  <description>The vulcano_control package</description>
+  <description>The vulcano_arm_control package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->

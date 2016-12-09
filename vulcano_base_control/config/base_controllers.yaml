@@ -1,34 +1,38 @@
-joint_blw_velocity_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: back_left_wheel_joint
+joint_read_state_controller:
+  type: joint_state_controller/JointStateController 
+  publish_rate: 100.0
 
-joint_brw_velocity_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: back_right_wheel_joint
-
-joint_frw_velocity_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: front_right_wheel_joint
-
-joint_flw_velocity_controller:
+front_left_wheel_joint_controller:
   type: velocity_controllers/JointVelocityController
   joint: front_left_wheel_joint
 
-joint_blw_position_controller:
+front_left_motor_wheel_joint_controller:
   type: position_controllers/JointPositionController
-  joint: back_left_motor_wheel_joint
+  joint: front_left_motor_wheel_joint
 
-joint_brw_position_controller:
-  type: position_controllers/JointPositionController
-  joint: back_right_motor_wheel_joint
+front_right_wheel_joint_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_right_wheel_joint
 
-joint_frw_position_controller:
+front_right_motor_wheel_joint_controller:
   type: position_controllers/JointPositionController
   joint: front_right_motor_wheel_joint
 
-joint_flw_position_controller:
+back_left_wheel_joint_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: back_left_wheel_joint
+
+back_left_motor_wheel_joint_controller:
   type: position_controllers/JointPositionController
-  joint: front_left_motor_wheel_joint
+  joint: back_left_motor_wheel_joint
+
+back_right_wheel_joint_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: back_right_wheel_joint
+
+back_right_motor_wheel_joint_controller:
+  type: position_controllers/JointPositionController
+  joint: back_right_motor_wheel_joint
 
 omni_drive_controller:
   type: omni_drive_controller/OmniDriveController
@@ -53,10 +57,8 @@ omni_drive_controller:
     back_left_motor_wheel_joint:
         min_angle: -2.8 # rads
         max_angle: 2.8
-  linear_speed_limit: 3 # m/s
-  linear_acceleration_limit: 3 # m/s^2
-  angular_speed_limit: 3 # rad/s
-  angular_acceleration_limit: 3 # rad/s^2
+  max_linear: 3 # m/s
+  max_angular: 0.5 # rad/s
   odom_frame: odom
   robot_base_frame: base_footprint
   odom_broadcast_tf: true

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 
-  <group ns="vulcano">
   <!-- joy node -->
   <node name="joy_arms" pkg="joy" type="joy_node" respawn="true">
     <param name="dev" type="string" value="/dev/input/js0" />
@@ -16,7 +15,6 @@
   <node name="vulcano_left_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">       
     <rosparam command="load" file="$(find vulcano_arm_pad)/launch/left_arm_ps3.yaml" />
   </node>
-  </group>
    
 </launch>
 
