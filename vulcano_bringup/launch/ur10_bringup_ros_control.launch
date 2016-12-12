@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <arg name="robot_ip"/>
+  <arg name="reverse_port"/>
+  <arg name="limited" default="false"/>
+  <arg name="min_payload"  default="0.0"/>
+  <arg name="max_payload"  default="3.0"/>
+  <arg name="prefix" default="" />
+  <arg name="max_velocity" default="10.0"/> <!-- [rad/s] -->
+  <arg name="base_frame" default="$(arg prefix)base" />
+  <arg name="tool_frame" default="$(arg prefix)tool0_controller" />
+
+  <!-- Load hardware interface -->
+  <node name="$(arg prefix)hardware_interface" pkg="ur_modern_driver" type="ur_driver" output="screen" launch-prefix="$(arg launch_prefix)">
+    <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
+    <param name="reverse_port" type="int" value="$(arg reverse_port)"/>
+    <param name="min_payload" type="double" value="$(arg min_payload)"/>
+    <param name="max_payload" type="double" value="$(arg max_payload)"/>
+    <param name="max_velocity" type="double" value="$(arg max_velocity)"/>
+    <param name="use_ros_control" type="bool" value="True"/>
+    <param name="servoj_gain" type="double" value="750" />
+    <param name="prefix" value="$(arg prefix)" />
+    <param name="base_frame" type="str" value="$(arg base_frame)"/>
+    <param name="tool_frame" type="str" value="$(arg tool_frame)"/>
+  </node>
+
+  <rosparam file="$(find vulcano_bringup)/config/$(arg prefix)params.yaml" command="load"/>
+
+
+</launch>
+
+

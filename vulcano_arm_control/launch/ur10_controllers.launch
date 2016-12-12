@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <launch>
 
+
+  <arg name="prefix" />
   <!-- Load controller settings -->
-  <rosparam file="$(find vulcano_torso_control)/config/ros_control/$(arg prefix)controllers.yaml" command="load"/>
+  <rosparam file="$(find vulcano_arm_control)/config/ros_control/$(arg prefix)controllers.yaml" command="load"/>
 
   <!-- spawn controller manager -->
   <node name="$(arg prefix)controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
@@ -11,9 +13,6 @@
   <!-- load other controller -->
   <node name="$(arg prefix)controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
     output="screen" args="load vel_based_pos_traj_controller" />
-
-  <!-- Convert joint states to /tf tranforms -->
-  <node name="$(arg prefix)state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
 </launch>
 
