@@ -74,19 +74,18 @@
       <parent link="${prefix}torso_pantilt_pan_base_link"/>
       <child link="${prefix}torso_pantilt_pan_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-180*deg2rad}" upper="${180*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="${-55*deg2rad}" upper="${55*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
 	
 	<transmission name="${prefix}torso_pantilt_pan_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}torso_pantilt_pan_joint">
-        <!--<hardwareInterface>EffortJointInterface</hardwareInterface>-->
         <hardwareInterface>PositionJointInterface</hardwareInterface><!-- TODO: PositionJointInterface? EffortJointInterface? -->
       </joint>
       <actuator name="${prefix}torso_pantilt_pan_motor">
         <mechanicalReduction>1</mechanicalReduction>
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
       </actuator>
     </transmission>
     
@@ -120,7 +119,7 @@
       <parent link="${prefix}torso_pantilt_pan_link"/>
       <child link="${prefix}torso_pantilt_tilt_base_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-180*deg2rad}" upper="${180*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="${-70*deg2rad}" upper="${40*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
 	
@@ -132,7 +131,7 @@
       </joint>
       <actuator name="${prefix}torso_pantilt_tilt_motor">
         <mechanicalReduction>1</mechanicalReduction>
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
       </actuator>
     </transmission>
     
