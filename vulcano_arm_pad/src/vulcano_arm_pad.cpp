@@ -166,7 +166,7 @@ VulcanoArmPad::VulcanoArmPad()
     pad_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &VulcanoArmPad::padCallback, this);
     joint_states_sub_ = nh_.subscribe<sensor_msgs::JointState>("joint_states", 10, &VulcanoArmPad::jointStatesCallback, this);
     
-    joint_trajectory_pub_ = nh_.advertise<trajectory_msgs::JointTrajectory>(arm_prefix_ + "controller/command", 1);
+    joint_trajectory_pub_ = nh_.advertise<trajectory_msgs::JointTrajectory>(arm_prefix_ + "position_joint_trajectory_controller/command", 1);
 
     // Diagnostics
     updater_pad.setHardwareID("None");
