@@ -6,7 +6,7 @@ torso_guidance_elevation_joint_controller:
   type: position_controllers/JointPositionController
   joint: torso_guidance_elevation_joint
 
-torso_guidance_pos_traj_controller:
+torso_guidance_position_joint_trajectory_controller:
    type: position_controllers/JointTrajectoryController
    joints:
      - torso_guidance_elevation_joint
