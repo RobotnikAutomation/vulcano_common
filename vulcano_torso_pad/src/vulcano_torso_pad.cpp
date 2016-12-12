@@ -171,7 +171,7 @@ VulcanoTorsoPad::VulcanoTorsoPad()
       ROS_INFO("OUTPUT2 button %d", button_output_2_);*/	
 
     // Publish through the node handle the commands to the guidance controller
-    nh_.param<std::string>("guidance_topic", guidance_topic_, "torso_guidance_controller/command");
+    nh_.param<std::string>("guidance_topic", guidance_topic_, "torso_guidance_position_joint_trajectory_controller/command");
     guidance_command_pub_ = nh_.advertise<trajectory_msgs::JointTrajectory>(guidance_topic_, 1);
     nh_.param<std::string>("pantilt_topic", pantilt_topic_, "torso_pantilt_controller/command");
     pantilt_command_pub_ = nh_.advertise<trajectory_msgs::JointTrajectory>(pantilt_topic_, 1);

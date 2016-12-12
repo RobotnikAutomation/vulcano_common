@@ -1,4 +1,4 @@
-joint_read_state_controller:
+base_joint_read_state_controller:
   type: joint_state_controller/JointStateController 
   publish_rate: 100.0
 

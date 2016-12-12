@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 
-  <group ns="vulcano">
   <!-- joy node -->
   <node name="joy_torso" pkg="joy" type="joy_node" respawn="true">
     <param name="dev" type="string" value="/dev/input/js0" />
@@ -10,10 +9,9 @@
   </node>
 
   <!-- Parameters -->
-  <node name="vulcano_torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">       
+  <node name="torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">       
     <rosparam command="load" file="$(find vulcano_torso_pad)/launch/torso_ps3.yaml" />
   </node>
-  </group>
    
 </launch>
 
