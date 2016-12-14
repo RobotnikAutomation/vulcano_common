@@ -12,7 +12,7 @@ torso_guidance_position_joint_trajectory_controller:
      - torso_guidance_elevation_joint
      - torso_guidance_revolution_joint
 
-joint_state_controller:
+torso_joint_state_controller:
   type: joint_state_controller/JointStateController 
   publish_rate: 50.0
 

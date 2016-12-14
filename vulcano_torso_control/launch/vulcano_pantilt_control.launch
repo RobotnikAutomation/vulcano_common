@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+   <!-- GDB functionality -->
+   <arg name="debug" default="false" />
+   <arg unless="$(arg debug)" name="launch_prefix" value="" />
+   <arg     if="$(arg debug)" name="launch_prefix" value="terminator -m -x gdb --args" /> <!-- local debug -->
+   <!-- arg     if="$(arg debug)" name="launch_prefix" value="screen -d -m gdb - -args" /--> <!-- ssh/screen debug -->
+
+   <rosparam command="load" file="$(find vulcano_torso_control)/config/ros_control/pantilt_controllers.yaml"/>
+
+   <node name="pantilt_controller_spawner" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" 
+        args="spawn pantilt_position_joint_trajectory_controller pantilt_joint_state_controller" />
+
+</launch>
+
+
