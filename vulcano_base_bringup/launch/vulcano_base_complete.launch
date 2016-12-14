@@ -4,16 +4,19 @@
     <group ns="vulcano">
         <!-- things that have vulcano-specific code, such as the base  -->
        <include file="$(find vulcano_base_description)/launch/vulcano_base_state.launch" />
+      
+       <group ns="base"> 
+           <include file="$(find vulcano_base_hw)/launch/vulcano_base_hw.launch"/>
+           <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
+                <arg name="omni" value="true" />
+           </include>
+       </group>
        
-       <include file="$(find vulcano_base_hw)/launch/vulcano_base_hw.launch"/>
-
-       <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
-		<arg name="omni" value="true" />
-       </include>
+       <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
        
-        <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
 
        <!-- things that come from generic packages, such as the laser sensors, the io module... -->
+       <include file="$(find vulcano_base_bringup)/launch/vulcano_base_joy.launch" />
 
        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />
       

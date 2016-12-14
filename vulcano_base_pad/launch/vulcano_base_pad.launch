@@ -1,18 +1,15 @@
 <?xml version="1.0"?>
 <launch>
 
-  <node pkg="joy" type="joy_node" name="ps3_joy" output="screen" respawn="true">
-    <!-- joy node -->
-    <param name="dev" type="string" value="/dev/input/js0" />
-    <param name="deadzone" value="0.12" />
-    <param name="autorepeat_rate" value="10.0" type="double" />
-  </node>
-  
   <node name="base_pad" pkg="vulcano_base_pad" type="vulcano_base_pad" output="screen">
     <!-- Parameters -->
     <param name="cmd_topic_vel" value="cmd_vel" type="string"/>
     <rosparam command="load" file="$(find vulcano_base_pad)/config/ps3.yaml" />
   </node> 
+  <node name="base_twist_mux" pkg="twist_mux" type="twist_mux" required="true" >
+    <rosparam command="load" file="$(find vulcano_base_pad)/config/twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="base/cmd_vel"/>
+  </node>
 
 </launch>
 
