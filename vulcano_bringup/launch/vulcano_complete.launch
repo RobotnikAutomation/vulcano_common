@@ -15,7 +15,15 @@
             <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
         </group>       
         
-	<group ns="torso_pantilt" if="$(arg pantilt)">
+        <group if="$(arg guidance)">
+            <node name="torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">    
+                <rosparam command="load" file="$(find vulcano_torso_pad)/config/torso_ps3.yaml" />
+                <remap from="torso_pantilt_controller/command" to="torso_pantilt/torso_pantilt_controller/command" />
+                <remap from="torso_guidance_position_joint_trajectory_controller/command" to="torso_guidance/torso_guidance_position_joint_trajectory_controller/command" />
+            </node>
+        </group>       
+        
+        <group ns="torso_pantilt" if="$(arg pantilt)">
             <include file="$(find dpro_controller)/launch/dpro_controller.launch" />
             <include file="$(find vulcano_torso_control)/launch/vulcano_pantilt_control.launch" />
         </group>       
@@ -31,6 +39,7 @@
             </include>
         </group>
 
+
         <group ns="right_arm" if="$(arg arms)">
             <include file="$(find vulcano_arm_control)/launch/ur10_controllers.launch" >
                 <arg name="prefix" value="right_arm_" />
@@ -40,6 +49,19 @@
                 <arg name="reverse_port" value="50002" />
                 <arg name="prefix" value="right_arm_" />
             </include>
+        </group>
+        
+        <group if="$(arg arms)">
+<!--            <node name="left_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">    
+                <rosparam command="load" file="$(find vulcano_arm_pad)/config/left_arm_ps3.yaml" />
+                <remap from="left_arm_position_joint_trajectory_controller/command" to="left_arm/left_arm_position_joint_trajectory_controller/command" />
+            </node> -->
+  <!--        
+            <node name="right_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">    
+                <rosparam command="load" file="$(find vulcano_arm_pad)/config/right_arm_ps3.yaml" />
+                <remap from="right_arm_position_joint_trajectory_controller/command" to="right_arm/right_arm_position_joint_trajectory_controller/command" />
+            </node>
+-->
         </group>
 
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
