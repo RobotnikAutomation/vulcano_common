@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="publish_state" default="false" />    
   <param name="robot_description"
     command="$(find xacro)/xacro.py '$(find vulcano_base_description)/robots/vulcano_base_standalone.urdf.xacro'" />
 
   <!-- publish tfs through the robot_state_publisher -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  
+  <node name="base_state_publisher" pkg="robot_state_publisher" type="state_publisher" if="$(arg publish_state)"/>
 </launch>
