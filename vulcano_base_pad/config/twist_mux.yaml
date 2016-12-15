@@ -1,6 +1,6 @@
 topics:
 - name    : pad
-  topic   : pad_teleop/cmd_vel
+  topic   : base_pad/cmd_vel
   timeout : 0.5
   priority: 10
 - name    : move_base

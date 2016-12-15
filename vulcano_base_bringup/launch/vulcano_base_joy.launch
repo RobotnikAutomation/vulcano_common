@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="joy" type="joy_node" name="ps3_joy" output="screen" respawn="true">
+    <!-- joy node -->
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+    <param name="autorepeat_rate" value="10.0" type="double" />
+  </node>
+
+</launch>
+
