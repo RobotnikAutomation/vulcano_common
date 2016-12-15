@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="sim" value="false" />
+  <arg name="sim" default="false" />
 
   <node name="base_pad" pkg="vulcano_base_pad" type="vulcano_base_pad" output="screen">
     <!-- Parameters -->

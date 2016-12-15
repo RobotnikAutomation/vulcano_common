@@ -57,8 +57,10 @@ omni_drive_controller:
     back_left_motor_wheel_joint:
         min_angle: -2.8 # rads
         max_angle: 2.8
-  max_linear: 3 # m/s
-  max_angular: 0.5 # rad/s
+  linear_speed_limit: 1.0
+  linear_acceleration_limit: 1.0
+  angular_speed_limit: 2.0
+  angular_acceleration_limit: 2.0 
   odom_frame: odom
   robot_base_frame: base_footprint
   odom_broadcast_tf: true
