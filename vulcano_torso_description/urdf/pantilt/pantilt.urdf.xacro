@@ -119,7 +119,7 @@
       <parent link="${prefix}torso_pantilt_pan_link"/>
       <child link="${prefix}torso_pantilt_tilt_base_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-70*deg2rad}" upper="${40*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="${-40*deg2rad}" upper="${70*deg2rad}" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
 	
