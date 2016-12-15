@@ -173,7 +173,7 @@ VulcanoTorsoPad::VulcanoTorsoPad()
     // Publish through the node handle the commands to the guidance controller
     nh_.param<std::string>("guidance_topic", guidance_topic_, "torso_guidance_position_joint_trajectory_controller/command");
     guidance_command_pub_ = nh_.advertise<trajectory_msgs::JointTrajectory>(guidance_topic_, 1);
-    nh_.param<std::string>("pantilt_topic", pantilt_topic_, "torso_pantilt_controller/command");
+    nh_.param<std::string>("pantilt_topic", pantilt_topic_, "pantilt_position_joint_trajectory_controller/command");
     pantilt_command_pub_ = nh_.advertise<trajectory_msgs::JointTrajectory>(pantilt_topic_, 1);
 
     // Listen through the node handle sensor_msgs::Joy messages from joystick 

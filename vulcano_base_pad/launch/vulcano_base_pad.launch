@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="sim" value="false" />
+
   <node name="base_pad" pkg="vulcano_base_pad" type="vulcano_base_pad" output="screen">
     <!-- Parameters -->
     <param name="cmd_topic_vel" value="cmd_vel" type="string"/>
@@ -8,7 +10,8 @@
   </node> 
   <node name="base_twist_mux" pkg="twist_mux" type="twist_mux" required="true" >
     <rosparam command="load" file="$(find vulcano_base_pad)/config/twist_mux.yaml" />
-    <remap from="cmd_vel_out" to="base/cmd_vel"/>
+    <remap from="cmd_vel_out" to="base/cmd_vel" unless="$(arg sim)" />
+    <remap from="cmd_vel_out" to="cmd_vel" if="$(arg sim)" />
   </node>
 
 </launch>
