@@ -262,11 +262,17 @@ void VulcanoTorsoPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
             bRegisteredButtonEvent[speed_up_button_] = false;
         }
 
-        guidance_cmd.points[0].positions.push_back(current_linear_z_ + current_vel*scale_linear_z_*joy->axes[axis_linear_z_]);
-        guidance_cmd.points[0].positions.push_back(current_angular_z_ + current_vel*scale_angular_z_*joy->axes[axis_angular_z_]);
+        double deadzone_limit = 0.8; //an axes must have at least this absolute value to send a command;
 
-        pantilt_cmd.points[0].positions.push_back(current_pan_ + current_vel*scale_pan_*joy->axes[axis_pan_]);
-        pantilt_cmd.points[0].positions.push_back(current_tilt_ + current_vel*scale_tilt_*joy->axes[axis_tilt_]);
+        double linear_z_axes = std::abs(joy->axes[axis_linear_z_]) < deadzone_limit ? 0 : joy->axes[axis_linear_z_];
+        double angular_z_axes = std::abs(joy->axes[axis_angular_z_]) < deadzone_limit ? 0 : joy->axes[axis_angular_z_];
+        guidance_cmd.points[0].positions.push_back(current_linear_z_ + current_vel*scale_linear_z_*linear_z_axes);
+        guidance_cmd.points[0].positions.push_back(current_angular_z_ + current_vel*scale_angular_z_*angular_z_axes);
+
+        double pan_axes = std::abs(joy->axes[axis_pan_]) < deadzone_limit ? 0 : joy->axes[axis_pan_];
+        double tilt_axes = std::abs(joy->axes[axis_tilt_]) < deadzone_limit ? 0 : joy->axes[axis_tilt_];
+        pantilt_cmd.points[0].positions.push_back(current_pan_ + current_vel*scale_pan_*pan_axes);
+        pantilt_cmd.points[0].positions.push_back(current_tilt_ + current_vel*scale_tilt_*tilt_axes);
     }
 
     if (joy->buttons[dead_man_button_] == 0) { // it is not pressed

@@ -196,7 +196,9 @@ void VulcanoArmPad::Update(){
 void VulcanoArmPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
     std::vector<double> joint_positions; // positions ordered as joint_names_ vector
-    
+    static bool bSentStop = false; 
+    static std::vector<double> trajectory;
+
     // Check availavility of joint_states msg
     //ROS_INFO("now: %d, joint_states_: %d", ros::Time::now().sec, joint_states_msg_.header.stamp.sec);
     if( (ros::Time::now() - joint_states_msg_.header.stamp) > ros::Duration(1) )
@@ -225,11 +227,13 @@ void VulcanoArmPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
         }
     }
     //ROS_INFO("joint_positions size %d", (int)joint_positions.size());
-
-    
+ 
     if(joy->buttons[dead_man_button_] == 1)
-    {
-        
+    { 
+
+        if (trajectory.size() == 0) // to get it initialized at least once
+            trajectory = joint_positions;
+
         // Next joint button
         if(joy->buttons[next_joint_button_] == 1 && !bRegisteredButtonEvent[next_joint_button_])
         {
@@ -238,6 +242,8 @@ void VulcanoArmPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
             if(selected_joint_ == joint_names_.size())
                 selected_joint_ = 0;
             ROS_INFO("VulcanoArmPad::%s::padCallback: selected joint %s", arm_prefix_.c_str(), joint_names_[selected_joint_].c_str());
+            
+            trajectory = joint_positions; // whenever we switch the selected joint, update trajectory
         }
         else if( joy->buttons[next_joint_button_] != 1) {
             bRegisteredButtonEvent[next_joint_button_] = false;
@@ -251,9 +257,12 @@ void VulcanoArmPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
             if(selected_joint_ < 0)
                 selected_joint_ = joint_names_.size()-1;
             ROS_INFO("VulcanoArmPad::%s::padCallback: selected joint %s", arm_prefix_.c_str(), joint_names_[selected_joint_].c_str());
+            
+            trajectory = joint_positions; // whenever we switch the selected joint, update trajectory
         }
-        else if(joy->buttons[previous_joint_button_] != 1)
+        else if(joy->buttons[previous_joint_button_] != 1) {
             bRegisteredButtonEvent[previous_joint_button_] = false;
+        }
         
         // Set the current velocity level
         if ( joy->buttons[speed_down_button_] == 1 ) {
@@ -281,12 +290,14 @@ void VulcanoArmPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
         }
             
             
-        std::vector<double> trajectory;
         float desired_speed = angular_scale_*joy->axes[angular_];
         if (desired_speed == 0.0)
         {
-            // Stop movement
-            publishJointTrajectory(joint_positions, 0.1); // Send current position
+            if (bSentStop == false) {
+                publishJointTrajectory(joint_positions, 0.1); // Send current position
+                // Stop movement
+                bSentStop = true;
+            }
             return; 
         }
             
@@ -300,24 +311,31 @@ void VulcanoArmPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
         distance = desired_position - joint_positions[selected_joint_];
         
         double time_from_start;
-        if(desired_speed != 0.0)
-            time_from_start = distance / (current_vel * desired_speed);
+        if(desired_speed != 0.0) 
+            time_from_start = 5/current_vel ; // distance / (current_vel * desired_speed); 
         else
             time_from_start = 0.0;
         
-        
+        if(time_from_start < 0.1)
+            time_from_start = 0.1;
         //ROS_INFO("Desired position: %f, current position: %f, distance: %f", desired_position, joint_positions[selected_joint_], distance);
         //ROS_INFO("Desired_speed: %f, time_from_start: %f", desired_speed, time_from_start);
         
         // Publish trajectory
-        trajectory = joint_positions;
-        trajectory[selected_joint_] = desired_position;
+        //trajectory = joint_positions; 
+        trajectory[selected_joint_] = desired_position; //update trajectory only for the desired joint
         publishJointTrajectory(trajectory, time_from_start);
+        bSentStop = false;
     }
     else
     {
-        // Stop movement
-        publishJointTrajectory(joint_positions, 0.1); // Send current position
+        if (bSentStop == false) { // to send the stop command only once when the deadman button is released
+            // Stop movement
+            publishJointTrajectory(joint_positions, 0.1); // Send current position
+            bSentStop = true;
+        }
+        //if deadman is not pressed update trajectory with the current joint states
+        trajectory = joint_positions;
     }
 
 }
