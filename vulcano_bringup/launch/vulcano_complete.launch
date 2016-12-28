@@ -3,13 +3,11 @@
 
     <arg name="guidance" default="true" />
     <arg name="pantilt" default="true" />
-    <arg name="arms" default="true" />
+    <arg name="arms" default="false" /> <!-- By default the arms are not launched, because the real controllers must be powered on  before launching it -->
 
-    <group ns="vulcano">
         <!-- things that have vulcano-specific code, such as the base  -->
         <include file="$(find vulcano_description)/launch/vulcano_state.launch" />
-
-       
+ 
         <group ns="torso_guidance" if="$(arg guidance)">
             <include file="$(find vulcano_torso_hw)/launch/vulcano_torso_hw.launch" />
             <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
@@ -18,7 +16,7 @@
         <group if="$(arg guidance)">
             <node name="torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">    
                 <rosparam command="load" file="$(find vulcano_torso_pad)/config/torso_ps3.yaml" />
-                <remap from="torso_pantilt_controller/command" to="torso_pantilt/torso_pantilt_controller/command" />
+                <remap from="pantilt_position_joint_trajectory_controller/command" to="torso_pantilt/pantilt_position_joint_trajectory_controller/command" />
                 <remap from="torso_guidance_position_joint_trajectory_controller/command" to="torso_guidance/torso_guidance_position_joint_trajectory_controller/command" />
             </node>
         </group>       
@@ -52,12 +50,14 @@
         </group>
         
         <group if="$(arg arms)">
-<!--            <node name="left_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">    
+<!--            <node name="left_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">
+		BE CAREFUL. BETA VERSION. DAMAGE MAY EXPECTED
                 <rosparam command="load" file="$(find vulcano_arm_pad)/config/left_arm_ps3.yaml" />
                 <remap from="left_arm_position_joint_trajectory_controller/command" to="left_arm/left_arm_position_joint_trajectory_controller/command" />
             </node> -->
   <!--        
-            <node name="right_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">    
+            <node name="right_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">
+		BE CAREFUL. BETA VERSION. DAMAGE MAY EXPECTED
                 <rosparam command="load" file="$(find vulcano_arm_pad)/config/right_arm_ps3.yaml" />
                 <remap from="right_arm_position_joint_trajectory_controller/command" to="right_arm/right_arm_position_joint_trajectory_controller/command" />
             </node>
@@ -71,5 +71,4 @@
         <!-- things that come from generic packages, such as the laser sensors, the io module... -->
         <include file="$(find vulcano_bringup)/launch/vulcano_multimaster.launch" />
  
-    </group>
 </launch>

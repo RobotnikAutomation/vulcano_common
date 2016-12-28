@@ -10,9 +10,5 @@
   <node name="$(arg prefix)controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
     output="screen" args="$(arg prefix)joint_state_controller $(arg prefix)force_torque_sensor_controller $(arg prefix)position_joint_trajectory_controller --shutdown-timeout 1" />
 
-  <!-- load other controller -->
-  <node name="$(arg prefix)controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
-    output="screen" args="load $(arg prefix)velocity_joint_trajectory_controller" />
-
 </launch>
 
