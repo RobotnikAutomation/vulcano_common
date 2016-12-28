@@ -102,8 +102,6 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  install(PROGRAMS
-   scripts/vulcano_web/start_recording_server.py
-   #src/start_recording_server.py
    #launch/vulcano_web.launch
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
    
@@ -126,8 +124,6 @@ include_directories(
 ## Mark other files for installation (e.g. launch and bag files, etc.)
  install(FILES
    launch/vulcano_web.launch
-   #scripts/start_recording_server.py
-   #src/start_recording_server.py
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   )
 
