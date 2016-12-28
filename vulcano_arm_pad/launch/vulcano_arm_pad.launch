@@ -3,15 +3,15 @@
 
   <arg name="prefix" />
   <!-- joy node -->
-  <node name="$(arg prefix)joy" pkg="joy" type="joy_node" respawn="true">
+  <!--node name="$(arg prefix)joy" pkg="joy" type="joy_node" respawn="true">
     <param name="dev" type="string" value="/dev/input/js0" />
     <param name="deadzone" value="0.12" />
     <param name="autorepeat_rate" value="10.0" type="double" />
   </node>
-
+	BE CAREFUL. BETA VERSION. DAMAGE MAY EXPECTED
   <node name="$(arg prefix)pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">       
     <rosparam command="load" file="$(find vulcano_arm_pad)/config/$(arg prefix)ps3.yaml" />
-  </node>
+  </node-->
    
 </launch>
 
