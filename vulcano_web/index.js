@@ -22,8 +22,6 @@ var min_radius = 0.0;
 var reverse_direction = false;
 var deactivate_imu_msg;
 var imu_state = false;
-var imu_temperature = 0.0;
-var imu_temperature_status = 0.0;
 var limit_temperature = 60.0;
 var x_position;
 var y_position;
@@ -161,6 +159,24 @@ var drive_status_codes = [
     "FLAG NOT USED"
 ]; //68
 
+var torso_status_codes = ["SBM (SYSTEM READY)", //0
+    "QUE (Power Supply ON)",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved", //5
+    "Reserved",
+    "Reserved",
+    "QRF (Controller Enabled)", //8
+    "Reserved",
+    "Reserved", //10
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved", //14
+    "Reserved"
+];
+
 var ros = new ROSLIB.Ros({
     url : 'ws://vulcano-base:9090'
     //url: 'ws://localhost:9090'
@@ -170,12 +186,12 @@ var ros = new ROSLIB.Ros({
 //battery topic
 var battery_listener = new ROSLIB.Topic({
     ros: ros,
-    name: '/summit_xl_controller/battery',
-    messageType: 'std_msgs/Float32'
+    name: 'battery/battery_state',
+    messageType: 'sensor_msgs/BatteryState'
 });
 
 battery_listener.subscribe(function(message) {
-    battery_level = message.data;
+    battery_level = message.percentage * 100;
 });
 
 //imu state topic
@@ -203,29 +219,10 @@ imuStateListener.subscribe(function(message) {
     }
 });
 
-//emergency stop topic
-var emergency_stop_listener = new ROSLIB.Topic({
-    ros: ros,
-    name: '/summit_xl_controller/emergency_stop',
-    messageType: 'std_msgs/Bool'
-});
-
-// Emergency Stop Listener
-emergency_stop_listener.subscribe(function(message) {
-
-    if (message.data) {
-        document.querySelector('#emergency_stop span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
-        //emergency_button_status = true;
-    } else if (!message.data) {
-        document.querySelector('#emergency_stop span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
-        //emergency_button_status = false;
-    }
-});
-
 // Odometry topic
 var odometry_listener = new ROSLIB.Topic({
     ros: ros,
-    name: '/odom',
+    name: 'base/odom',
     messageType: 'nav_msgs/Odometry'
 });
 
@@ -235,16 +232,39 @@ odometry_listener.subscribe(function(message) {
     y_position = message.pose.pose.position.y;
     z_position = message.pose.pose.position.z;
 
-    x_orientation = message.pose.pose.orientation.x;
-    y_orientation = message.pose.pose.orientation.y;
-    z_orientation = message.pose.pose.orientation.z;
+	var qx = parseFloat(message.pose.pose.orientation.x);
+	var qy = parseFloat(message.pose.pose.orientation.y);
+	var qz = parseFloat(message.pose.pose.orientation.z);
+	var qw = parseFloat(message.pose.pose.orientation.w);
+	var qw2 = qw*qw;
+	var qx2 = qx*qx;
+	var qy2 = qy*qy;
+	var qz2 = qz*qz;
+	var test= qx*qy + qz*qw;
+	if (test > 0.499) {
+		y_orientation = 2.0*Math.atan2(qx,qw);
+		z_orientation = Math.PI/2.0;
+		x_orientation = 0;
+		return;  
+	}
+	if (test < -0.499) {
+		y_orientation = -2.0*Math.atan2(qx,qw);
+		z_orientation = -Math.PI/2.0;
+		x_orientation = 0;
+		return;  
+	}
+	
+	y_orientation = Math.atan2(2*qy*qw-2*qx*qz,1-2*qy2-2*qz2);
+	z_orientation = Math.asin(2*qx*qy+2*qz*qw);
+	x_orientation = Math.atan2(2*qx*qw-2*qy*qz,1-2*qx2-2*qz2);
+
 });
 
 // Motor Status topic
 var motor_status_listener = new ROSLIB.Topic({
     ros: ros,
-    name: '/vulcano_base_hw/status',
-    messageType: '/vulcano_base_hw/VulcanoMotorsStatus'
+    name: '/base/vulcano_base_hw/status',
+    messageType: 'vulcano_base_hw/VulcanoMotorsStatus'
 });
 
 // Motor Status Listener
@@ -288,7 +308,7 @@ motor_status_listener.subscribe(function(message) {
     brw_direction_data[1] = message.motor_status[3].status;
     brw_direction_data[2] = message.motor_status[3].statusword;
     brw_direction_data[3] = message.motor_status[3].driveflags;
-    // TODO fill torso data
+
 
     // space is required for the comparison
     if (flw_data[1] == "OPERATION_ENABLED ") {
@@ -340,21 +360,39 @@ motor_status_listener.subscribe(function(message) {
         document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
+});
+
+// Motor Status topic
+var torso_status_listener = new ROSLIB.Topic({
+    ros: ros,
+    name: '/torso_guidance/vulcano_torso_hw/status',
+    messageType: 'vulcano_base_hw/VulcanoMotorsStatus'
+});
+
+torso_status_listener.subscribe(function(message) {
+	torso_rotation_data[0] = message.motor_status[0].state;
+    torso_rotation_data[1] = message.motor_status[0].status;
+    torso_rotation_data[2] = message.motor_status[0].statusword;
+    torso_rotation_data[3] = message.motor_status[0].driveflags;
+	
+	torso_elevation_data[0] = message.motor_status[1].state;
+    torso_elevation_data[1] = message.motor_status[1].status;
+    torso_elevation_data[2] = message.motor_status[1].statusword;
+    torso_elevation_data[3] = message.motor_status[1].driveflags;
+	
     // space is required for the comparison //TODO check OPERATION_ENABLED?
-    if (torso_elevation_data[1] == "OPERATION_ENABLED ") {
+    if (torso_elevation_data[1] == "DS_OPERATION_ENABLED ") {
         document.querySelector('#torso_elevation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#torso_elevation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (torso_rotation_data[1] == "OPERATION_ENABLED ") {
+    if (torso_rotation_data[1] == "DS_OPERATION_ENABLED ") {
         document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#torso_rotation_status_flash span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
-
 });
-
 
 var io_listener = new ROSLIB.Topic({
 	ros: ros,
@@ -364,13 +402,13 @@ var io_listener = new ROSLIB.Topic({
 
 io_listener.subscribe(function(message) {
 	for (var i = 0; i < message.digital_inputs.length; i++) {
-		var text = "1";
+		var text = "<b>1</b>";
 		if (message.digital_inputs[i] == false)
 			text = "0";
 		document.getElementById("digital_input_status_" + (i+1)).innerHTML = text;
 	}
 	for (var i = 0; i < message.digital_outputs.length; i++) {
-		var text = "1";
+		var text = "<b>1</b>";
 		if (message.digital_outputs[i] == false)
 			text = "0";
 		document.getElementById("digital_output_status_" + (i+1)).innerHTML = text;
@@ -439,17 +477,16 @@ function resetDriverHistory() {
 
 
         // TODO check all this 0
-        torso_elevation_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
-        torso_rotation_data_history[3] = "00000000000000000000000000000000000000000000000000000000000000000000";
+        torso_elevation_data_history[3] = "0000000000000000";
+        torso_rotation_data_history[3] =  "0000000000000000";
     }
 };
 
 function mainLoop() {
 
 	// TODO: check battery
-    battery_level_corrected = battery_level - minimum_battery_level;
     $("#progressbar_battery").progressbar({
-        value: battery_level_corrected
+        value: battery_level
     });
 
 	
@@ -457,7 +494,7 @@ function mainLoop() {
 
     // update battery
     // -------------
-    battery_level = Math.round(battery_level * 100) / 100;
+    battery_level = Math.round(battery_level);
     document.querySelector('#battery_status span').innerHTML = battery_level;
 
     if (battery_level < 23.0 && battery_status) {
@@ -946,7 +983,7 @@ function mainLoop() {
     status_word_sub_string = "";
     for (var i = 0; i < torso_elevation_data[2].length; i++) {
         if (torso_elevation_data[2][i] == 1) {
-            status_word_sub_string = status_codes[i];
+            status_word_sub_string = torso_status_codes[i];
             status_word_string = status_word_string.concat("<br><b>", status_word_sub_string, "</b>");
 
             // updating history
@@ -954,41 +991,19 @@ function mainLoop() {
         } else {
             if (torso_elevation_data_history[2][i] == 1) // flag used in the past
             {
-                status_word_sub_string = status_codes[i];
+                status_word_sub_string = torso_status_codes[i];
                 status_word_string = status_word_string.concat("<br><ins>", status_word_sub_string, "</ins>");
                 //console.log("flag used in the past");
             } else // flag off
             {
-                status_word_sub_string = status_codes[i];
+                status_word_sub_string = torso_status_codes[i];
                 status_word_string = status_word_string.concat("<br>", status_word_sub_string);
             }
         }
     };
     document.querySelector('#torso_elevation_status_words span').innerHTML = status_word_string;
 
-    status_word_string = "";
-    status_word_sub_string = "";
-    for (var i = 0; i < torso_elevation_data[3].length; i++) {
-        if (torso_elevation_data[3][i] == 1) {
-            status_word_sub_string = drive_status_codes[i];
-            status_word_string = status_word_string.concat("<br><b>", status_word_sub_string, "</b>");
-
-            // updating history
-            torso_elevation_data_history[3] = torso_elevation_data_history[3].substr(0, i) + '1' + torso_elevation_data_history[3].substr(i + 1);
-        } else {
-            if (torso_elevation_data_history[3][i] == 1) // flag used in the past
-            {
-                status_word_sub_string = drive_status_codes[i];
-                status_word_string = status_word_string.concat("<br><ins>", status_word_sub_string, "</ins>");
-                //console.log("flag used in the past");
-            } else // flag off
-            {
-                status_word_sub_string = drive_status_codes[i];
-                status_word_string = status_word_string.concat("<br>", status_word_sub_string);
-            }
-        }
-    };
-    document.querySelector('#torso_elevation_driver_status_words span').innerHTML = status_word_string;
+    document.querySelector('#torso_elevation_driver_status_words span').innerHTML = torso_elevation_data[3]; //status_word_string;
 
     // Torso Rotation Motor
     // ----------------
@@ -999,7 +1014,7 @@ function mainLoop() {
     status_word_sub_string = "";
     for (var i = 0; i < torso_rotation_data[2].length; i++) {
         if (torso_rotation_data[2][i] == 1) {
-            status_word_sub_string = status_codes[i];
+            status_word_sub_string = torso_status_codes[i];
             status_word_string = status_word_string.concat("<br><b>", status_word_sub_string, "</b>");
 
             // updating history
@@ -1007,41 +1022,19 @@ function mainLoop() {
         } else {
             if (torso_rotation_data_history[2][i] == 1) // flag used in the past
             {
-                status_word_sub_string = status_codes[i];
+                status_word_sub_string = torso_status_codes[i];
                 status_word_string = status_word_string.concat("<br><ins>", status_word_sub_string, "</ins>");
                 //console.log("flag used in the past");
             } else // flag off
             {
-                status_word_sub_string = status_codes[i];
+                status_word_sub_string = torso_status_codes[i];
                 status_word_string = status_word_string.concat("<br>", status_word_sub_string);
             }
         }
     };
     document.querySelector('#torso_rotation_status_words span').innerHTML = status_word_string;
 
-    status_word_string = "";
-    status_word_sub_string = "";
-    for (var i = 0; i < torso_rotation_data[3].length; i++) {
-        if (torso_rotation_data[3][i] == 1) {
-            status_word_sub_string = drive_status_codes[i];
-            status_word_string = status_word_string.concat("<br><b>", status_word_sub_string, "</b>");
-
-            // updating history
-            torso_rotation_data_history[3] = torso_rotation_data_history[3].substr(0, i) + '1' + torso_rotation_data_history[3].substr(i + 1);
-        } else {
-            if (torso_rotation_data_history[3][i] == 1) // flag used in the past
-            {
-                status_word_sub_string = drive_status_codes[i];
-                status_word_string = status_word_string.concat("<br><ins>", status_word_sub_string, "</ins>");
-                //console.log("flag used in the past");
-            } else // flag off
-            {
-                status_word_sub_string = drive_status_codes[i];
-                status_word_string = status_word_string.concat("<br>", status_word_sub_string);
-            }
-        }
-    };
-    document.querySelector('#torso_rotation_driver_status_words span').innerHTML = status_word_string;
+    document.querySelector('#torso_rotation_driver_status_words span').innerHTML = torso_rotation_data[3]; //status_word_string;
 
 
 }
@@ -1056,13 +1049,11 @@ $(document).ready(function() {
     $("#progressbar_battery").progressbar({
         value: battery_level
     });
-    $("#progressbar_battery").progressbar("option", "max", maximum_battery_level - minimum_battery_level);
+    $("#progressbar_battery").progressbar("option", "max", 100.0);
 
     // init alarms
     document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg border=\"0\">";
     document.querySelector('#battery_ok span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
-    document.querySelector('#imu_temperature_alarm span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
-    document.querySelector('#emergency_stop span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     document.querySelector('#front_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     document.querySelector('#front_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     document.querySelector('#back_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
@@ -1108,6 +1099,7 @@ $(document).ready(function() {
 	document.getElementById("digital_output_name_7").innerHTML = "FLASHING_LIGHT_1";
 	document.getElementById("digital_output_name_8").innerHTML = "FLASHING_LIGHT_2";
 	document.getElementById("digital_output_name_9").innerHTML = "FRONT_CONNECTOR_1";
+	document.getElementById("digital_output_name_9").innerHTML = "RESERVED";
 	document.getElementById("digital_output_name_11").innerHTML = "PILOT_LIGHT";
 	document.getElementById("digital_output_name_12").innerHTML = "BUZZER";
 	document.getElementById("digital_output_name_13").innerHTML = "AIR_PUMP";
