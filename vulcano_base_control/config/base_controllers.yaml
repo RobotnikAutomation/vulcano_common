@@ -46,17 +46,17 @@ omni_drive_controller:
     back_left_wheel_joint:
         max_speed: 20.0 # rad/s
     front_right_motor_wheel_joint:
-        min_angle: -2.8 # rads
-        max_angle: 2.8
+        min_angle: -2.6 # rads
+        max_angle: 2.6
     front_left_motor_wheel_joint:
-        min_angle: -2.8 # rads
-        max_angle: 2.8
+        min_angle: -2.6 # rads
+        max_angle: 2.6
     back_right_motor_wheel_joint:
-        min_angle: -2.8 # rads
-        max_angle: 2.8
+        min_angle: -2.6 # rads
+        max_angle: 2.6
     back_left_motor_wheel_joint:
-        min_angle: -2.8 # rads
-        max_angle: 2.8
+        min_angle: -2.6 # rads
+        max_angle: 2.6
   linear_speed_limit: 1.0
   linear_acceleration_limit: 1.0
   angular_speed_limit: 2.0
@@ -66,7 +66,7 @@ omni_drive_controller:
   odom_broadcast_tf: true
   wheel_base: 0.934
   track_width: 0.57
-  wheel_diameter: 0.186
-  cmd_watchdog_duration: 0.1
+  wheel_diameter: 0.18512988951 # 0.185... calibrated, 0.186 from cad
+  cmd_watchdog_duration: 0.2
   odom_publish_frequency: 100
 
