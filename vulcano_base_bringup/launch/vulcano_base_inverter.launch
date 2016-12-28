@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="meanwell_inverter" type="meanwell_inverter_node.py" name="inverter" output="screen"/>
+</launch>
