@@ -2,7 +2,6 @@
 
   <!-- By default, we are not in debug mode -->
   <arg name="debug" default="false" />
-<group ns="/vulcano">
    <!--<rosparam command="load" file="$(find vulcano_moveit_config)/config/joint_names.yaml"/> -->
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find vulcano_moveit_config)/launch/move_group.launch">
@@ -17,6 +16,5 @@
     <arg name="config" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
   </include>
-</group>
 
 </launch>

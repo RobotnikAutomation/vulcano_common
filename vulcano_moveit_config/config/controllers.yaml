@@ -1,19 +1,19 @@
 controller_list:
-  - name: /vulcano/torso_pantilt/torso_pantilt_position_joint_trajectory_controller
+  - name: torso_pantilt/torso_pantilt_position_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
         - torso_pantilt_pan_joint
         - torso_pantilt_tilt_joint
   
-  - name: /vulcano/torso_guidance/torso_guidance_position_joint_trajectory_controller
+  - name: torso_guidance/torso_guidance_position_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
         - torso_guidance_revolution_joint
         - torso_guidance_elevation_joint
 
-  - name: /vulcano/left_arm/left_arm_position_joint_trajectory_controller
+  - name: left_arm/left_arm_position_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints: 
@@ -24,7 +24,7 @@ controller_list:
         - left_arm_wrist_2_joint
         - left_arm_wrist_3_joint
 
-  - name: /vulcano/right_arm/right_arm_position_joint_trajectory_controller
+  - name: right_arm/right_arm_position_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints: 
