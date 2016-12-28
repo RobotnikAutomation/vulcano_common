@@ -14,5 +14,7 @@
   </node>
   
   <node name="vulcano_safety_manager" pkg="vulcano_io_managers" type="vulcano_safety_manager.py" args="" respawn="false" output="screen"/>
+  <node name="vulcano_airpump_manager" pkg="vulcano_io_managers" type="vulcano_airpump_manager.py" args="" respawn="false" output="screen"/>
+  <node name="vulcano_fan_manager" pkg="vulcano_io_managers" type="vulcano_fan_manager.py" args="" respawn="false" output="screen"/>
 
 </launch>
