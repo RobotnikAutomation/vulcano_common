@@ -11,6 +11,8 @@
   
   <!-- for moving -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <remap from="cmd_vel" to="~cmd_vel" />
+    <remap from="odom" to="base/odom" />
     <!-- move_base params -->
     <rosparam file="$(find vulcano_base_navigation)/config_navigation/move_base_params.yaml" command="load" />
   

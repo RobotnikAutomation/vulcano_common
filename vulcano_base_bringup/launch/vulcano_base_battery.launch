@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="klithium_battery_manager" type="klithium_battery_manager_node" name="battery" output="screen"/>
+</launch>
