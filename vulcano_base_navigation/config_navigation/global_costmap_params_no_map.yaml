@@ -9,7 +9,7 @@ global_costmap:
     rolling_window: true
     width: 30.0
     height: 30.0
-    resolution: 0.2
+    resolution: 0.05
     origin_x: 0.0
     origin_y: 0.0
     inflation_radius: 0.26  
@@ -17,4 +17,4 @@ global_costmap:
     inflation_layer:
       enabled: true
       cost_scaling_factor: 0.0 # the lower, the more cost
-      inflation_radius: 1.0 # big values make it harder to pass through narrow spaces
+      inflation_radius: 0.8 # big values make it harder to pass through narrow spaces
