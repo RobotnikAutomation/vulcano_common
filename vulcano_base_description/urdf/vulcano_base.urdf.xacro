@@ -56,7 +56,7 @@
       
         <!-- SENSORS see robotnik_sensors for the specific configuration -->
         <xacro:sensor_imu name="imu" parent="${prefix}base_link">
-          <origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+          <origin xyz="-0.40 0.06 0.75" rpy="0 0 0"/>
         </xacro:sensor_imu>
 
         <xacro:sensor_sick_s300 name="front_left_laser" parent="${prefix}base_link">
