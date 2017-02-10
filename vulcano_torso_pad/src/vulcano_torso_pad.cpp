@@ -228,12 +228,12 @@ void VulcanoTorsoPad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
     guidance_cmd.joint_names.push_back(joint_linear_z_);
     guidance_cmd.joint_names.push_back(joint_angular_z_);
     guidance_cmd.points.resize(1);
-    guidance_cmd.points[0].time_from_start = ros::Duration(0.1); // TODO: Check this value!
+    guidance_cmd.points[0].time_from_start = ros::Duration(1); // TODO: Check this value!
 
     pantilt_cmd.joint_names.push_back(joint_pan_);
     pantilt_cmd.joint_names.push_back(joint_tilt_);
     pantilt_cmd.points.resize(1);
-    pantilt_cmd.points[0].time_from_start = ros::Duration(0.1); // TODO: Check this value!
+    pantilt_cmd.points[0].time_from_start = ros::Duration(1); // TODO: Check this value!
 
     // Actions dependant on dead-man button
     if (joy->buttons[dead_man_button_] == 1) {
