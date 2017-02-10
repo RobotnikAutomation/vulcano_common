@@ -41,7 +41,7 @@
       <parent link="${prefix}torso_guidance_base_link"/>
       <child link="${prefix}torso_guidance_revolution_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-180*deg2rad}" upper="${180*deg2rad}" effort="100" velocity="0.4"/>
+      <limit lower="${-140*deg2rad}" upper="${220*deg2rad}" effort="100" velocity="0.4"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
     
