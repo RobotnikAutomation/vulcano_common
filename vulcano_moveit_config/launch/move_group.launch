@@ -1,6 +1,10 @@
 <launch>
 
-  <include file="$(find vulcano_moveit_config)/launch/planning_context.launch" />
+  <arg name="joint_limited" default="true"/>
+
+  <include file="$(find vulcano_moveit_config)/launch/planning_context.launch" >
+    <arg name="joint_limited" value="$(arg joint_limited)"/>
+  </include>
 
   <!-- GDB Debug Option -->
   <arg name="debug" default="false" />
