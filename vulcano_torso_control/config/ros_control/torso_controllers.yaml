@@ -11,8 +11,16 @@ torso_guidance_position_joint_trajectory_controller:
    joints:
      - torso_guidance_elevation_joint
      - torso_guidance_revolution_joint
+   constraints:
+      goal_time: 1.0
+      torso_guidance_elevation_joint:
+          trajectory: 0.01
+          goal:       0.1
+      torso_guidance_revolution_joint:
+          trajectory: 0.01
+          goal:       0.1
 
 torso_joint_state_controller:
-  type: joint_state_controller/JointStateController 
+  type: joint_state_controller/JointStateController
   publish_rate: 50.0
 
