@@ -38,3 +38,19 @@ target_link_libraries(vulcano_base_pad
    ${catkin_LIBRARIES}
  )
 
+#############
+## Install ##
+#############
+
+install(DIRECTORY launch config
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  PATTERN ".svn" EXCLUDE
+)
+
+## Mark executables and/or libraries for installation
+install(TARGETS vulcano_base_pad
+ ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+ LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+ RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
