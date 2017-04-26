@@ -122,7 +122,8 @@
     </link>
     
     <joint name="${prefix}torso_tkd668_joint" type="fixed">
-      <origin xyz="0.164 0 0.449" rpy="0 0 0"/>
+      <!--origin xyz="0.164 0 0.449" rpy="0 0 0"/-->
+      <origin xyz="0.164 0 0.5015" rpy="0 0 0"/>
       <parent link="${prefix}torso_guidance_elevation_link"/>
       <child link="${prefix}torso_tkd668_link"/>
       <axis xyz="0 0 1"/>
