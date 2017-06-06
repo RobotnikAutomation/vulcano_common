@@ -54,48 +54,48 @@
         </inertial>
     </xacro:macro>
     <!-- calibrations offsets -->
-    <xacro:property name="shoulder_pan_joint_offset" value="-0.000181348" />
-    <xacro:property name="shoulder_lift_joint_offset" value="-6.791e-05" />
-    <xacro:property name="elbow_joint_offset" value="0.000161777" />
-    <xacro:property name="wrist_1_joint_offset" value="0.000670864" />
-    <xacro:property name="wrist_2_joint_offset" value="-0.0074899" />
-    <xacro:property name="wrist_3_joint_offset" value="-0.000482436" />
-    <xacro:property name="shoulder_pan_joint_x_offset" value="2.62927e-06" />
-    <xacro:property name="shoulder_pan_joint_y_offset" value="-1.08753e-05" />
-    <xacro:property name="shoulder_pan_joint_z_offset" value="0.000401832" />
-    <xacro:property name="shoulder_pan_joint_a_offset" value="-1.77227e-05" />
-    <xacro:property name="shoulder_pan_joint_b_offset" value="-4.7476e-06" />
-    <xacro:property name="shoulder_pan_joint_c_offset" value="6.45302e-06" />
-    <xacro:property name="shoulder_lift_joint_x_offset" value="-4.59465e-05" />
-    <xacro:property name="shoulder_lift_joint_y_offset" value="-0.000102164" />
-    <xacro:property name="shoulder_lift_joint_z_offset" value="0.00040185" />
-    <xacro:property name="shoulder_lift_joint_a_offset" value="-0.000527705" />
-    <xacro:property name="shoulder_lift_joint_b_offset" value="-0.000148649" />
-    <xacro:property name="shoulder_lift_joint_c_offset" value="0.000140664" />
-    <xacro:property name="elbow_joint_x_offset" value="-0.000211068" />
-    <xacro:property name="elbow_joint_y_offset" value="-0.000102083" />
-    <xacro:property name="elbow_joint_z_offset" value="0.000380616" />
-    <xacro:property name="elbow_joint_a_offset" value="0.000986996" />
-    <xacro:property name="elbow_joint_b_offset" value="-0.000111617" />
-    <xacro:property name="elbow_joint_c_offset" value="0.00207105" />
-    <xacro:property name="wrist_1_joint_x_offset" value="0.000117089" />
-    <xacro:property name="wrist_1_joint_y_offset" value="-0.000102249" />
-    <xacro:property name="wrist_1_joint_z_offset" value="-0.000948187" />
-    <xacro:property name="wrist_1_joint_a_offset" value="0.00107978" />
-    <xacro:property name="wrist_1_joint_b_offset" value="-1.5617e-05" />
-    <xacro:property name="wrist_1_joint_c_offset" value="0.000749676" />
-    <xacro:property name="wrist_2_joint_x_offset" value="0.000353141" />
-    <xacro:property name="wrist_2_joint_y_offset" value="-0.00010228" />
-    <xacro:property name="wrist_2_joint_z_offset" value="8.78283e-06" />
-    <xacro:property name="wrist_2_joint_a_offset" value="-0.00021672" />
-    <xacro:property name="wrist_2_joint_b_offset" value="-0.000394326" />
-    <xacro:property name="wrist_2_joint_c_offset" value="0.00210979" />
-    <xacro:property name="wrist_3_joint_x_offset" value="-0.000114647" />
-    <xacro:property name="wrist_3_joint_y_offset" value="-0.000125526" />
-    <xacro:property name="wrist_3_joint_z_offset" value="8.68294e-06" />
-    <xacro:property name="wrist_3_joint_a_offset" value="0.000227076" />
-    <xacro:property name="wrist_3_joint_b_offset" value="0.000358152" />
-    <xacro:property name="wrist_3_joint_c_offset" value="0.00527917" />
+    <xacro:property name="left_arm_shoulder_pan_joint_offset" value="-0.000181348" />
+    <xacro:property name="left_arm_shoulder_lift_joint_offset" value="-6.791e-05" />
+    <xacro:property name="left_arm_elbow_joint_offset" value="0.000161777" />
+    <xacro:property name="left_arm_wrist_1_joint_offset" value="0.000670864" />
+    <xacro:property name="left_arm_wrist_2_joint_offset" value="-0.0074899" />
+    <xacro:property name="left_arm_wrist_3_joint_offset" value="-0.000482436" />
+    <xacro:property name="left_arm_shoulder_pan_joint_x_offset" value="2.62927e-06" />
+    <xacro:property name="left_arm_shoulder_pan_joint_y_offset" value="-1.08753e-05" />
+    <xacro:property name="left_arm_shoulder_pan_joint_z_offset" value="0.000401832" />
+    <xacro:property name="left_arm_shoulder_pan_joint_a_offset" value="-1.77227e-05" />
+    <xacro:property name="left_arm_shoulder_pan_joint_b_offset" value="-4.7476e-06" />
+    <xacro:property name="left_arm_shoulder_pan_joint_c_offset" value="6.45302e-06" />
+    <xacro:property name="left_arm_shoulder_lift_joint_x_offset" value="-4.59465e-05" />
+    <xacro:property name="left_arm_shoulder_lift_joint_y_offset" value="-0.000102164" />
+    <xacro:property name="left_arm_shoulder_lift_joint_z_offset" value="0.00040185" />
+    <xacro:property name="left_arm_shoulder_lift_joint_a_offset" value="-0.000527705" />
+    <xacro:property name="left_arm_shoulder_lift_joint_b_offset" value="-0.000148649" />
+    <xacro:property name="left_arm_shoulder_lift_joint_c_offset" value="0.000140664" />
+    <xacro:property name="left_arm_elbow_joint_x_offset" value="-0.000211068" />
+    <xacro:property name="left_arm_elbow_joint_y_offset" value="-0.000102083" />
+    <xacro:property name="left_arm_elbow_joint_z_offset" value="0.000380616" />
+    <xacro:property name="left_arm_elbow_joint_a_offset" value="0.000986996" />
+    <xacro:property name="left_arm_elbow_joint_b_offset" value="-0.000111617" />
+    <xacro:property name="left_arm_elbow_joint_c_offset" value="0.00207105" />
+    <xacro:property name="left_arm_wrist_1_joint_x_offset" value="0.000117089" />
+    <xacro:property name="left_arm_wrist_1_joint_y_offset" value="-0.000102249" />
+    <xacro:property name="left_arm_wrist_1_joint_z_offset" value="-0.000948187" />
+    <xacro:property name="left_arm_wrist_1_joint_a_offset" value="0.00107978" />
+    <xacro:property name="left_arm_wrist_1_joint_b_offset" value="-1.5617e-05" />
+    <xacro:property name="left_arm_wrist_1_joint_c_offset" value="0.000749676" />
+    <xacro:property name="left_arm_wrist_2_joint_x_offset" value="0.000353141" />
+    <xacro:property name="left_arm_wrist_2_joint_y_offset" value="-0.00010228" />
+    <xacro:property name="left_arm_wrist_2_joint_z_offset" value="8.78283e-06" />
+    <xacro:property name="left_arm_wrist_2_joint_a_offset" value="-0.00021672" />
+    <xacro:property name="left_arm_wrist_2_joint_b_offset" value="-0.000394326" />
+    <xacro:property name="left_arm_wrist_2_joint_c_offset" value="0.00210979" />
+    <xacro:property name="left_arm_wrist_3_joint_x_offset" value="-0.000114647" />
+    <xacro:property name="left_arm_wrist_3_joint_y_offset" value="-0.000125526" />
+    <xacro:property name="left_arm_wrist_3_joint_z_offset" value="8.68294e-06" />
+    <xacro:property name="left_arm_wrist_3_joint_a_offset" value="0.000227076" />
+    <xacro:property name="left_arm_wrist_3_joint_b_offset" value="0.000358152" />
+    <xacro:property name="left_arm_wrist_3_joint_c_offset" value="0.00527917" />
     <xacro:macro name="left_arm_ur10_robot" params="prefix joint_limited shoulder_pan_lower_limit:=${-pi} shoulder_pan_upper_limit:=${pi} shoulder_lift_lower_limit:=${-pi} shoulder_lift_upper_limit:=${pi} elbow_joint_lower_limit:=${-pi} elbow_joint_upper_limit:=${pi} wrist_1_lower_limit:=${-pi} wrist_1_upper_limit:=${pi} wrist_2_lower_limit:=${-pi} wrist_2_upper_limit:=${pi} wrist_3_lower_limit:=${-pi} wrist_3_upper_limit:=${pi}">
         <link name="${prefix}base_link">
             <visual>
@@ -116,7 +116,7 @@
             </xacro:cylinder_inertial>
         </link>
         <joint name="${prefix}shoulder_pan_offset_joint" type="fixed">
-            <origin xyz="${shoulder_pan_joint_x_offset} ${shoulder_pan_joint_y_offset} ${shoulder_pan_joint_z_offset}" rpy="${shoulder_pan_joint_a_offset} ${shoulder_pan_joint_b_offset} ${shoulder_pan_joint_c_offset}" />
+            <origin xyz="${left_arm_shoulder_pan_joint_x_offset} ${left_arm_shoulder_pan_joint_y_offset} ${left_arm_shoulder_pan_joint_z_offset}" rpy="${left_arm_shoulder_pan_joint_a_offset} ${left_arm_shoulder_pan_joint_b_offset} ${left_arm_shoulder_pan_joint_c_offset}" />
             <parent link="${prefix}base_link" />
             <child link="${prefix}shoulder_pan_offset_link" />
         </joint>
@@ -124,7 +124,7 @@
         <joint name="${prefix}shoulder_pan_joint" type="revolute">
             <parent link="${prefix}shoulder_pan_offset_link" />
             <child link="${prefix}shoulder_link" />
-            <origin xyz="0.0 0.0 ${shoulder_height}" rpy="0.0 0.0 ${shoulder_pan_joint_offset}" />
+            <origin xyz="0.0 0.0 ${shoulder_height}" rpy="0.0 0.0 ${left_arm_shoulder_pan_joint_offset}" />
             <axis xyz="0 0 1" />
             <calibration rising="0.0" />
             <xacro:unless value="${joint_limited}">
@@ -154,7 +154,7 @@
             </xacro:cylinder_inertial>
         </link>
         <joint name="${prefix}shoulder_lift_offset_joint" type="fixed">
-            <origin xyz="${shoulder_lift_joint_x_offset} ${shoulder_lift_joint_y_offset} ${shoulder_lift_joint_z_offset}" rpy="${shoulder_lift_joint_a_offset} ${shoulder_lift_joint_b_offset} ${shoulder_lift_joint_c_offset}" />
+            <origin xyz="${left_arm_shoulder_lift_joint_x_offset} ${left_arm_shoulder_lift_joint_y_offset} ${left_arm_shoulder_lift_joint_z_offset}" rpy="${left_arm_shoulder_lift_joint_a_offset} ${left_arm_shoulder_lift_joint_b_offset} ${left_arm_shoulder_lift_joint_c_offset}" />
             <parent link="${prefix}shoulder_link" />
             <child link="${prefix}shoulder_lift_offset_link" />
         </joint>
@@ -162,7 +162,7 @@
         <joint name="${prefix}shoulder_lift_joint" type="revolute">
             <parent link="${prefix}shoulder_lift_offset_link" />
             <child link="${prefix}upper_arm_link" />
-            <origin xyz="0 ${shoulder_offset} 0" rpy="0 ${pi/2.0 + shoulder_lift_joint_offset} 0" />
+            <origin xyz="0 ${shoulder_offset} 0" rpy="0 ${pi/2.0 + left_arm_shoulder_lift_joint_offset} 0" />
             <axis xyz="0 1 0" />
             <calibration rising="0.0" />
             <xacro:unless value="${joint_limited}">
@@ -192,7 +192,7 @@
             </xacro:cylinder_inertial>
         </link>
         <joint name="${prefix}elbow_offset_joint" type="fixed">
-            <origin xyz="${elbow_joint_x_offset} ${elbow_joint_y_offset} ${elbow_joint_z_offset}" rpy="${elbow_joint_a_offset} ${elbow_joint_b_offset} ${elbow_joint_c_offset}" />
+            <origin xyz="${left_arm_elbow_joint_x_offset} ${left_arm_elbow_joint_y_offset} ${left_arm_elbow_joint_z_offset}" rpy="${left_arm_elbow_joint_a_offset} ${left_arm_elbow_joint_b_offset} ${left_arm_elbow_joint_c_offset}" />
             <parent link="${prefix}upper_arm_link" />
             <child link="${prefix}elbow_offset_link" />
         </joint>
@@ -200,7 +200,7 @@
         <joint name="${prefix}elbow_joint" type="revolute">
             <parent link="${prefix}elbow_offset_link" />
             <child link="${prefix}forearm_link" />
-            <origin xyz="0.0 ${elbow_offset} ${upper_arm_length}" rpy="0.0 ${elbow_joint_offset} 0.0" />
+            <origin xyz="0.0 ${elbow_offset} ${upper_arm_length}" rpy="0.0 ${left_arm_elbow_joint_offset} 0.0" />
             <axis xyz="0 1 0" />
             <calibration rising="0.0" />
             <xacro:unless value="${joint_limited}">
@@ -230,7 +230,7 @@
             </xacro:cylinder_inertial>
         </link>
         <joint name="${prefix}wrist_1_offset_joint" type="fixed">
-            <origin xyz="${wrist_1_joint_x_offset} ${wrist_1_joint_y_offset} ${wrist_1_joint_z_offset}" rpy="${wrist_1_joint_a_offset} ${wrist_1_joint_b_offset} ${wrist_1_joint_c_offset}" />
+            <origin xyz="${left_arm_wrist_1_joint_x_offset} ${left_arm_wrist_1_joint_y_offset} ${left_arm_wrist_1_joint_z_offset}" rpy="${left_arm_wrist_1_joint_a_offset} ${left_arm_wrist_1_joint_b_offset} ${left_arm_wrist_1_joint_c_offset}" />
             <parent link="${prefix}forearm_link" />
             <child link="${prefix}wrist_1_offset_link" />
         </joint>
@@ -238,7 +238,7 @@
         <joint name="${prefix}wrist_1_joint" type="revolute">
             <parent link="${prefix}wrist_1_offset_link" />
             <child link="${prefix}wrist_1_link" />
-            <origin xyz="0 0 ${forearm_length}" rpy="0 ${pi/2.0 + wrist_1_joint_offset} 0" />
+            <origin xyz="0 0 ${forearm_length}" rpy="0 ${pi/2.0 + left_arm_wrist_1_joint_offset} 0" />
             <axis xyz="0 1 0" />
             <calibration rising="0.0" />
             <xacro:unless value="${joint_limited}">
@@ -268,7 +268,7 @@
             </xacro:cylinder_inertial>
         </link>
         <joint name="${prefix}wrist_2_offset_joint" type="fixed">
-            <origin xyz="${wrist_2_joint_x_offset} ${wrist_2_joint_y_offset} ${wrist_2_joint_z_offset}" rpy="${wrist_2_joint_a_offset} ${wrist_2_joint_b_offset} ${wrist_2_joint_c_offset}" />
+            <origin xyz="${left_arm_wrist_2_joint_x_offset} ${left_arm_wrist_2_joint_y_offset} ${left_arm_wrist_2_joint_z_offset}" rpy="${left_arm_wrist_2_joint_a_offset} ${left_arm_wrist_2_joint_b_offset} ${left_arm_wrist_2_joint_c_offset}" />
             <parent link="${prefix}wrist_1_link" />
             <child link="${prefix}wrist_2_offset_link" />
         </joint>
@@ -276,7 +276,7 @@
         <joint name="${prefix}wrist_2_joint" type="revolute">
             <parent link="${prefix}wrist_2_offset_link" />
             <child link="${prefix}wrist_2_link" />
-            <origin xyz="0.0 ${wrist_1_length} 0.0" rpy="0.0 0.0 ${wrist_2_joint_offset}" />
+            <origin xyz="0.0 ${wrist_1_length} 0.0" rpy="0.0 0.0 ${left_arm_wrist_2_joint_offset}" />
             <axis xyz="0 0 1" />
             <calibration rising="0.0" />
             <xacro:unless value="${joint_limited}">
@@ -306,7 +306,7 @@
             </xacro:cylinder_inertial>
         </link>
         <joint name="${prefix}wrist_3_offset_joint" type="fixed">
-            <origin xyz="${wrist_3_joint_x_offset} ${wrist_3_joint_y_offset} ${wrist_3_joint_z_offset}" rpy="${wrist_3_joint_a_offset} ${wrist_3_joint_b_offset} ${wrist_3_joint_c_offset}" />
+            <origin xyz="${left_arm_wrist_3_joint_x_offset} ${left_arm_wrist_3_joint_y_offset} ${left_arm_wrist_3_joint_z_offset}" rpy="${left_arm_wrist_3_joint_a_offset} ${left_arm_wrist_3_joint_b_offset} ${left_arm_wrist_3_joint_c_offset}" />
             <parent link="${prefix}wrist_2_link" />
             <child link="${prefix}wrist_3_offset_link" />
         </joint>
@@ -314,7 +314,7 @@
         <joint name="${prefix}wrist_3_joint" type="revolute">
             <parent link="${prefix}wrist_3_offset_link" />
             <child link="${prefix}wrist_3_link" />
-            <origin xyz="0.0 0.0 ${wrist_2_length}" rpy="0.0 ${wrist_3_joint_offset} 0.0" />
+            <origin xyz="0.0 0.0 ${wrist_2_length}" rpy="0.0 ${left_arm_wrist_3_joint_offset} 0.0" />
             <axis xyz="0 1 0" />
             <calibration rising="0.0" />
             <xacro:unless value="${joint_limited}">
