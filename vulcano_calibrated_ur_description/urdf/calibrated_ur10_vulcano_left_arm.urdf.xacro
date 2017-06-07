@@ -120,7 +120,23 @@
             <parent link="${prefix}base_link" />
             <child link="${prefix}shoulder_pan_offset_link" />
         </joint>
-        <link name="${prefix}shoulder_pan_offset_link" />
+        <link name="${prefix}shoulder_pan_offset_link">
+          <visual>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+          <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <inertia ixx="1e-10" ixy="0.0" ixz="0.0" iyy="1e-10" iyz="0.0" izz="1e-10"/>
+          </inertial>
+        </link>
         <joint name="${prefix}shoulder_pan_joint" type="revolute">
             <parent link="${prefix}shoulder_pan_offset_link" />
             <child link="${prefix}shoulder_link" />
@@ -158,7 +174,23 @@
             <parent link="${prefix}shoulder_link" />
             <child link="${prefix}shoulder_lift_offset_link" />
         </joint>
-        <link name="${prefix}shoulder_lift_offset_link" />
+        <link name="${prefix}shoulder_lift_offset_link">
+          <visual>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+          <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <inertia ixx="1e-10" ixy="0.0" ixz="0.0" iyy="1e-10" iyz="0.0" izz="1e-10"/>
+          </inertial>
+        </link>
         <joint name="${prefix}shoulder_lift_joint" type="revolute">
             <parent link="${prefix}shoulder_lift_offset_link" />
             <child link="${prefix}upper_arm_link" />
@@ -196,7 +228,23 @@
             <parent link="${prefix}upper_arm_link" />
             <child link="${prefix}elbow_offset_link" />
         </joint>
-        <link name="${prefix}elbow_offset_link" />
+        <link name="${prefix}elbow_offset_link">
+          <visual>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+          <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <inertia ixx="1e-10" ixy="0.0" ixz="0.0" iyy="1e-10" iyz="0.0" izz="1e-10"/>
+          </inertial>
+        </link>
         <joint name="${prefix}elbow_joint" type="revolute">
             <parent link="${prefix}elbow_offset_link" />
             <child link="${prefix}forearm_link" />
@@ -234,7 +282,23 @@
             <parent link="${prefix}forearm_link" />
             <child link="${prefix}wrist_1_offset_link" />
         </joint>
-        <link name="${prefix}wrist_1_offset_link" />
+        <link name="${prefix}wrist_1_offset_link">
+          <visual>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+          <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <inertia ixx="1e-10" ixy="0.0" ixz="0.0" iyy="1e-10" iyz="0.0" izz="1e-10"/>
+          </inertial>
+        </link>
         <joint name="${prefix}wrist_1_joint" type="revolute">
             <parent link="${prefix}wrist_1_offset_link" />
             <child link="${prefix}wrist_1_link" />
@@ -272,7 +336,23 @@
             <parent link="${prefix}wrist_1_link" />
             <child link="${prefix}wrist_2_offset_link" />
         </joint>
-        <link name="${prefix}wrist_2_offset_link" />
+        <link name="${prefix}wrist_2_offset_link">
+          <visual>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+          <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <inertia ixx="1e-10" ixy="0.0" ixz="0.0" iyy="1e-10" iyz="0.0" izz="1e-10"/>
+          </inertial>
+        </link>
         <joint name="${prefix}wrist_2_joint" type="revolute">
             <parent link="${prefix}wrist_2_offset_link" />
             <child link="${prefix}wrist_2_link" />
@@ -310,7 +390,23 @@
             <parent link="${prefix}wrist_2_link" />
             <child link="${prefix}wrist_3_offset_link" />
         </joint>
-        <link name="${prefix}wrist_3_offset_link" />
+        <link name="${prefix}wrist_3_offset_link">
+          <visual>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </visual>
+          <collision>
+            <geometry>
+              <box size="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+          <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <inertia ixx="1e-10" ixy="0.0" ixz="0.0" iyy="1e-10" iyz="0.0" izz="1e-10"/>
+          </inertial>
+        </link>
         <joint name="${prefix}wrist_3_joint" type="revolute">
             <parent link="${prefix}wrist_3_offset_link" />
             <child link="${prefix}wrist_3_link" />
