@@ -40,6 +40,6 @@
 
         <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
 
-        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />
-       
+<!--        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
+
 </launch>
