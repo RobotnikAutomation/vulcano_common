@@ -1,42 +1,44 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="publish_state" default="false" />    
+    <arg name="publish_state" default="false" />
     <arg name="omni" default="true" />
-   
+
         <!-- load description and publish state-->
         <param name="robot_description"
             command="$(find xacro)/xacro.py '$(find vulcano_base_description)/robots/vulcano_base_standalone.urdf.xacro'" />
-        
+
         <group if="$(arg publish_state)">
             <node name="base_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
             <node name="base_joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
                 <rosparam param="source_list">["base/joint_states"]</rosparam> 
             </node>
         </group>
-          
+
         <group ns="base"> 
             <include file="$(find vulcano_base_hw)/launch/vulcano_base_hw.launch"/>
             <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
                 <arg name="omni" value="$(arg omni)" />
             </include>
         </group>
-       
-        <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
-       
 
-        <!-- things that come from generic packages, such as the laser sensors, the io module... -->
+        <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
+
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_twist_mux.launch" />
+
+        <include file="$(find obstacle_velocity_regulation)/launch/vulcano_obstacle_velocity_regulation.launch" />
+
         <include file="$(find vulcano_base_bringup)/launch/vulcano_base_joy.launch" />
 
         <include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />
-      
+
         <include file="$(find vulcano_base_bringup)/launch/vulcano_base_lasers.launch" />
-       
+
         <include file="$(find vulcano_base_bringup)/launch/vulcano_base_imu.launch" />
-        
-	<include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />
-        
-	<include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />
+
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />
+
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />
 
         <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
 
