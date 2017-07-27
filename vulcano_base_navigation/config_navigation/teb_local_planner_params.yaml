@@ -2,7 +2,7 @@ base_local_planner: teb_local_planner/TebLocalPlannerROS
 
 TebLocalPlannerROS:
   odom_topic: odom
-  map_frame: /odom
+  map_frame: /map
      
   # Trajectory
    
@@ -15,10 +15,10 @@ TebLocalPlannerROS:
      
   # Robot
           
-  max_vel_x: 0.2
-  max_vel_x_backwards: 0.2
-  max_vel_y: 0.2
-  max_vel_theta: 0.2
+  max_vel_x: 0.5
+  max_vel_x_backwards: 0.5
+  max_vel_y: 0.5
+  max_vel_theta: 0.5
   acc_lim_x: 0.2
   acc_lim_y: 0.2
   acc_lim_theta: 0.2
@@ -42,8 +42,8 @@ TebLocalPlannerROS:
  
   # GoalTolerance
      
-  xy_goal_tolerance: 0.5
-  yaw_goal_tolerance: 0.5
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.2
   free_goal_vel: False
      
   # Obstacles
