@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="sim" default="false" />
-  <arg name="logitech" default="true"/>
+  <arg name="logitech" default="false"/>
 
   <node name="base_pad" pkg="vulcano_base_pad" type="vulcano_base_pad" output="screen">
     <param name="cmd_topic_vel" value="cmd_vel" type="string"/>
