@@ -2,26 +2,26 @@ base_local_planner: teb_local_planner/TebLocalPlannerROS
 
 TebLocalPlannerROS:
   odom_topic: odom
-  map_frame: /map
+  map_frame: map
      
   # Trajectory
    
-  teb_autosize: True
+  teb_autosize: true
   dt_ref: 0.3
   dt_hysteresis: 0.1
-  global_plan_overwrite_orientation: False  # should be true if the global planner does not fill the orientation. we are using the "global_planner", which fills it, so we set it to false
+  global_plan_overwrite_orientation: false  # should be true if the global planner does not fill the orientation. we are using the "global_planner", which fills it, so we set it to false
   max_global_plan_lookahead_dist: 1         # a low value will make the local planner to follow the global path more faithfully
   feasibility_check_no_poses: 5
      
   # Robot
           
-  max_vel_x: 0.5
-  max_vel_x_backwards: 0.5
-  max_vel_y: 0.5
+  max_vel_x: 2.0
+  max_vel_x_backwards: 2.0
+  max_vel_y: 2.0
   max_vel_theta: 0.5
-  acc_lim_x: 0.2
-  acc_lim_y: 0.2
-  acc_lim_theta: 0.2
+  acc_lim_x: 0.5
+  acc_lim_y: 0.5
+  acc_lim_theta: 0.5
   min_turning_radius: 0.0
   wheelbase: 0.0
   cmd_angle_instead_rotvel: false
@@ -42,14 +42,14 @@ TebLocalPlannerROS:
  
   # GoalTolerance
      
-  xy_goal_tolerance: 0.2
+  xy_goal_tolerance: 0.1
   yaw_goal_tolerance: 0.2
-  free_goal_vel: False
+  free_goal_vel: false
      
   # Obstacles
      
   min_obstacle_dist: 0.5
-  include_costmap_obstacles: True
+  include_costmap_obstacles: true
   costmap_obstacles_behind_robot_dist: 1.0
   obstacle_poses_affected: 30
   costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSMCCH"
@@ -57,7 +57,7 @@ TebLocalPlannerROS:
   #costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSMCCH"
   #costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
   #costmap_converter_plugin: "" # deactivate plugin
-  costmap_converter_spin_thread: True
+  costmap_converter_spin_thread: true
   costmap_converter_rate: 5
   # costmap_converter/CostmapToLinesDBSRANSAC:
   #    cluster_max_distance: 0.4
@@ -66,8 +66,8 @@ TebLocalPlannerROS:
      
   no_inner_iterations: 5
   no_outer_iterations: 4
-  optimization_activate: True
-  optimization_verbose: False
+  optimization_activate: true
+  optimization_verbose: false
   penalty_epsilon: 0.1
   weight_max_vel_x: 1
   weight_max_vel_y: 1
@@ -81,17 +81,17 @@ TebLocalPlannerROS:
   weight_optimaltime: 1
   weight_obstacle: 50
   weight_dynamic_obstacle: 10 # not in use yet
-  selection_alternative_time_cost: False 
+  selection_alternative_time_cost: false 
  
   # Homotopy Class Planner
  
-  enable_homotopy_class_planning: False
-  enable_multithreading: True
+  enable_homotopy_class_planning: false
+  enable_multithreading: true
   selection_cost_hysteresis: 1.0
   selection_obst_cost_scale: 100.0
   selection_prefer_initial_plan: 0.95
   selection_viapoint_cost_scale: 1.0
-  simple_exploration: False
+  simple_exploration: false
   max_number_classes: 4
   roadmap_graph_no_samples: 15
   roadmap_graph_area_width: 5
@@ -99,4 +99,4 @@ TebLocalPlannerROS:
   h_signature_threshold: 0.1
   obstacle_keypoint_offset: 0.1
   obstacle_heading_threshold: 0.45
-  visualize_hc_graph: False
+  visualize_hc_graph: false
