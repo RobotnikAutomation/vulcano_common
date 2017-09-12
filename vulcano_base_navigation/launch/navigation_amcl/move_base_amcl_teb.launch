@@ -3,7 +3,7 @@
 
   <param name="/use_sim_time" value="true"/>
   
-  <arg name="map" default="$(find flexbotics_demos_thomas_navigation)/maps/thomas_gazebo.yaml" />
+  <arg name="map" default="$(find flexbotics_demos_thomas_navigation)/maps/thomas_lms_world.yaml" />
   <arg name="gui" default="true" />
 
   <!-- Map Server -->
@@ -20,13 +20,13 @@
   	<rosparam file="$(find vulcano_base_navigation)/config_navigation/costmap_common_params.yaml" command="load" ns="local_costmap" />
   	<rosparam file="$(find vulcano_base_navigation)/config_navigation/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find vulcano_base_navigation)/config_navigation/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find vulcano_base_navigation)/config_navigation/teb_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find vulcano_base_navigation)/config_navigation/eb_local_planner_params.yaml" command="load" />
     
     <param name="base_global_planner" value="global_planner/GlobalPlanner" />
     <param name="planner_frequency" value="1.0" />
     <param name="planner_patience" value="5.0" />
 
-	  <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+	  <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
 	  <param name="controller_frequency" value="5.0" />
     <param name="controller_patience" value="15.0" />
   </node>
