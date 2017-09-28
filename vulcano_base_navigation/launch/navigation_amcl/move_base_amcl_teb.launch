@@ -1,34 +1,39 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!--  Global Parameters -->
   <param name="/use_sim_time" value="true"/>
-
-  <!-- Run the map server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find vulcano_base_navigation)/maps/willow_garage/willow_garage.yaml"/>
-
-  <!-- Run AMCL -->
-  <include file="$(find vulcano_base_navigation)/launch/navigation_amcl/amcl_vulcano_base.launch" />
-  <remap from="cmd_vel" to="cmd_vel" />
   
+  <arg name="map" default="$(find flexbotics_demos_thomas_navigation)/maps/thomas_lms_world.yaml" />
+  <arg name="gui" default="true" />
+
+  <!-- Map Server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)"/>
+
+  <!-- AMCL -->
+  <include file="$(find vulcano_base_navigation)/launch/navigation_amcl/amcl_vulcano_base.launch" />
+  <remap from="cmd_vel" to="/move_base/cmd_vel" />
+
+
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-  	<rosparam file="$(find vulcano_base_navigation)/config_navigation/diff_drive/costmap_common_params.yaml" command="load" ns="global_costmap" />
-  	<rosparam file="$(find vulcano_base_navigation)/config_navigation/diff_drive/costmap_common_params.yaml" command="load" ns="local_costmap" />
-  	<rosparam file="$(find vulcano_base_navigation)/config_navigation/diff_drive/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find vulcano_base_navigation)/config_navigation/diff_drive/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find vulcano_base_navigation)/config_navigation/diff_drive/teb_local_planner_params.yaml" command="load" />
+  	<rosparam file="$(find vulcano_base_navigation)/config_navigation/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	<rosparam file="$(find vulcano_base_navigation)/config_navigation/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  	<rosparam file="$(find vulcano_base_navigation)/config_navigation/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find vulcano_base_navigation)/config_navigation/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find vulcano_base_navigation)/config_navigation/eb_local_planner_params.yaml" command="load" />
     
     <param name="base_global_planner" value="global_planner/GlobalPlanner" />
     <param name="planner_frequency" value="1.0" />
     <param name="planner_patience" value="5.0" />
 
-	<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
-	<param name="controller_frequency" value="5.0" />
+	  <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
+	  <param name="controller_frequency" value="5.0" />
     <param name="controller_patience" value="15.0" />
   </node>
    
   <!-- Rviz -->
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find vulcano_base_navigation)/config_rviz/move_base.rviz"/>
+  <group if="$(arg gui)">
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find flexbotics_demos_thomas_navigation)/config_rviz/thomas_vulcano_sim.rviz"/>
+  </group>
   
 </launch>

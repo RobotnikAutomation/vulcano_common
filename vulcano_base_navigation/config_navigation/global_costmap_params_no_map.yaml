@@ -1,7 +1,7 @@
 #Independent settings for the planner's costmap
 global_costmap:
     publish_voxel_map: true
-    global_frame: odom
+    global_frame: map
     robot_base_frame: base_footprint
     update_frequency: 5.0
     publish_frequency: 1.0

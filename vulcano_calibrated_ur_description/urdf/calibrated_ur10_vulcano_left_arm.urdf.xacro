@@ -96,7 +96,8 @@
     <xacro:property name="left_arm_wrist_3_joint_a_offset" value="0.000227076" />
     <xacro:property name="left_arm_wrist_3_joint_b_offset" value="0.000358152" />
     <xacro:property name="left_arm_wrist_3_joint_c_offset" value="0.00527917" />
-    <xacro:macro name="left_arm_ur10_robot" params="prefix joint_limited shoulder_pan_lower_limit:=${-pi} shoulder_pan_upper_limit:=${pi} shoulder_lift_lower_limit:=${-pi} shoulder_lift_upper_limit:=${pi} elbow_joint_lower_limit:=${-pi} elbow_joint_upper_limit:=${pi} wrist_1_lower_limit:=${-pi} wrist_1_upper_limit:=${pi} wrist_2_lower_limit:=${-pi} wrist_2_upper_limit:=${pi} wrist_3_lower_limit:=${-pi} wrist_3_upper_limit:=${pi}">
+    <!--xacro:macro name="left_arm_ur10_robot" params="prefix joint_limited shoulder_pan_lower_limit:=${-pi} shoulder_pan_upper_limit:=${pi} shoulder_lift_lower_limit:=${-pi} shoulder_lift_upper_limit:=${pi} elbow_joint_lower_limit:=${-pi} elbow_joint_upper_limit:=${pi} wrist_1_lower_limit:=${-pi} wrist_1_upper_limit:=${pi} wrist_2_lower_limit:=${-pi} wrist_2_upper_limit:=${pi} wrist_3_lower_limit:=${-pi} wrist_3_upper_limit:=${pi}"-->
+	<xacro:macro name="left_arm_ur10_robot" params="prefix joint_limited shoulder_pan_lower_limit:=${-pi} shoulder_pan_upper_limit:=${pi} shoulder_lift_lower_limit:=${-pi} shoulder_lift_upper_limit:=${pi} elbow_joint_lower_limit:=${-pi} elbow_joint_upper_limit:=${pi} wrist_1_lower_limit:=${-2*pi} wrist_1_upper_limit:=${2*pi} wrist_2_lower_limit:=${-2*pi} wrist_2_upper_limit:=${2*pi} wrist_3_lower_limit:=${-2*pi} wrist_3_upper_limit:=${2*pi}">
         <link name="${prefix}base_link">
             <visual>
                 <geometry>
