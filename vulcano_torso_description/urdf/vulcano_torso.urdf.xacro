@@ -11,7 +11,8 @@
     <xacro:include filename="$(find vulcano_torso_description)/urdf/guidance/guidance.urdf.xacro"/>
     <xacro:include filename="$(find vulcano_torso_description)/urdf/pantilt/pantilt.urdf.xacro"/>
     <xacro:include filename="$(find vulcano_torso_description)/urdf/tube_support/tube_support.urdf.xacro"/>
-    <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+    <!--xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" /-->
+    <xacro:include filename="$(find vulcano_torso_description)/urdf/pantilt/kinectv2.urdf.xacro" />
     
     <xacro:macro name="vulcano_torso" params="prefix hq"> <!-- TODO: check hq variable -->
         <link name="${prefix}torso_base_link">
@@ -37,8 +38,26 @@
             <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
             </inertial>
         </link>
-        <xacro:pantilt prefix="${prefix}" parent="${prefix}torso_guidance_pantilt_link" hq="${hq}"/>
-       
+        
+        
+        <!-- CALIBRATION OFFSET -->
+        <joint name="${prefix}pantilt_offset_joint" type="fixed">
+          <origin xyz="0.03506 -0.01853 -0.00396" rpy="3.12736 -3.10935 3.13263"/>
+          <parent link="${prefix}torso_guidance_pantilt_link"/>
+          <child link="${prefix}pantilt_offset_link"/>
+          <axis xyz="0 0 1"/>
+        </joint>
+        <link name="${prefix}pantilt_offset_link">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0 "/>
+                <mass value="0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+            </inertial>
+        </link>
+        
+        <xacro:pantilt prefix="${prefix}" parent="${prefix}pantilt_offset_link" hq="${hq}"/>
+        <!--xacro:pantilt prefix="${prefix}" parent="${prefix}torso_guidance_pantilt_link" hq="${hq}"/-->
+        
         <!-- TODO: check kinect2 position -->
         <xacro:sensor_kinectv2 name="${prefix}torso_kinect" parent="${prefix}torso_pantilt_link" base="true">
             <origin xyz="0.01255 0 0.066" rpy="0 0 0"/>
