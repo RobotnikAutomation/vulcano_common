@@ -68,6 +68,9 @@
 -->
         </group>
 
+
+	<node name="lib_sensors_monitor_node" pkg="libsensors_monitor" type="libsensors_monitor" />
+
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
             <rosparam param="source_list">["left_arm/joint_states", "right_arm/joint_states", "torso_guidance/joint_states", "torso_pantilt/joint_states", "base/joint_states"]</rosparam>
         </node>
