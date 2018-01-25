@@ -1,0 +1,81 @@
+joint_limits:
+  front_left_wheel_traction_joint:
+    has_position_limits: false
+    has_velocity_limits: true
+    max_velocity: 27.27   # 3 m/s = 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+  
+  front_right_wheel_traction_joint:
+    has_position_limits: false
+    has_velocity_limits: true
+    max_velocity: 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+  
+  back_left_wheel_traction_joint:
+    has_position_limits: false
+    has_velocity_limits: true
+    max_velocity: 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+  
+  back_right_wheel_traction_joint:
+    has_position_limits: false
+    has_velocity_limits: true
+    max_velocity: 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+
+  front_left_wheel_steer_joint:
+    has_position_limits: true
+    max_position: 2.9
+    min_position: -2.9
+    has_velocity_limits: true
+    max_velocity: 27.27   # 3 m/s = 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+  
+  front_right_wheel_steer_joint:
+    has_position_limits: true
+    max_position: 2.9
+    min_position: -2.9
+    has_velocity_limits: true
+    max_velocity: 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+  
+  back_left_wheel_steer_joint:
+    has_position_limits: true
+    max_position: 2.9
+    min_position: -2.9
+    has_velocity_limits: true
+    max_velocity: 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+  
+  back_right_wheel_steer_joint:
+    has_position_limits: true
+    max_position: 2.9
+    min_position: -2.9
+    has_velocity_limits: true
+    max_velocity: 27.27
+    has_acceleration_limits: false
+    max_acceleration: 27.27
+    has_jerk_limits: false
+    has_effort_limits: false
+
