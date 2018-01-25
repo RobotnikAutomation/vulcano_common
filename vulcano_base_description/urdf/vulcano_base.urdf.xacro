@@ -20,11 +20,13 @@
     <!-- ***************** -->
     <!-- Global parameters -->
     <!-- ***************** -->  
+    <xacro:property name="vulcano_base_version" value="2.0" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+    
     <xacro:property name="PI" value="3.1415926535897931"/>
     <xacro:property name="deg2rad" value="0.01745329251"/>  
     
     <!-- Wheel parameters -->
-    <xacro:property name="wheel_offset_x" value="0.467" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+    <xacro:property name="wheel_offset_x" value="0.6165" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
     <xacro:property name="wheel_offset_y" value="0.285" />    
     <xacro:property name="wheel_offset_z" value="0.0" />
 
