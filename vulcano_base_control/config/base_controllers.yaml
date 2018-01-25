@@ -2,61 +2,38 @@ base_joint_read_state_controller:
   type: joint_state_controller/JointStateController 
   publish_rate: 100.0
 
-front_left_wheel_joint_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: front_left_wheel_joint
-
-front_left_motor_wheel_joint_controller:
-  type: position_controllers/JointPositionController
-  joint: front_left_motor_wheel_joint
-
-front_right_wheel_joint_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: front_right_wheel_joint
-
-front_right_motor_wheel_joint_controller:
-  type: position_controllers/JointPositionController
-  joint: front_right_motor_wheel_joint
-
-back_left_wheel_joint_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: back_left_wheel_joint
-
-back_left_motor_wheel_joint_controller:
-  type: position_controllers/JointPositionController
-  joint: back_left_motor_wheel_joint
-
-back_right_wheel_joint_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: back_right_wheel_joint
-
-back_right_motor_wheel_joint_controller:
-  type: position_controllers/JointPositionController
-  joint: back_right_motor_wheel_joint
-
-omni_drive_controller:
+base_controller:
   type: omni_drive_controller/OmniDriveController
-  joint:
-    front_right_wheel_joint:
-        max_speed: 20.0 # rad/s
-    front_left_wheel_joint:
-        max_speed: 20.0 # rad/s
-    back_right_wheel_joint:
-        max_speed: 20.0 # rad/s
-    back_left_wheel_joint:
-        max_speed: 20.0 # rad/s
-    front_right_motor_wheel_joint:
-        min_angle: -2.6 # rads
-        max_angle: 2.6
-    front_left_motor_wheel_joint:
-        min_angle: -2.6 # rads
-        max_angle: 2.6
-    back_right_motor_wheel_joint:
-        min_angle: -2.6 # rads
-        max_angle: 2.6
-    back_left_motor_wheel_joint:
-        min_angle: -2.6 # rads
-        max_angle: 2.6
+  traction:
+    front_right:
+      joint_name: front_right_wheel_traction_joint
+      max_speed: 20.0 # rad/s
+    front_left:
+      joint_name: front_left_wheel_traction_joint
+      max_speed: 20.0 # rad/s
+    back_right:
+      joint_name: back_right_wheel_traction_joint
+      max_speed: 20.0 # rad/s
+    back_left:
+      joint_name: back_left_wheel_traction_joint
+      max_speed: 20.0 # rad/s
+  steer:
+    front_right:
+      joint_name: front_right_wheel_steer_joint
+      min_angle: -2.6 # rads
+      max_angle: 2.6
+    front_left:
+      joint_name: front_left_wheel_steer_joint
+      min_angle: -2.6 # rads
+      max_angle: 2.6
+    back_right:
+      joint_name: back_right_wheel_steer_joint
+      min_angle: -2.6 # rads
+      max_angle: 2.6
+    back_left:
+      joint_name: back_left_wheel_steer_joint
+      min_angle: -2.6 # rads
+      max_angle: 2.6
   linear_speed_limit: 0.8
   linear_acceleration_limit: 1.0
   angular_speed_limit: 2.0
@@ -64,9 +41,40 @@ omni_drive_controller:
   odom_frame: odom
   robot_base_frame: base_footprint
   odom_broadcast_tf: true
-  wheel_base: 0.934
+  wheel_base: 0.6164
   track_width: 0.57
   wheel_diameter: 0.18512988951 # 0.185... calibrated, 0.186 from cad
   cmd_watchdog_duration: 0.2
   odom_publish_frequency: 100
 
+front_left_wheel_traction_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_left_wheel_traction_joint
+
+front_left_wheel_steer_joint_controller:
+  type: position_controllers/JointPositionController
+  joint: front_left_wheel_steer_joint
+
+front_right_wheel_traction_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_right_wheel_traction_joint
+
+front_right_wheel_steer_joint_controller:
+  type: position_controllers/JointPositionController
+  joint: front_right_wheel_steer_joint
+
+back_left_wheel_traction_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: back_left_wheel_traction_joint
+
+back_left_wheel_steer_joint_controller:
+  type: position_controllers/JointPositionController
+  joint: back_left_wheel_steer_joint
+
+back_right_wheel_traction_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: back_right_wheel_traction_joint
+
+back_right_wheel_steer_joint_controller:
+  type: position_controllers/JointPositionController
+  joint: back_right_wheel_steer_joint
