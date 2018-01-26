@@ -13,29 +13,8 @@
       <axis xyz="0 0 1"/>
     </joint>
     
-    <link name="${prefix}torso_guidance_base_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance/base.stl"/>
-        </geometry>
-       <material name="darkgrey">
-         <color rgba="0.1 0.1 0.1 1"/>
-       </material>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance/base.stl"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <origin xyz="0 0 -0.152" rpy="0 0 0"/>
-        <mass value="31"/>
-        <inertia ixx="0.404" ixy="0.0" ixz="0.006" iyy="0.403" iyz="0.0" izz="0.34"/>
-      </inertial>
-    </link>
-    
+    <link name="${prefix}torso_guidance_base_link"/>
+        
     <joint name="${prefix}torso_guidance_revolution_joint" type="revolute">
       <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
       <parent link="${prefix}torso_guidance_base_link"/>
@@ -60,7 +39,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance/main.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/guidance.stl"/>
         </geometry>
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
@@ -69,7 +48,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance/main.stl"/>
+          <mesh filename="package://vulcano_torso_description/meshes/guidance/guidance.stl"/>
         </geometry>
       </collision>
       <inertial>
@@ -80,11 +59,11 @@
     </link>
     
     <joint name="${prefix}torso_guidance_elevation_joint" type="prismatic">
-      <origin xyz="0 0 0.115" rpy="0 0 0"/>
+      <origin xyz="-0.1687 0 0.720" rpy="0 0 0"/>
       <parent link="${prefix}torso_guidance_revolution_link"/>
       <child link="${prefix}torso_guidance_elevation_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="0.0" upper="0.68" effort="100" velocity="0.08"/>
+      <limit lower="0.0" upper="0.6" effort="100" velocity="0.08"/>
       <dynamics friction="100000" damping="10000"/>
     </joint>
 
@@ -119,31 +98,6 @@
         <mass value="41"/>
         <inertia ixx="1.881" ixy="-0.004" ixz="0.084" iyy="1.122" iyz="-0.008" izz="1.295"/>
       </inertial>
-    </link>
-    
-    <joint name="${prefix}torso_tkd668_joint" type="fixed">
-      <origin xyz="0.164 0 0.449" rpy="0 0 0"/>
-      <parent link="${prefix}torso_guidance_elevation_link"/>
-      <child link="${prefix}torso_tkd668_link"/>
-      <axis xyz="0 0 1"/>
-    </joint>
-    
-    <link name="${prefix}torso_tkd668_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance/tkd668.stl"/>
-        </geometry>
-       <material name="darkgrey">
-         <color rgba="0.1 0.1 0.1 1"/>
-       </material>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://vulcano_torso_description/meshes/guidance/tkd668.stl"/>
-        </geometry>
-      </collision>
     </link>
   
   </xacro:macro>

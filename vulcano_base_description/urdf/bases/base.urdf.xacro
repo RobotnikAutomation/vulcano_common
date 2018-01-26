@@ -18,7 +18,7 @@
       </visual>
     </link>
 
-    <joint name="base_footprint_joint" type="fixed">
+    <joint name="${prefix}base_footprint_joint" type="fixed">
       <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
       <parent link="${prefix}base_footprint"/>
       <child link="${prefix}base_link" />
@@ -27,23 +27,18 @@
 
   <!-- BASE_LINK -->
   <link name="${prefix}base_link">
-    <inertial>
-      <mass value="184.0" />
-      <origin xyz="-0.004 0 -0.357" />
-      <inertia  ixx="13.113" ixy="0.131"  ixz="-0.010"  iyy="30.242"  iyz="0.0"  izz="41.3630" />
-    </inertial>
+    <!--<inertial>-->
+      <!--<mass value="184.0" />-->
+      <!--<origin xyz="-0.004 0 -0.357" />-->
+      <!--<inertia  ixx="13.113" ixy="0.131"  ixz="-0.010"  iyy="30.242"  iyz="0.0"  izz="41.3630" />-->
+    <!--</inertial>-->
     <visual>
        <origin xyz="0 0 0" rpy="0 0 0" />
-       <xacro:if value="${hq}">
+       <!--<xacro:if value="${hq}">-->
        <geometry>
-	     <mesh filename="package://vulcano_base_description/meshes/bases/vulcano_base_chassis.dae"/>
+	     <mesh filename="package://vulcano_base_description/meshes/bases/cabinet.stl"/>
        </geometry>
-       </xacro:if>
-       <xacro:unless value="${hq}">
-       <geometry>
-	     <mesh filename="package://vulcano_base_description/meshes/bases/vulcano_base_chassis.dae"/>
-       </geometry>
-       </xacro:unless>
+       <!--</xacro:if>-->
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
        </material>
@@ -51,46 +46,10 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://vulcano_base_description/meshes/bases/vulcano_base_chassis.dae"/>
+	     <mesh filename="package://vulcano_base_description/meshes/bases/cabinet.stl"/>
        </geometry>
     </collision>     
   </link>
-
-  <link name="${prefix}cabinet_link">
-    <inertial>
-      <mass value="96.0" />
-      <origin xyz="-0.089 -0.001 0.00417" />
-      <inertia  ixx="10.783" ixy="-0.137"  ixz="-1.976"  iyy="18.311"  iyz="0.042"  izz="19.866" />
-    </inertial>
-    <visual>
-       <origin xyz="0 0 0" rpy="0 0 0" />
-       <xacro:if value="${hq}">
-       <geometry>
-	     <mesh filename="package://vulcano_base_description/meshes/bases/vulcano_base_cabinet.dae"/>
-       </geometry>
-       </xacro:if>
-       <xacro:unless value="${hq}">
-       <geometry>
-	     <mesh filename="package://vulcano_base_description/meshes/bases/vulcano_base_cabinet.dae"/>
-       </geometry>
-       </xacro:unless>
-       <material name="darkgrey">
-         <color rgba="0.1 0.1 0.1 1"/>
-       </material>
-    </visual>  
-    <collision>
-       <origin xyz="0 0 0" rpy="0 0 0 " />
-       <geometry>
-         <mesh filename="package://vulcano_base_description/meshes/bases/vulcano_base_cabinet.dae"/>
-       </geometry>
-    </collision>     
-  </link>
-
-  <joint name="${prefix}cabinet_joint" type="fixed">
-    <origin xyz="0 0 0.234" rpy="0 0 0" /> 
-    <parent link="${prefix}base_link"/>
-    <child link="${prefix}cabinet_link" />
-  </joint>    
 
   </xacro:macro>
 </robot>
