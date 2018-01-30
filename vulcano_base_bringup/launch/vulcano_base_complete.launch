@@ -44,5 +44,7 @@
 
 <!--        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
         <include file="$(find vulcano_base_bringup)/launch/vulcano_io_bridge.launch" />
+        
+	<include file="$(find vulcano_base_bringup)/launch/vulcano_br_io_modbus.launch" />
 
 </launch>
