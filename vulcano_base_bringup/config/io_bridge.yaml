@@ -1,0 +1,21 @@
+robotnik_io_bridge:
+  # IO States Publish Rate
+  publish_rate: 10.0
+
+  # Plugin to be loaded
+  plugin_type: robotnik_io_bridge/RobotnikIOBridge
+
+  # Device Name
+  device_name: robotnik_io_bridge
+
+  # Number of digital input
+  nb_digital_in: 16
+
+  # Number of digital ouput
+  nb_digital_out: 16
+
+  # Number of analog input
+  nb_analog_in: 0
+
+  # Number of analog output
+  nb_analog_out: 0
