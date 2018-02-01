@@ -2,6 +2,10 @@ base_joint_read_state_controller:
   type: joint_state_controller/JointStateController 
   publish_rate: 100.0
 
+base_joint_read_command_controller:
+  type: joint_read_command_controller/JointReadCommandController 
+#  publish_rate: 100.0
+
 base_controller:
   type: omni_drive_controller/OmniDriveController
   traction:
@@ -78,3 +82,11 @@ back_right_wheel_traction_controller:
 back_right_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
   joint: back_right_wheel_steer_joint
+
+base_steer_joint_trajectory_controller:
+   type: position_controllers/JointTrajectoryController
+   joints:
+     - front_right_wheel_steer_joint
+     - front_left_wheel_steer_joint
+     - back_right_wheel_steer_joint
+     - back_left_wheel_steer_joint
