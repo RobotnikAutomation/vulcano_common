@@ -178,7 +178,7 @@ var torso_status_codes = ["SBM (SYSTEM READY)", //0
 ];
 
 var ros = new ROSLIB.Ros({
-    url : 'ws://vulcano-base:9090'
+    url : 'ws://vulcano:9090'
     //url: 'ws://localhost:9090'
 });
 
@@ -263,8 +263,8 @@ odometry_listener.subscribe(function(message) {
 // Motor Status topic
 var motor_status_listener = new ROSLIB.Topic({
     ros: ros,
-    name: '/base/vulcano_base_hw/status',
-    messageType: 'vulcano_base_hw/VulcanoMotorsStatus'
+    name: '/base/robotnik_base_hw/status',
+    messageType: 'robotnik_msgs/RobotnikMotorsStatus'
 });
 
 // Motor Status Listener

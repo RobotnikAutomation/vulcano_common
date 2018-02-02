@@ -9,17 +9,20 @@
     </group>
     
     <group unless="$(arg omni)">
-        <node name="front_left_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_left_wheel_traction_controller" respawn="false" output="screen"/>
-        <node name="front_left_wheel_steer_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_left_wheel_steer_joint_controller" respawn="false" output="screen"/>
-        <node name="front_right_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_right_wheel_traction_controller" respawn="false" output="screen"/>
+        <!-- node name="front_left_wheel_steer_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_left_wheel_steer_joint_controller" respawn="false" output="screen"/>
         <node name="front_right_wheel_steer_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_right_wheel_steer_joint_controller" respawn="false" output="screen"/>
-        
-        <node name="back_left_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn back_left_wheel_traction_controller" respawn="false" output="screen"/>
         <node name="back_left_wheel_steer_spawner" pkg="controller_manager" type="controller_manager" args="spawn back_left_wheel_steer_joint_controller" respawn="false" output="screen"/>
+        <node name="back_right_wheel_steer_spawner" pkg="controller_manager" type="controller_manager" args="spawn back_right_wheel_steer_joint_controller" respawn="false" output="screen"/-->
+
+        <node name="base_steer_trajectory_spawner" pkg="controller_manager" type="controller_manager" args="spawn base_steer_joint_trajectory_controller" respawn="false" output="screen"/>
+        
+	<node name="front_right_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_right_wheel_traction_controller" respawn="false" output="screen"/>
+        <node name="front_left_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn front_left_wheel_traction_controller" respawn="false" output="screen"/>
+        <node name="back_left_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn back_left_wheel_traction_controller" respawn="false" output="screen"/>
         <node name="back_right_wheel_traction_spawner" pkg="controller_manager" type="controller_manager" args="spawn back_right_wheel_traction_controller" respawn="false" output="screen"/>
-        <node name="back_right_wheel_steer_spawner" pkg="controller_manager" type="controller_manager" args="spawn back_right_wheel_steer_joint_controller" respawn="false" output="screen"/>
     </group>
 
     <node name="base_joint_read_state_spawner" pkg="controller_manager" type="controller_manager" args="spawn base_joint_read_state_controller" respawn="false" output="screen"/>
+    <node name="base_joint_read_command_spawner" pkg="controller_manager" type="controller_manager" args="spawn base_joint_read_command_controller" respawn="false" output="screen"/>
     
 </launch>

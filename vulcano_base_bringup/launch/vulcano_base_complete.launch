@@ -2,7 +2,7 @@
 <launch>
 
     <arg name="publish_state" default="false" />    
-    <arg name="omni" default="true" />
+    <arg name="omni" default="false" />
    
     <!-- load description and publish state-->
     <param name="robot_description"
@@ -24,10 +24,10 @@
         </include>
     </group>
     
-    <!--<include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />-->
+    <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
 
     <!-- things that come from generic packages, such as the laser sensors, the io module... -->
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_joy.launch" />-->
+    <include file="$(find vulcano_base_bringup)/launch/vulcano_base_joy.launch" />
 
     <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />-->
     
