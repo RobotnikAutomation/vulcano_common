@@ -31,7 +31,7 @@
 
     <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />-->
     
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_lasers.launch" />-->
+    <include file="$(find vulcano_base_bringup)/launch/vulcano_base_lasers.launch" />
     
     <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_imu.launch" />-->
         
