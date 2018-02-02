@@ -45,7 +45,7 @@ base_controller:
   odom_frame: odom
   robot_base_frame: base_footprint
   odom_broadcast_tf: true
-  wheel_base: 0.6164
+  wheel_base: 1.233
   track_width: 0.57
   wheel_diameter: 0.18512988951 # 0.185... calibrated, 0.186 from cad
   cmd_watchdog_duration: 0.2
