@@ -29,17 +29,17 @@
     <!-- things that come from generic packages, such as the laser sensors, the io module... -->
     <include file="$(find vulcano_base_bringup)/launch/vulcano_base_joy.launch" />
 
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />-->
+    <include file="$(find vulcano_base_bringup)/launch/vulcano_base_io.launch" />
     
     <include file="$(find vulcano_base_bringup)/launch/vulcano_base_lasers.launch" />
     
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_imu.launch" />-->
+    <include file="$(find vulcano_base_bringup)/launch/vulcano_base_imu.launch" />
         
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />-->
+    <include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />
         
     <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />-->
 
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />-->
+    <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
 
     <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
        

@@ -4,12 +4,12 @@
   <rosparam command="load" file="$(find vulcano_io_managers)/config/io_mapping.yaml" />
 
   <node pkg="robotnik_modbus_io" type="robotnik_modbus_io_node" name="io" output="screen">
-    <param name="ip_address" type="string" value="192.168.0.20" />
+    <param name="ip_address" type="string" value="192.168.0.215" />
     <param name="port" value="502"/>
-    <param name="digital_inputs_addr" value="06" />
+    <param name="digital_inputs_addr" value="0" />
     <param name="digital_outputs_addr" value="10"/>
-    <param name="digital_inputs" value="32"/>
-    <param name="digital_outputs" value="16"/>
+    <param name="digital_inputs" value="80"/>
+    <param name="digital_outputs" value="80"/>
     <param name="big_endian" value="false"/>
   </node>
   
