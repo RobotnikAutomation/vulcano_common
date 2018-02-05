@@ -13,15 +13,21 @@ var trim_angle = default_trim_angle;
 var trim_angle_message;
 var max_angle_defined = false;
 var trim_angle_defined = false;
-var battery_level = 0.0;
-var battery_level_corrected;
-var maximum_battery_level = 27.2;
-var minimum_battery_level = 22.5;
+var battery_voltage_drive = 0.0
+var battery_level_drive = 0.0;
+var battery_level_drive_corrected;
+var maximum_battery_level_drive = 50;
+var minimum_battery_level_drive = 45;
+var battery_level_inverter = 0.0;
+var battery_voltage_inverter = 0.0;
+var battery_level_inverter_corrected;
 var battery_status = false;
 var min_radius = 0.0;
 var reverse_direction = false;
 var deactivate_imu_msg;
 var imu_state = false;
+var imu_message = false;
+var imu_timestamp = Date.now();
 var limit_temperature = 60.0;
 var x_position;
 var y_position;
@@ -184,39 +190,51 @@ var ros = new ROSLIB.Ros({
 
 
 //battery topic
-var battery_listener = new ROSLIB.Topic({
+var battery_listener_drive = new ROSLIB.Topic({
     ros: ros,
-    name: 'battery/battery_state',
-    messageType: 'sensor_msgs/BatteryState'
+    name: '/base/robotnik_base_hw/battery',
+    messageType: 'std_msgs/Float32'
 });
 
-battery_listener.subscribe(function(message) {
-    battery_level = message.percentage * 100;
+battery_listener_drive.subscribe(function(message) {
+    battery_level_drive = 100.0*(message.data-minimum_battery_level_drive)/(maximum_battery_level_drive-minimum_battery_level_drive); //message.percentage * 100;
+    battery_voltage_drive = Number((message.data).toFixed(1));
+});
+
+var battery_listener_inverter = new ROSLIB.Topic({
+    ros: ros,
+    name: '/inverter/inverter_status',
+    messageType: 'robotnik_msgs/InverterStatus'
+});
+
+battery_listener_inverter.subscribe(function(message) {
+    battery_level_inverter = message.percentage * 100;
+    battery_voltage_inverter = Number((message.dc_voltage).toFixed(1));
 });
 
 //imu state topic
 var imuStateListener = new ROSLIB.Topic({
     ros: ros,
-    name: '/imu/data_ok',
-    messageType: 'std_msgs/Bool'
+    name: '/mavros/imu/data_raw',
+    messageType: 'sensor_msgs/Imu'
 });
 
 // IMU State
 imuStateListener.subscribe(function(message) {
-
-
-    //console.log(message.data);
-    if (message.data == true && !imu_state) {
-        //document.querySelector('#imu_status span').innerHTML = "OK";
-        document.querySelector('#imu_status span').innerHTML = "<img width=30  height=30 src=images/light-green-flash.jpg border=\"0\">";
-        imu_state = true;
-
-    }
-    if (message.data == false && imu_state) {
-        //document.querySelector('#imu_status span').innerHTML = "FAILURE";
-        document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif border=\"0\">";
-        imu_state = false;
-    }
+    imu_message = message;
+    imu_timestamp = Date.now();
+//    //console.log(message.data);
+//    if (message.data == true && !imu_state) {
+//        //document.querySelector('#imu_status span').innerHTML = "OK";
+//        document.querySelector('#imu_status span').innerHTML = "<img width=30  height=30 src=images/light-green-flash.jpg border=\"0\">";
+//        imu_state = true;
+//
+//    }
+//    if (message.data == false && imu_state) {
+//        //document.querySelector('#imu_status span').innerHTML = "FAILURE";
+//        document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif border=\"0\">";
+//        imu_state = false;
+//    }
 });
 
 // Odometry topic
@@ -311,50 +329,50 @@ motor_status_listener.subscribe(function(message) {
 
 
     // space is required for the comparison
-    if (flw_data[1] == "OPERATION_ENABLED ") {
+    if (flw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (blw_data[1] == "OPERATION_ENABLED ") {
+    if (blw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (frw_data[1] == "OPERATION_ENABLED ") {
+    if (frw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (brw_data[1] == "OPERATION_ENABLED ") {
+    if (brw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
     // space is required for the comparison
-    if (flw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (flw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (blw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (blw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (frw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (frw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (brw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (brw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
@@ -366,7 +384,7 @@ motor_status_listener.subscribe(function(message) {
 var torso_status_listener = new ROSLIB.Topic({
     ros: ros,
     name: '/torso_guidance/vulcano_torso_hw/status',
-    messageType: 'vulcano_base_hw/VulcanoMotorsStatus'
+    messageType: 'robotnik_msgs/RobotnikMotorsStatus'
 });
 
 torso_status_listener.subscribe(function(message) {
@@ -486,22 +504,35 @@ function mainLoop() {
 
 	// TODO: check battery
     $("#progressbar_battery").progressbar({
-        value: battery_level
+        value: battery_level_inverter
     });
 
+    if (Date.now() - imu_timestamp < 1000) {
+        //document.querySelector('#imu_status span').innerHTML = "OK";
+        document.querySelector('#imu_status span').innerHTML = "<img width=30  height=30 src=images/light-green-flash.jpg border=\"0\">";
+        imu_state = true;
+
+    }
+    else {
+        //document.querySelector('#imu_status span').innerHTML = "FAILURE";
+        document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif border=\"0\">";
+        imu_state = false;
+    }
 	
 
 
     // update battery
     // -------------
-    battery_level = Math.round(battery_level);
-    document.querySelector('#battery_status span').innerHTML = battery_level;
+    battery_level_drive = Math.round(battery_level_drive);
+    document.querySelector('#battery_status span').innerHTML = battery_level_inverter;
+    document.querySelector('#battery_voltage_drive span').innerHTML = battery_voltage_drive;
+    document.querySelector('#battery_voltage_inverter span').innerHTML = battery_voltage_inverter;
 
-    if (battery_level < 23.0 && battery_status) {
+    if (battery_level_drive < 23.0 && battery_status) {
         document.querySelector('#battery_ok span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
         battery_status = false;
         //console.log("Bateria not ok");
-    } else if (battery_level >= 23.0 && !battery_status) {
+    } else if (battery_level_drive >= 23.0 && !battery_status) {
         document.querySelector('#battery_ok span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
         //console.log("Bateria ok");
         battery_status = true;
@@ -1047,7 +1078,7 @@ $(document).ready(function() {
 
     //Progress bars
     $("#progressbar_battery").progressbar({
-        value: battery_level
+        value: battery_level_drive
     });
     $("#progressbar_battery").progressbar("option", "max", 100.0);
 
