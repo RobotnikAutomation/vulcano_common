@@ -311,7 +311,9 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		vel.linear.x = current_vel*l_scale_*joy->axes[linear_x_];
-		vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
+		if (kinematic_mode_ == 2) {
+			vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
+		}
 
 		if(joystick_dead_zone_=="true")
 		{
