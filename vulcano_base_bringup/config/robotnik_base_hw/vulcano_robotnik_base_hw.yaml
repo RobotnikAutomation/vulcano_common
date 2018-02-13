@@ -24,7 +24,7 @@ robotnik_base_hw:
 
   joint_spin: [1,1,1,1,1,1,1,1]
 
-  joint_home_required: [false, false, false, false, false, false, false, false]
+  joint_home_required: [false, false, false, false, true, true, true, true]
 
   # Control loop params - don't change unless you know what you are doing
    
