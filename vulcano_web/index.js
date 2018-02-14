@@ -64,6 +64,8 @@ var torso_rotation_data_history = ["", "", "", ""];
 // digital inputs/outputs
 var digital_inputs = [];
 var digital_outputs = [];
+var enabled_inputs = []; // now is an array from 145-151
+var enabled_outputs = []; // now is an array from 1-17 
 
 //controller options
 var gearbox_reduction = 12.52;
@@ -419,17 +421,23 @@ var io_listener = new ROSLIB.Topic({
 });
 
 io_listener.subscribe(function(message) {
-	for (var i = 0; i < message.digital_inputs.length; i++) {
-		var text = "<b>1</b>";
-		if (message.digital_inputs[i] == false)
-			text = "0";
-		document.getElementById("digital_input_status_" + (i+1)).innerHTML = text;
+	for (var i = 0; i < enabled_inputs.length; i++) {
+		var text = "";
+		if (enabled_inputs[i] < message.digital_inputs.length + 1) {
+			text ="<b>1</b>";
+			if (message.digital_inputs[enabled_inputs[i]-1] == false)
+				text = "0";
+		}
+		document.getElementById("digital_input_status_" + (enabled_inputs[i])).innerHTML = text;
 	}
-	for (var i = 0; i < message.digital_outputs.length; i++) {
-		var text = "<b>1</b>";
-		if (message.digital_outputs[i] == false)
-			text = "0";
-		document.getElementById("digital_output_status_" + (i+1)).innerHTML = text;
+	for (var i = 0; i < enabled_outputs.length; i++) {
+		var text = "";
+		if (enabled_outputs[i] < message.digital_outputs.length + 1) {
+			text ="<b>1</b>";
+			if (message.digital_outputs[enabled_outputs[i]-1] == false)
+				text = "0";
+		}
+		document.getElementById("digital_output_status_" + (enabled_outputs[i])).innerHTML = text;
 	}
 
 });
@@ -1098,45 +1106,82 @@ $(document).ready(function() {
 
 
 	// init io table
-	var number_of_digital_inputs = 16;
-	for(var i=1; i<= number_of_digital_inputs; i++) { // check! is <= not, <!!
+	// enabled inputs from 17 to 22, 25 to 28, 97 to 100, 105 to 106, 145 to 151
+	for(var i=17; i<= 22; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
 		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
 	}
-	
-	var number_of_digital_outputs = 16;
-	for(var i=1; i <= number_of_digital_outputs; i++) {
+	for(var i=25; i<= 28; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	for(var i=97; i<= 100; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	for(var i=105; i<= 106; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	for(var i=145; i<= 151; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	// enabled outputs from 1 to 17	
+	for(var i=1; i <= 17; i++) {
+		enabled_outputs.push(i);
 		$('#digital_outputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_output_name_"+i+"\"> OUTPUT_" + i + " </div> </td> <td> <div id=\"digital_output_status_"+i+"\"> NA </div> </td> </tr>");
 	}
-	
+  
+  
 	// it would be nicer to read the io names from the param server, but 
 	// roslibjs reads params with a callback that receives the value of the
 	// param, without the name of the param, so we hardcode it hear
-	document.getElementById("digital_input_name_1").innerHTML = "E_STOP";
-	document.getElementById("digital_input_name_2").innerHTML = "LASER_STOP";
-	document.getElementById("digital_input_name_3").innerHTML = "BACK_SWITCH_LEFT";
-	document.getElementById("digital_input_name_4").innerHTML = "BACK_SWITCH_RIGHT";
-	document.getElementById("digital_input_name_5").innerHTML = "TORSO_INPUT_1";
-	document.getElementById("digital_input_name_6").innerHTML = "TORSO_INPUT_2";
-	document.getElementById("digital_input_name_7").innerHTML = "FRONT_CONNECTOR_1";
-	document.getElementById("digital_input_name_8").innerHTML = "FRONT_CONNECTOR_2";
-	document.getElementById("digital_input_name_9").innerHTML = "PRESSURE_OK";
+	document.getElementById("digital_input_name_17").innerHTML = "E-STOP REMOTE";
+	document.getElementById("digital_input_name_18").innerHTML = "E-STOP LOCAL";
+	document.getElementById("digital_input_name_19").innerHTML = "LASER STOP";
+	document.getElementById("digital_input_name_20").innerHTML = "XX";
+	document.getElementById("digital_input_name_21").innerHTML = "LASER MUTE 1";
+	document.getElementById("digital_input_name_22").innerHTML = "LASER MUTE 2";
 	
-	document.getElementById("digital_output_name_1").innerHTML = "ELECTROVALVE_1";
-	document.getElementById("digital_output_name_2").innerHTML = "ELECTROVALVE_2";
-	document.getElementById("digital_output_name_3").innerHTML = "ELECTROVALVE_3";
-	document.getElementById("digital_output_name_4").innerHTML = "ELECTROVALVE_4";
-	document.getElementById("digital_output_name_5").innerHTML = "ELECTROVALVE_5";
-	document.getElementById("digital_output_name_6").innerHTML = "ELECTROVALVE_6";
-	document.getElementById("digital_output_name_7").innerHTML = "FLASHING_LIGHT_1";
-	document.getElementById("digital_output_name_8").innerHTML = "FLASHING_LIGHT_2";
-	document.getElementById("digital_output_name_9").innerHTML = "FRONT_CONNECTOR_1";
-	document.getElementById("digital_output_name_9").innerHTML = "RESERVED";
-	document.getElementById("digital_output_name_11").innerHTML = "PILOT_LIGHT";
-	document.getElementById("digital_output_name_12").innerHTML = "BUZZER";
-	document.getElementById("digital_output_name_13").innerHTML = "AIR_PUMP";
-	document.getElementById("digital_output_name_14").innerHTML = "LOWER_FAN";
-	document.getElementById("digital_output_name_15").innerHTML = "UPPER_FAN";
-	document.getElementById("digital_output_name_16").innerHTML = "SAFETY_RELAY";
+	document.getElementById("digital_input_name_25").innerHTML = "E-STOP REMOTE";
+	document.getElementById("digital_input_name_26").innerHTML = "E-STOP LOCAL";
+	document.getElementById("digital_input_name_27").innerHTML = "LASER STOP";
+	document.getElementById("digital_input_name_28").innerHTML = "RESET";
+
+	document.getElementById("digital_input_name_97").innerHTML = "ARM STOP";
+	document.getElementById("digital_input_name_98").innerHTML = "WHEEL SUPPLY";
+	document.getElementById("digital_input_name_99").innerHTML = "TORSO SUPPLY";
+	document.getElementById("digital_input_name_100").innerHTML = "WHEEL STOP";
+
+	document.getElementById("digital_input_name_105").innerHTML = "K23";
+	document.getElementById("digital_input_name_106").innerHTML = "EV";
+
+	document.getElementById("digital_input_name_145").innerHTML = "SAFETY_BASE_OK";
+	document.getElementById("digital_input_name_146").innerHTML = "SAFETY_TORSO_OK";
+	document.getElementById("digital_input_name_147").innerHTML = "SAFETY_LASER_OK";
+	document.getElementById("digital_input_name_148").innerHTML = "SAFETY_LASER_WARNING";
+	document.getElementById("digital_input_name_149").innerHTML = "SAFETY_LEFT_ARM_OK";
+	document.getElementById("digital_input_name_150").innerHTML = "SAFETY_RIGHT_ARM_OK";
+	document.getElementById("digital_input_name_151").innerHTML = "PRESSURE_OK";
+	
+	document.getElementById("digital_output_name_1").innerHTML =  "LEFT_ARM_ON";
+	document.getElementById("digital_output_name_2").innerHTML =  "LEFT_ARM_OFF";
+	document.getElementById("digital_output_name_3").innerHTML =  "RIGHT_ARM_ON";
+	document.getElementById("digital_output_name_4").innerHTML =  "RIGHT_ARM_OFF";
+	document.getElementById("digital_output_name_5").innerHTML =  "LEFT_ARM_OUT_1";
+	document.getElementById("digital_output_name_6").innerHTML =  "RIGHT_ARM_OUT_1";
+	document.getElementById("digital_output_name_7").innerHTML =  "LEFT_ARM_OUT_2";
+	document.getElementById("digital_output_name_8").innerHTML =  "RIGHT_ARM_OUT_2";
+	document.getElementById("digital_output_name_9").innerHTML =  "FAN_1";
+	document.getElementById("digital_output_name_10").innerHTML =  "FAN_2";
+	document.getElementById("digital_output_name_11").innerHTML = "FAN_3";
+	document.getElementById("digital_output_name_12").innerHTML = "FLASHING_LIGHT_1";
+	document.getElementById("digital_output_name_13").innerHTML = "FLASHING_LIGHT_2";
+	document.getElementById("digital_output_name_14").innerHTML = "RESET_LIGHT";
+	document.getElementById("digital_output_name_15").innerHTML = "BUZZER";
+	document.getElementById("digital_output_name_16").innerHTML = "RESET_TORSO";
+	document.getElementById("digital_output_name_17").innerHTML = "LOW_SPEED_SAFETY_RELAY";
 
     //init messages
     max_angle_message = new ROSLIB.Message({
