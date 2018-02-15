@@ -5,4 +5,6 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/vulcano.srdf
   CONFIG:
-    generated_timestamp: 1481117068
+    author_name: Robotnik
+    author_email: support@robotnik.es
+    generated_timestamp: 1518643567
