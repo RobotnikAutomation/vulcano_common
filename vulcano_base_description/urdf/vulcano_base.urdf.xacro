@@ -62,11 +62,11 @@
         </xacro:sensor_imu>
 
         <xacro:sensor_sick_s300 prefix="${prefix}front_left_laser" parent="${prefix}base_link">
-            <origin xyz="0.75631 0.34581 0.29376" rpy="${180*deg2rad} 0 ${45*deg2rad}"/>
+            <origin xyz="0.75631 0.34581 0.30676" rpy="${180*deg2rad} 0 ${45*deg2rad}"/>
         </xacro:sensor_sick_s300>
         
         <xacro:sensor_sick_s300 prefix="${prefix}back_right_laser" parent="${prefix}base_link">
-            <origin xyz="-0.75631 -0.34581 0.29376" rpy="${180*deg2rad} 0 ${225*deg2rad}"/>
+            <origin xyz="-0.75631 -0.34581 0.30676" rpy="${180*deg2rad} 0 ${225*deg2rad}"/>
         </xacro:sensor_sick_s300>
         
    </xacro:macro>    
