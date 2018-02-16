@@ -17,7 +17,7 @@
   <arg name="tool_frame" default="$(arg prefix)tool0_controller" />
 
   <!-- Load hardware interface -->
-  <node name="$(arg prefix)hardware_interface" pkg="ur_modern_driver" type="ur_driver" output="screen" launch-prefix="$(arg launch_prefix)">
+  <node name="$(arg prefix)hardware_interface" pkg="ur_modern_driver" type="ur_driver" output="screen" launch-prefix="$(arg launch_prefix)" respawn="true" respawn-delay="10">
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="reverse_port" type="int" value="$(arg reverse_port)"/>
     <param name="min_payload" type="double" value="$(arg min_payload)"/>
