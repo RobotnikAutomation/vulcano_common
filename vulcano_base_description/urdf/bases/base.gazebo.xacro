@@ -1,41 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="omni_steering">
-		<gazebo>
-	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
-		  <robotNamespace>/vulcano_base</robotNamespace>
-	      <commandTopic>/vulcano_base_control/cmd_vel</commandTopic>  
-	      <odometryTopic>/vulcano_base/odom</odometryTopic>
-	      <odometryFrame>odom</odometryFrame>
-	      <odometryRate>20.0</odometryRate>
-	      <robotBaseFrame>base_footprint</robotBaseFrame>
-	    </plugin>
-	  </gazebo>
-  </xacro:macro>
-
-  <xacro:macro name="omni_drive">
-		<gazebo>
-		<plugin name="omni_drive" filename="libomnidrive_plugin.so">
-			<!--<robotNamespace>/vulcano_base</robotNamespace>-->
-			<!--<robotParam>robot_description</robotParam>-->
-			<broadcastTF>1</broadcastTF>
-			<wheelDiameter>0.15</wheelDiameter>
-			<wheelBase>0.933</wheelBase>
-			<trackWidth>0.57</trackWidth>
-			<wheelTorque>40.0</wheelTorque>
-			<motorWheelTorque>25.0</motorWheelTorque>			
-			<commandTopic>cmd_vel</commandTopic>  <!-- TODO: review topics -->
-			<odometryTopic>odom</odometryTopic>
-			<odometryFrame>odom</odometryFrame>
-			<odometrySource>encoder</odometrySource>
-			<robotBaseFrame>base_footprint</robotBaseFrame>
-			<updateRate>100.0</updateRate>
-		</plugin>
-		</gazebo>
-  </xacro:macro>
-	  
-
   <gazebo reference="base_footprint">
     <material>Gazebo/Green</material>
   </gazebo>
