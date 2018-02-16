@@ -15,13 +15,14 @@
             </node>
         </group>
           
-        <group ns="base"> 
-            <include file="$(find vulcano_base_hw)/launch/vulcano_base_hw.launch"/>
-            <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
-                <arg name="omni" value="$(arg omni)" />
-            </include>
-        </group>
-       
+    <group ns="base"> 
+        <include file="$(find vulcano_base_bringup)/launch/robotnik_base_hw.launch">
+            <!--<arg name="debug" value="true" />-->
+        </include>
+        <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
+            <arg name="omni" value="$(arg omni)" />
+        </include>
+    </group>
         <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
        
 
@@ -36,10 +37,10 @@
         
 	<include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />
         
-	<include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />
+    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />-->
 
         <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
 
-        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />
+    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
        
 </launch>

@@ -8,7 +8,7 @@
         <param name="devicename" value="/dev/ttyUSB_FRONT_LEFT_LASER"/>
         <param name="baudrate" value="$(arg baudrate)"/>
         <param name="frame" value="front_left_laser_link" />
-        <param name="send_transform" value="0" />
+        <param name="send_transform" value="false" />
         <remap from="laserscan" to="front_left_laser/scan" /> <!-- because the node publishes it through the public node handle -->
     </node>
     <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="front_left_laser_filter_bounds">
@@ -23,7 +23,7 @@
         <param name="devicename" value="/dev/ttyUSB_BACK_RIGHT_LASER"/>
         <param name="baudrate" value="$(arg baudrate)"/>
         <param name="frame" value="back_right_laser_link" />
-        <param name="send_transform" value="0" />
+        <param name="send_transform" value="false" />
         <remap from="laserscan" to="back_right_laser/scan" /> <!-- because the node publishes it through the public node handle -->
     </node>
     <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="back_right_laser_filter_bounds">
@@ -32,7 +32,7 @@
         <remap from="scan_filtered" to="back_right_laser/scan_filtered" />
     </node>
     
-    <node pkg="ira_laser_tools" type="laserscan_multi_merger" name="merged_laser" output="log">
+    <!--node pkg="ira_laser_tools" type="laserscan_multi_merger" name="merged_laser" output="log">
         <param name="angle_min" value="-3.1415" />
         <param name="angle_max" value="3.1415" />
         <param name="destination_frame" value="merged_base_laser_link"/>
@@ -41,6 +41,6 @@
         <param name="check_topic_type" value="false" />
 
         <param name="laserscan_topics" value="back_right_laser/scan_filtered front_left_laser/scan_filtered" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
-    </node>
+    </node-->
 
 </launch>
