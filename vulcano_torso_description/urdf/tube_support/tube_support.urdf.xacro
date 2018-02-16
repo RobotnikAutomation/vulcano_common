@@ -3,7 +3,7 @@
   <!-- Define the tube support -->
   <xacro:macro name="tube_support" params="prefix parent *origin *box">
     <joint name="${prefix}tube_support_joint" type="fixed">
-        <insert_block name="origin" />
+        <xacro:insert_block name="origin" />
         <parent link="${parent}" />
         <child link="${prefix}tube_support_link"/>
     </joint>
@@ -12,7 +12,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-            <insert_block name="box" />
+            <xacro:insert_block name="box" />
         </geometry>
       </collision>    
       <!--<inertial>-->

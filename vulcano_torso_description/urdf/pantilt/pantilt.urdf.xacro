@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:property name="deg2rad" value="0.01745329251"/>
 
   <!-- Define the torso -->
   <xacro:macro name="pantilt" params="prefix parent hq">
@@ -74,7 +73,7 @@
       <parent link="${prefix}torso_pantilt_pan_base_link"/>
       <child link="${prefix}torso_pantilt_pan_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-55*deg2rad}" upper="${55*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="-0.95" upper="0.95" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
 	
@@ -115,11 +114,11 @@
     
     <!-- TILT JOINT/LINK -->
     <joint name="${prefix}torso_pantilt_tilt_joint" type="revolute">
-      <origin xyz="0.0 -0.027 0.0" rpy="${-90*deg2rad} 0 0"/>
+      <origin xyz="0.0 -0.027 0.0" rpy="-1.57 0 0"/>
       <parent link="${prefix}torso_pantilt_pan_link"/>
       <child link="${prefix}torso_pantilt_tilt_base_link"/>
       <axis xyz="0 0 1"/>
-      <limit lower="${-40*deg2rad}" upper="${70*deg2rad}" effort="100" velocity="100"/>
+      <limit lower="-1.26" upper="1.26" effort="100" velocity="100"/>
       <dynamics friction="1000" damping="1000"/>
     </joint>
 	
@@ -159,7 +158,7 @@
     </link>
     
     <joint name="${prefix}torso_pantilt_tilt_support_joint" type="fixed">
-      <origin xyz="0.0 0.0 0.0" rpy="${90*deg2rad} 0 0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="1.57 0 0"/>
       <parent link="${prefix}torso_pantilt_tilt_base_link"/>
       <child link="${prefix}torso_pantilt_tilt_support_link"/>
       <axis xyz="0 0 1"/>
@@ -190,7 +189,7 @@
     
     <joint name="${prefix}torso_pantilt_tilt_fixed_joint" type="fixed">
       <!--<origin xyz="0.0 0.027 0.027" rpy="0 0 0"/>-->
-      <origin xyz="0.0 -0.027 0.027" rpy="${90*deg2rad} 0 0"/>
+      <origin xyz="0.0 -0.027 0.027" rpy="1.57 0 0"/>
       <parent link="${prefix}torso_pantilt_tilt_base_link"/>
       <child link="${prefix}torso_pantilt_tilt_link"/>
     </joint>
