@@ -13,15 +13,21 @@ var trim_angle = default_trim_angle;
 var trim_angle_message;
 var max_angle_defined = false;
 var trim_angle_defined = false;
-var battery_level = 0.0;
-var battery_level_corrected;
-var maximum_battery_level = 27.2;
-var minimum_battery_level = 22.5;
+var battery_voltage_drive = 0.0
+var battery_level_drive = 0.0;
+var battery_level_drive_corrected;
+var maximum_battery_level_drive = 50;
+var minimum_battery_level_drive = 45;
+var battery_level_inverter = 0.0;
+var battery_voltage_inverter = 0.0;
+var battery_level_inverter_corrected;
 var battery_status = false;
 var min_radius = 0.0;
 var reverse_direction = false;
 var deactivate_imu_msg;
 var imu_state = false;
+var imu_message = false;
+var imu_timestamp = Date.now();
 var limit_temperature = 60.0;
 var x_position;
 var y_position;
@@ -58,6 +64,8 @@ var torso_rotation_data_history = ["", "", "", ""];
 // digital inputs/outputs
 var digital_inputs = [];
 var digital_outputs = [];
+var enabled_inputs = []; // now is an array from 145-151
+var enabled_outputs = []; // now is an array from 1-17 
 
 //controller options
 var gearbox_reduction = 12.52;
@@ -178,45 +186,57 @@ var torso_status_codes = ["SBM (SYSTEM READY)", //0
 ];
 
 var ros = new ROSLIB.Ros({
-    url : 'ws://vulcano-base:9090'
+    url : 'ws://vulcano:9090'
     //url: 'ws://localhost:9090'
 });
 
 
 //battery topic
-var battery_listener = new ROSLIB.Topic({
+var battery_listener_drive = new ROSLIB.Topic({
     ros: ros,
-    name: 'battery/battery_state',
-    messageType: 'sensor_msgs/BatteryState'
+    name: '/base/robotnik_base_hw/battery',
+    messageType: 'std_msgs/Float32'
 });
 
-battery_listener.subscribe(function(message) {
-    battery_level = message.percentage * 100;
+battery_listener_drive.subscribe(function(message) {
+    battery_level_drive = 100.0*(message.data-minimum_battery_level_drive)/(maximum_battery_level_drive-minimum_battery_level_drive); //message.percentage * 100;
+    battery_voltage_drive = Number((message.data).toFixed(1));
+});
+
+var battery_listener_inverter = new ROSLIB.Topic({
+    ros: ros,
+    name: '/inverter/inverter_status',
+    messageType: 'robotnik_msgs/InverterStatus'
+});
+
+battery_listener_inverter.subscribe(function(message) {
+    battery_level_inverter = message.percentage * 100;
+    battery_voltage_inverter = Number((message.dc_voltage).toFixed(1));
 });
 
 //imu state topic
 var imuStateListener = new ROSLIB.Topic({
     ros: ros,
-    name: '/imu/data_ok',
-    messageType: 'std_msgs/Bool'
+    name: '/mavros/imu/data_raw',
+    messageType: 'sensor_msgs/Imu'
 });
 
 // IMU State
 imuStateListener.subscribe(function(message) {
-
-
-    //console.log(message.data);
-    if (message.data == true && !imu_state) {
-        //document.querySelector('#imu_status span').innerHTML = "OK";
-        document.querySelector('#imu_status span').innerHTML = "<img width=30  height=30 src=images/light-green-flash.jpg border=\"0\">";
-        imu_state = true;
-
-    }
-    if (message.data == false && imu_state) {
-        //document.querySelector('#imu_status span').innerHTML = "FAILURE";
-        document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif border=\"0\">";
-        imu_state = false;
-    }
+    imu_message = message;
+    imu_timestamp = Date.now();
+//    //console.log(message.data);
+//    if (message.data == true && !imu_state) {
+//        //document.querySelector('#imu_status span').innerHTML = "OK";
+//        document.querySelector('#imu_status span').innerHTML = "<img width=30  height=30 src=images/light-green-flash.jpg border=\"0\">";
+//        imu_state = true;
+//
+//    }
+//    if (message.data == false && imu_state) {
+//        //document.querySelector('#imu_status span').innerHTML = "FAILURE";
+//        document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif border=\"0\">";
+//        imu_state = false;
+//    }
 });
 
 // Odometry topic
@@ -263,8 +283,8 @@ odometry_listener.subscribe(function(message) {
 // Motor Status topic
 var motor_status_listener = new ROSLIB.Topic({
     ros: ros,
-    name: '/base/vulcano_base_hw/status',
-    messageType: 'vulcano_base_hw/VulcanoMotorsStatus'
+    name: '/base/robotnik_base_hw/status',
+    messageType: 'robotnik_msgs/RobotnikMotorsStatus'
 });
 
 // Motor Status Listener
@@ -311,50 +331,50 @@ motor_status_listener.subscribe(function(message) {
 
 
     // space is required for the comparison
-    if (flw_data[1] == "OPERATION_ENABLED ") {
+    if (flw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (blw_data[1] == "OPERATION_ENABLED ") {
+    if (blw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_left_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (frw_data[1] == "OPERATION_ENABLED ") {
+    if (frw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (brw_data[1] == "OPERATION_ENABLED ") {
+    if (brw_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_right_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
     // space is required for the comparison
-    if (flw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (flw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (blw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (blw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_left_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (frw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (frw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#front_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#front_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
     }
 
-    if (brw_direction_data[1] == "OPERATION_ENABLED ") {
+    if (brw_direction_data[1] == "OPERATION_ENABLED") {
         document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
     } else {
         document.querySelector('#back_right_direction_wheel_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
@@ -366,7 +386,7 @@ motor_status_listener.subscribe(function(message) {
 var torso_status_listener = new ROSLIB.Topic({
     ros: ros,
     name: '/torso_guidance/vulcano_torso_hw/status',
-    messageType: 'vulcano_base_hw/VulcanoMotorsStatus'
+    messageType: 'robotnik_msgs/RobotnikMotorsStatus'
 });
 
 torso_status_listener.subscribe(function(message) {
@@ -401,17 +421,23 @@ var io_listener = new ROSLIB.Topic({
 });
 
 io_listener.subscribe(function(message) {
-	for (var i = 0; i < message.digital_inputs.length; i++) {
-		var text = "<b>1</b>";
-		if (message.digital_inputs[i] == false)
-			text = "0";
-		document.getElementById("digital_input_status_" + (i+1)).innerHTML = text;
+	for (var i = 0; i < enabled_inputs.length; i++) {
+		var text = "";
+		if (enabled_inputs[i] < message.digital_inputs.length + 1) {
+			text ="<b>1</b>";
+			if (message.digital_inputs[enabled_inputs[i]-1] == false)
+				text = "0";
+		}
+		document.getElementById("digital_input_status_" + (enabled_inputs[i])).innerHTML = text;
 	}
-	for (var i = 0; i < message.digital_outputs.length; i++) {
-		var text = "<b>1</b>";
-		if (message.digital_outputs[i] == false)
-			text = "0";
-		document.getElementById("digital_output_status_" + (i+1)).innerHTML = text;
+	for (var i = 0; i < enabled_outputs.length; i++) {
+		var text = "";
+		if (enabled_outputs[i] < message.digital_outputs.length + 1) {
+			text ="<b>1</b>";
+			if (message.digital_outputs[enabled_outputs[i]-1] == false)
+				text = "0";
+		}
+		document.getElementById("digital_output_status_" + (enabled_outputs[i])).innerHTML = text;
 	}
 
 });
@@ -486,22 +512,35 @@ function mainLoop() {
 
 	// TODO: check battery
     $("#progressbar_battery").progressbar({
-        value: battery_level
+        value: battery_level_inverter
     });
 
+    if (Date.now() - imu_timestamp < 1000) {
+        //document.querySelector('#imu_status span').innerHTML = "OK";
+        document.querySelector('#imu_status span').innerHTML = "<img width=30  height=30 src=images/light-green-flash.jpg border=\"0\">";
+        imu_state = true;
+
+    }
+    else {
+        //document.querySelector('#imu_status span').innerHTML = "FAILURE";
+        document.querySelector('#imu_status span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif border=\"0\">";
+        imu_state = false;
+    }
 	
 
 
     // update battery
     // -------------
-    battery_level = Math.round(battery_level);
-    document.querySelector('#battery_status span').innerHTML = battery_level;
+    battery_level_drive = Math.round(battery_level_drive);
+    document.querySelector('#battery_status span').innerHTML = battery_level_inverter;
+    document.querySelector('#battery_voltage_drive span').innerHTML = battery_voltage_drive;
+    document.querySelector('#battery_voltage_inverter span').innerHTML = battery_voltage_inverter;
 
-    if (battery_level < 23.0 && battery_status) {
+    if (battery_level_drive < 23.0 && battery_status) {
         document.querySelector('#battery_ok span').innerHTML = "<img width=30 height=30 src=images/light-red-flash.gif>";
         battery_status = false;
         //console.log("Bateria not ok");
-    } else if (battery_level >= 23.0 && !battery_status) {
+    } else if (battery_level_drive >= 23.0 && !battery_status) {
         document.querySelector('#battery_ok span').innerHTML = "<img width=30 height=30 src=images/light-green-flash.jpg>";
         //console.log("Bateria ok");
         battery_status = true;
@@ -1047,7 +1086,7 @@ $(document).ready(function() {
 
     //Progress bars
     $("#progressbar_battery").progressbar({
-        value: battery_level
+        value: battery_level_drive
     });
     $("#progressbar_battery").progressbar("option", "max", 100.0);
 
@@ -1067,45 +1106,82 @@ $(document).ready(function() {
 
 
 	// init io table
-	var number_of_digital_inputs = 16;
-	for(var i=1; i<= number_of_digital_inputs; i++) { // check! is <= not, <!!
+	// enabled inputs from 17 to 22, 25 to 28, 97 to 100, 105 to 106, 145 to 151
+	for(var i=17; i<= 22; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
 		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
 	}
-	
-	var number_of_digital_outputs = 16;
-	for(var i=1; i <= number_of_digital_outputs; i++) {
+	for(var i=25; i<= 28; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	for(var i=97; i<= 100; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	for(var i=105; i<= 106; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	for(var i=145; i<= 151; i++) { // check! is <= not, <!!
+		enabled_inputs.push(i);
+		$('#digital_inputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_input_name_"+i+"\"> INPUT_" + i + " </div> </td> <td> <div id=\"digital_input_status_"+i+"\"> NA </div> </td> </tr>");
+	}
+	// enabled outputs from 1 to 17	
+	for(var i=1; i <= 17; i++) {
+		enabled_outputs.push(i);
 		$('#digital_outputs_table').append("<tr> <td> " + i + "</td> <td> <div id=\"digital_output_name_"+i+"\"> OUTPUT_" + i + " </div> </td> <td> <div id=\"digital_output_status_"+i+"\"> NA </div> </td> </tr>");
 	}
-	
+  
+  
 	// it would be nicer to read the io names from the param server, but 
 	// roslibjs reads params with a callback that receives the value of the
 	// param, without the name of the param, so we hardcode it hear
-	document.getElementById("digital_input_name_1").innerHTML = "E_STOP";
-	document.getElementById("digital_input_name_2").innerHTML = "LASER_STOP";
-	document.getElementById("digital_input_name_3").innerHTML = "BACK_SWITCH_LEFT";
-	document.getElementById("digital_input_name_4").innerHTML = "BACK_SWITCH_RIGHT";
-	document.getElementById("digital_input_name_5").innerHTML = "TORSO_INPUT_1";
-	document.getElementById("digital_input_name_6").innerHTML = "TORSO_INPUT_2";
-	document.getElementById("digital_input_name_7").innerHTML = "FRONT_CONNECTOR_1";
-	document.getElementById("digital_input_name_8").innerHTML = "FRONT_CONNECTOR_2";
-	document.getElementById("digital_input_name_9").innerHTML = "PRESSURE_OK";
+	document.getElementById("digital_input_name_17").innerHTML = "E-STOP REMOTE";
+	document.getElementById("digital_input_name_18").innerHTML = "E-STOP LOCAL";
+	document.getElementById("digital_input_name_19").innerHTML = "LASER STOP";
+	document.getElementById("digital_input_name_20").innerHTML = "XX";
+	document.getElementById("digital_input_name_21").innerHTML = "LASER MUTE 1";
+	document.getElementById("digital_input_name_22").innerHTML = "LASER MUTE 2";
 	
-	document.getElementById("digital_output_name_1").innerHTML = "ELECTROVALVE_1";
-	document.getElementById("digital_output_name_2").innerHTML = "ELECTROVALVE_2";
-	document.getElementById("digital_output_name_3").innerHTML = "ELECTROVALVE_3";
-	document.getElementById("digital_output_name_4").innerHTML = "ELECTROVALVE_4";
-	document.getElementById("digital_output_name_5").innerHTML = "ELECTROVALVE_5";
-	document.getElementById("digital_output_name_6").innerHTML = "ELECTROVALVE_6";
-	document.getElementById("digital_output_name_7").innerHTML = "FLASHING_LIGHT_1";
-	document.getElementById("digital_output_name_8").innerHTML = "FLASHING_LIGHT_2";
-	document.getElementById("digital_output_name_9").innerHTML = "FRONT_CONNECTOR_1";
-	document.getElementById("digital_output_name_9").innerHTML = "RESERVED";
-	document.getElementById("digital_output_name_11").innerHTML = "PILOT_LIGHT";
-	document.getElementById("digital_output_name_12").innerHTML = "BUZZER";
-	document.getElementById("digital_output_name_13").innerHTML = "AIR_PUMP";
-	document.getElementById("digital_output_name_14").innerHTML = "LOWER_FAN";
-	document.getElementById("digital_output_name_15").innerHTML = "UPPER_FAN";
-	document.getElementById("digital_output_name_16").innerHTML = "SAFETY_RELAY";
+	document.getElementById("digital_input_name_25").innerHTML = "E-STOP REMOTE";
+	document.getElementById("digital_input_name_26").innerHTML = "E-STOP LOCAL";
+	document.getElementById("digital_input_name_27").innerHTML = "LASER STOP";
+	document.getElementById("digital_input_name_28").innerHTML = "RESET";
+
+	document.getElementById("digital_input_name_97").innerHTML = "ARM STOP";
+	document.getElementById("digital_input_name_98").innerHTML = "WHEEL SUPPLY";
+	document.getElementById("digital_input_name_99").innerHTML = "TORSO SUPPLY";
+	document.getElementById("digital_input_name_100").innerHTML = "WHEEL STOP";
+
+	document.getElementById("digital_input_name_105").innerHTML = "K23";
+	document.getElementById("digital_input_name_106").innerHTML = "EV";
+
+	document.getElementById("digital_input_name_145").innerHTML = "SAFETY_BASE_OK";
+	document.getElementById("digital_input_name_146").innerHTML = "SAFETY_TORSO_OK";
+	document.getElementById("digital_input_name_147").innerHTML = "SAFETY_LASER_OK";
+	document.getElementById("digital_input_name_148").innerHTML = "SAFETY_LASER_WARNING";
+	document.getElementById("digital_input_name_149").innerHTML = "SAFETY_LEFT_ARM_OK";
+	document.getElementById("digital_input_name_150").innerHTML = "SAFETY_RIGHT_ARM_OK";
+	document.getElementById("digital_input_name_151").innerHTML = "PRESSURE_OK";
+	
+	document.getElementById("digital_output_name_1").innerHTML =  "LEFT_ARM_ON";
+	document.getElementById("digital_output_name_2").innerHTML =  "LEFT_ARM_OFF";
+	document.getElementById("digital_output_name_3").innerHTML =  "RIGHT_ARM_ON";
+	document.getElementById("digital_output_name_4").innerHTML =  "RIGHT_ARM_OFF";
+	document.getElementById("digital_output_name_5").innerHTML =  "LEFT_ARM_OUT_1";
+	document.getElementById("digital_output_name_6").innerHTML =  "RIGHT_ARM_OUT_1";
+	document.getElementById("digital_output_name_7").innerHTML =  "LEFT_ARM_OUT_2";
+	document.getElementById("digital_output_name_8").innerHTML =  "RIGHT_ARM_OUT_2";
+	document.getElementById("digital_output_name_9").innerHTML =  "FAN_1";
+	document.getElementById("digital_output_name_10").innerHTML =  "FAN_2";
+	document.getElementById("digital_output_name_11").innerHTML = "FAN_3";
+	document.getElementById("digital_output_name_12").innerHTML = "FLASHING_LIGHT_1";
+	document.getElementById("digital_output_name_13").innerHTML = "FLASHING_LIGHT_2";
+	document.getElementById("digital_output_name_14").innerHTML = "RESET_LIGHT";
+	document.getElementById("digital_output_name_15").innerHTML = "BUZZER";
+	document.getElementById("digital_output_name_16").innerHTML = "RESET_TORSO";
+	document.getElementById("digital_output_name_17").innerHTML = "LOW_SPEED_SAFETY_RELAY";
 
     //init messages
     max_angle_message = new ROSLIB.Message({
