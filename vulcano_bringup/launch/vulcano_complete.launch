@@ -3,7 +3,7 @@
 
     <arg name="guidance" default="true" />
     <arg name="pantilt" default="true" />
-    <arg name="arms" default="true" /> <!-- By default the arms are not launched, because the real controllers must be powered on  before launching it -->
+    <arg name="arms" default="false" /> <!-- By default the arms are not launched, because the real controllers must be powered on  before launching it -->
 
         <!-- things that have vulcano-specific code, such as the base  -->
         <include file="$(find vulcano_description)/launch/vulcano_state.launch" />
@@ -67,5 +67,8 @@
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
             <rosparam param="source_list">["left_arm/joint_states", "right_arm/joint_states", "torso_guidance/joint_states", "torso_pantilt/joint_states", "base/joint_states"]</rosparam> 
         </node>
+
+        <!-- things that come from generic packages, such as the laser sensors, the io module... -->
+        <include file="$(find vulcano_bringup)/launch/vulcano_multimaster.launch" />
  
 </launch>
