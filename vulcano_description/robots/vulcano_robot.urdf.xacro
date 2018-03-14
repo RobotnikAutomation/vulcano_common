@@ -24,7 +24,7 @@
   <xacro:vulcano_base prefix="" publish_bf="${publish_bf}" hq="${hq}"/>
   <!-- Fix torso to base -->
   <joint name="base_torso_joint" type="fixed">
-    <origin xyz="0.5607 0.0 0.4845" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.47 0.0 0.474" rpy="0.0 0.0 0.0"/>
     <parent link="base_link"/>
     <child link="torso_base_link"/>
     <axis xyz="0 0 0"/>
@@ -34,16 +34,16 @@
   
   <!-- Fix right arm to torso -->
   <joint name="torso_right_arm_base_joint" type="fixed">
-    <origin xyz="0.16870 0.28753 -0.12303" rpy="0 ${-PI/4.0} ${-PI/2.0}"/>
-    <parent link="torso_guidance_elevation_link"/>
+    <origin xyz="-0.1622 0.275533 0.021967" rpy="0 ${-PI/4.0} ${-PI/2.0}"/>  <!-- TODO: set correct orientation -->
+    <parent link="torso_tkd668_link"/>
     <child link="right_arm_base_link"/>
   </joint>
   <xacro:ur10_robot prefix="right_arm_" joint_limited="true"/>
 
   <!-- Fix left arm to torso -->
   <joint name="torso_left_arm_base_joint" type="fixed">
-    <origin xyz="0.16870 -0.28753 -0.12303" rpy="0 ${PI/4.0} ${-PI/2.0}"/>
-    <parent link="torso_guidance_elevation_link"/>
+    <origin xyz="-0.1622 -0.275533 0.021967" rpy="0 ${PI/4.0} ${-PI/2.0}"/>
+    <parent link="torso_tkd668_link"/>
     <child link="left_arm_base_link"/>
   </joint>
   <xacro:ur10_robot prefix="left_arm_" joint_limited="true"/>
