@@ -2,7 +2,7 @@
 <launch>
 
     <arg name="publish_state" default="false" />    
-    <arg name="omni" default="false" />
+    <arg name="omni" default="true" />
    
     <!-- load description and publish state-->
     <param name="robot_description"
@@ -35,12 +35,12 @@
     
     <include file="$(find vulcano_base_bringup)/launch/vulcano_base_imu.launch" />
         
-    <include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />
+	<include file="$(find vulcano_base_bringup)/launch/vulcano_base_inverter.launch" />
         
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />-->
+	<include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />
 
-    <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
 
-    <!--<include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />
        
 </launch>
