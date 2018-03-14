@@ -311,9 +311,7 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		}
 
 		vel.linear.x = current_vel*l_scale_*joy->axes[linear_x_];
-		if (kinematic_mode_ == 2) {
-			vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
-		}
+		vel.linear.y = current_vel*l_scale_*joy->axes[linear_y_];
 
 		if(joystick_dead_zone_=="true")
 		{
@@ -321,20 +319,76 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 			if(joy->axes[angular_] == 1.0 || joy->axes[angular_] == -1.0) // if robot turning
 			{
 				// Same angular velocity for the three axis
+				vel.angular.x = current_vel*(a_scale_*joy->axes[angular_]);
+				vel.angular.y = current_vel*(a_scale_*joy->axes[angular_]);
 				vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
+
+				vel.linear.z = 0.0;
+			}
+			else if (joy->axes[linear_z_] == 1.0 || joy->axes[linear_z_] == -1.0) // if scissor moving 
+			{
+				vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_]; // scissor movement
+
+				// limit robot turn
+				vel.angular.x = 0.0;
+				vel.angular.y = 0.0;
+				vel.angular.z = 0.0;
 			}
 			else
 			{
 				// Same angular velocity for the three axis
+				vel.angular.x = current_vel*(a_scale_*joy->axes[angular_]);
+				vel.angular.y = current_vel*(a_scale_*joy->axes[angular_]);
 				vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
+				vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_]; // scissor movement
 			} 
 		}
 		else // no dead zone
 		{
+			vel.angular.x = current_vel*(a_scale_*joy->axes[angular_]);
+			vel.angular.y = current_vel*(a_scale_*joy->axes[angular_]);
 			vel.angular.z = current_vel*(a_scale_*joy->axes[angular_]);
+			vel.linear.z = current_vel*l_scale_z_*joy->axes[linear_z_];
 		}
 
 
+		/*
+		// LIGHTS
+		if (joy->buttons[button_output_1_] == 1) {
+
+		if(!bRegisteredButtonEvent[button_output_1_]){				
+		//ROS_INFO("VulcanoBasePad::padCallback: OUTPUT1 button %d", button_output_1_);
+		robotnik_msgs::set_digital_output write_do_srv;
+		write_do_srv.request.output = output_1_;
+		bOutput1=!bOutput1;
+		write_do_srv.request.value = bOutput1;
+		if(bEnable){
+		set_digital_outputs_client_.call( write_do_srv );
+		bRegisteredButtonEvent[button_output_1_] = true;
+		}				
+		}
+		}else{
+		bRegisteredButtonEvent[button_output_1_] = false;
+		}
+
+		if (joy->buttons[button_output_2_] == 1) {
+
+		if(!bRegisteredButtonEvent[button_output_2_]){                               
+		//ROS_INFO("VulcanoBasePad::padCallback: OUTPUT2 button %d", button_output_2_);
+		robotnik_msgs::set_digital_output write_do_srv;
+		write_do_srv.request.output = output_2_;
+		bOutput2=!bOutput2;
+		write_do_srv.request.value = bOutput2;
+
+		if(bEnable){
+		set_digital_outputs_client_.call( write_do_srv );
+		bRegisteredButtonEvent[button_output_2_] = true;
+		}
+		}                     		  	
+		}else{
+		bRegisteredButtonEvent[button_output_2_] = false;
+		}
+		 */
 
 		if (joy->buttons[button_kinematic_mode_] == 1) {
 
@@ -343,7 +397,11 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 				kinematic_mode_ += 1;
 				if (kinematic_mode_ > 2) kinematic_mode_ = 1;
 				ROS_INFO("VulcanoBasePad::joyCallback: Kinematic Mode %d ", kinematic_mode_);
-				bRegisteredButtonEvent[button_kinematic_mode_] = true;
+				// Call service 
+				//robotnik_msgs::set_mode set_mode_srv;
+				//set_mode_srv.request.mode = kinematic_mode_;
+				//setKinematicMode.call( set_mode_srv );
+				//bRegisteredButtonEvent[button_kinematic_mode_] = true;
 			}
 		}else{
 			bRegisteredButtonEvent[button_kinematic_mode_] = false;			
@@ -351,7 +409,7 @@ void VulcanoBasePad::padCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 		}
 		else {
-			vel.angular.x = 0.0; vel.angular.y = 0.0; vel.angular.z = 0.0;
+			vel.angular.x = 0.0;	vel.angular.y = 0.0; vel.angular.z = 0.0;
 			vel.linear.x = 0.0; vel.linear.y = 0.0; vel.linear.z = 0.0;
 		}
 
