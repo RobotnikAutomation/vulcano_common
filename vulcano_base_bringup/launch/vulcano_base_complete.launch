@@ -24,7 +24,8 @@
 
         <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
 
-        <include file="$(find vulcano_base_bringup)/launch/vulcano_twist_mux.launch" />
+<!--         <include file="$(find vulcano_base_bringup)/launch/vulcano_twist_mux.launch" /> -->
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_twist_mux_tecnalia.launch" />
 
         <include file="$(find obstacle_velocity_regulation)/launch/vulcano_obstacle_velocity_regulation.launch" />
 
@@ -41,10 +42,11 @@
         <include file="$(find vulcano_base_bringup)/launch/vulcano_base_battery.launch" />
 
         <include file="$(find vulcano_base_bringup)/launch/vulcano_web.launch" />
-
-<!--        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
+        <!-- BR Modbus Robotnik module-->
         <include file="$(find vulcano_base_bringup)/launch/vulcano_io_bridge.launch" />
-        
-	<include file="$(find vulcano_base_bringup)/launch/vulcano_br_io_modbus.launch" />
+        <!-- BR Modbus Tecnalia module -->
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_br_io_modbus.launch" />
+
+        <!--        <include file="$(find vulcano_base_bringup)/launch/vulcano_base_multimaster.launch" />-->
 
 </launch>

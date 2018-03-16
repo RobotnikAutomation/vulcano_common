@@ -1,21 +1,12 @@
 topics:
-- name    : pad
-  topic   : base_pad/cmd_vel
+- name    : user
+  topic   : cmd_vel_regulated
   timeout : 0.5
   priority: 10
 - name    : move_base
   topic   : move_base/cmd_vel
   timeout : 0.5
   priority: 5
-- name    : follower
-  topic   : follower/cmd_vel
-  timeout : 0.5
-  priority: 2
-- name    : gui_pad
-  topic   : gui_pad/cmd_vel
-  timeout : 0.5
-  priority: 9
-
 
 
 locks:
