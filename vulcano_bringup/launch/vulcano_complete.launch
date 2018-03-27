@@ -5,26 +5,30 @@
     <arg name="pantilt" default="true" />
     <arg name="arms" default="false" /> <!-- By default the arms are not launched, because the real controllers must be powered on  before launching it -->
 
+    <arg name="joint_limited" default="true"/>
+
         <!-- things that have vulcano-specific code, such as the base  -->
-        <include file="$(find vulcano_description)/launch/vulcano_state.launch" />
- 
+        <include file="$(find vulcano_description)/launch/vulcano_state.launch">
+            <arg name="joint_limited" value="$(arg joint_limited)"/>
+        </include>
+
         <group ns="torso_guidance" if="$(arg guidance)">
             <include file="$(find vulcano_torso_hw)/launch/vulcano_torso_hw.launch" />
             <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
-        </group>       
-        
+        </group>
+
         <group if="$(arg guidance)">
-            <node name="torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">    
+            <node name="torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">
                 <rosparam command="load" file="$(find vulcano_torso_pad)/config/torso_ps3.yaml" />
                 <remap from="pantilt_position_joint_trajectory_controller/command" to="torso_pantilt/pantilt_position_joint_trajectory_controller/command" />
                 <remap from="torso_guidance_position_joint_trajectory_controller/command" to="torso_guidance/torso_guidance_position_joint_trajectory_controller/command" />
             </node>
-        </group>       
-        
+        </group>
+
         <group ns="torso_pantilt" if="$(arg pantilt)">
             <include file="$(find dpro_controller)/launch/dpro_controller.launch" />
             <include file="$(find vulcano_torso_control)/launch/vulcano_pantilt_control.launch" />
-        </group>       
+        </group>
 
         <group ns="left_arm" if="$(arg arms)">
             <include file="$(find vulcano_arm_control)/launch/ur10_controllers.launch" >
@@ -48,14 +52,14 @@
                 <arg name="prefix" value="right_arm_" />
             </include>
         </group>
-        
+
         <group if="$(arg arms)">
 <!--            <node name="left_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">
 		BE CAREFUL. BETA VERSION. DAMAGE MAY EXPECTED
                 <rosparam command="load" file="$(find vulcano_arm_pad)/config/left_arm_ps3.yaml" />
                 <remap from="left_arm_position_joint_trajectory_controller/command" to="left_arm/left_arm_position_joint_trajectory_controller/command" />
             </node> -->
-  <!--        
+  <!--
             <node name="right_arm_pad" pkg="vulcano_arm_pad" type="vulcano_arm_pad" output="screen">
 		BE CAREFUL. BETA VERSION. DAMAGE MAY EXPECTED
                 <rosparam command="load" file="$(find vulcano_arm_pad)/config/right_arm_ps3.yaml" />
@@ -64,11 +68,14 @@
 -->
         </group>
 
+
+	<node name="lib_sensors_monitor_node" pkg="libsensors_monitor" type="libsensors_monitor" />
+
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
-            <rosparam param="source_list">["left_arm/joint_states", "right_arm/joint_states", "torso_guidance/joint_states", "torso_pantilt/joint_states", "base/joint_states"]</rosparam> 
+            <rosparam param="source_list">["left_arm/joint_states", "right_arm/joint_states", "torso_guidance/joint_states", "torso_pantilt/joint_states", "base/joint_states"]</rosparam>
         </node>
 
         <!-- things that come from generic packages, such as the laser sensors, the io module... -->
-        <include file="$(find vulcano_bringup)/launch/vulcano_multimaster.launch" />
- 
+<!--        <include file="$(find vulcano_bringup)/launch/vulcano_multimaster.launch" />-->
+
 </launch>

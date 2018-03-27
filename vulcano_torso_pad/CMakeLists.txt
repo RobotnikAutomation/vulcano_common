@@ -83,3 +83,19 @@ target_link_libraries(vulcano_torso_pad
    ${catkin_LIBRARIES}
  )
 
+#############
+## Install ##
+#############
+
+## Mark executables and/or libraries for installation
+
+install(TARGETS vulcano_torso_pad
+ ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+ LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+ RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY launch config
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  PATTERN ".svn" EXCLUDE
+)

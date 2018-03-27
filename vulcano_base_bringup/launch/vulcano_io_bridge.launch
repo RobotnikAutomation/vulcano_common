@@ -1,0 +1,8 @@
+<launch>
+  <!-- Configuration file with parameters -->
+  <rosparam file="$(find vulcano_base_bringup)/config/io_bridge.yaml" command="load"/>
+
+  <!-- io_device_interface load ur_io_bridge plugin -->
+  <node pkg="io_device_interface" type="io_device_interface_node" name="robotnik_io_bridge" output="screen"/>
+
+</launch>

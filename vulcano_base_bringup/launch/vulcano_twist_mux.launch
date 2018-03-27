@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="sim" default="false" />
+
+  <node name="base_twist_mux" pkg="twist_mux" type="twist_mux" required="true" >
+    <rosparam command="load" file="$(find vulcano_base_bringup)/config/twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="base/cmd_vel_regulated" unless="$(arg sim)" />
+    <remap from="cmd_vel_out" to="cmd_vel_raw" if="$(arg sim)" />
+  </node>
+
+</launch>
+

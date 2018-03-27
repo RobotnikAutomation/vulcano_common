@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot name="vulcano" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:arg name="joint_limited" default="false"/>
   <!-- ***************** -->
   <!-- Imported elements -->
   <!-- ***************** -->
@@ -14,6 +15,9 @@
   <!-- Import UR10 -->
   <xacro:include filename="$(find ur_description)/urdf/ur10.urdf.xacro"/>
   <!--<xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro"/>-->
+  <!-- Import calibrated UR10 -->
+  <xacro:include filename="$(find vulcano_calibrated_ur_description)/urdf/calibrated_ur10_vulcano_left_arm.urdf.xacro"/>
+  <xacro:include filename="$(find vulcano_calibrated_ur_description)/urdf/calibrated_ur10_vulcano_right_arm.urdf.xacro"/>
 
   <!-- Import common gazebo elements -->
   <xacro:include filename="$(find vulcano_description)/robots/common.gazebo.xacro" />
@@ -31,14 +35,15 @@
   </joint>
 
   <xacro:vulcano_torso prefix="" hq="${hq}" />
-  
+
   <!-- Fix right arm to torso -->
   <joint name="torso_right_arm_base_joint" type="fixed">
     <origin xyz="-0.1622 0.275533 0.021967" rpy="0 ${-PI/4.0} ${-PI/2.0}"/>  <!-- TODO: set correct orientation -->
     <parent link="torso_tkd668_link"/>
     <child link="right_arm_base_link"/>
   </joint>
-  <xacro:ur10_robot prefix="right_arm_" joint_limited="true"/>
+  <!--xacro:ur10_robot prefix="right_arm_" joint_limited="$(arg joint_limited)"/-->
+  <xacro:right_arm_ur10_robot prefix="right_arm_" joint_limited="$(arg joint_limited)"/>
 
   <!-- Fix left arm to torso -->
   <joint name="torso_left_arm_base_joint" type="fixed">
@@ -46,13 +51,15 @@
     <parent link="torso_tkd668_link"/>
     <child link="left_arm_base_link"/>
   </joint>
-  <xacro:ur10_robot prefix="left_arm_" joint_limited="true"/>
+  <!--xacro:ur10_robot prefix="left_arm_" joint_limited="$(arg joint_limited)"/-->
+  <xacro:left_arm_ur10_robot prefix="left_arm_" joint_limited="$(arg joint_limited)"/>
+
 
   <xacro:tube_support prefix="left_arm_ee_" parent="left_arm_ee_link">
     <origin xyz="0.012 0 0.0975" rpy="0 0 0"/>
     <box size="0.075 0.075 0.075" />
   </xacro:tube_support>
-  
+
   <xacro:tube_support prefix="right_arm_ee_" parent="right_arm_ee_link">
     <origin xyz="0.012 0 0.0975" rpy="0 0 0"/>
     <box size="0.075 0.075 0.075" />

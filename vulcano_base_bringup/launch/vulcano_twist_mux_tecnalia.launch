@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="user_twist_mux" pkg="twist_mux" type="twist_mux" required="true" >
+    <rosparam command="load" file="$(find vulcano_base_bringup)/config/user_twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="user_mux/cmd_vel" />
+  </node>
+
+  <node name="global_twist_mux" pkg="twist_mux" type="twist_mux" required="true" >
+    <rosparam command="load" file="$(find vulcano_base_bringup)/config/global_twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="cmd_vel" />
+  </node>
+
+</launch>
+

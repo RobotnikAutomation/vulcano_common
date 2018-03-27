@@ -6,8 +6,8 @@
 
 <launch>
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-      <remap from="scan" to="/vulcano/laser/scan" />
-      <remap from="odom" to="/vulcano/odom" />
+      <remap from="scan" to="/merged_laser/scan" />
+      <remap from="odom" to="/base/odom" />
       
       <param name="map_udpate_interval" value="2.0"/>
       <param name="maxUrange" value="30.0"/> <!-- for utm30lx laser -->
