@@ -12,6 +12,8 @@
 
   <arg name="joint_limited" default="true"/>
 
+  <arg name="pad" default="false"/>
+
   <!-- uploads robot_description and runs robot_state_publisher -->
   <group ns="vulcano">
   <include file="$(find vulcano_description)/launch/vulcano_state.launch">
@@ -24,14 +26,14 @@
     <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
         <arg name="omni" value="true" />
     </include>
-    <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch">
+    <include if="$(arg pad)" file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch">
         <arg name="sim" value="true" />
     </include>
   </group>
 
   <group if="$(arg guidance)">
     <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch"/>
-    <include file="$(find vulcano_torso_pad)/launch/vulcano_torso_pad.launch" />
+    <include if="$(arg pad)" file="$(find vulcano_torso_pad)/launch/vulcano_torso_pad.launch" />
   </group>
 
   <group if="$(arg pantilt)">
@@ -42,7 +44,7 @@
     <include file="$(find vulcano_arm_control)/launch/ur10_controllers.launch">
       <arg name="prefix" value="left_arm_"/>
     </include>
-    <include file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >
+    <include if="$(arg pad)" file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >
       <arg name="prefix" value="left_arm_"/>
     </include>
   </group>
@@ -51,7 +53,7 @@
     <include file="$(find vulcano_arm_control)/launch/ur10_controllers.launch">
       <arg name="prefix" value="right_arm_"/>
     </include>
-    <include file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >
+    <include if="$(arg pad)" file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >
       <arg name="prefix" value="right_arm_"/>
     </include>
   </group>
