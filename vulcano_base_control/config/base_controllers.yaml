@@ -10,16 +10,16 @@ base_controller:
   type: omni_drive_controller/OmniDriveController
   traction:
     front_right:
-      joint_name: front_right_wheel_steer_joint
+      joint_name: front_right_wheel_traction_joint
       max_speed: 20.0 # rad/s
     front_left:
-      joint_name: front_left_wheel_steer_joint
+      joint_name: front_left_wheel_traction_joint
       max_speed: 20.0 # rad/s
     back_right:
-      joint_name: back_right_wheel_steer_joint
+      joint_name: back_right_wheel_traction_joint
       max_speed: 20.0 # rad/s
     back_left:
-      joint_name: back_left_wheel_steer_joint
+      joint_name: back_left_wheel_traction_joint
       max_speed: 20.0 # rad/s
   steer:
     front_right:
