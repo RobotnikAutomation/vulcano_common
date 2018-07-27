@@ -25,6 +25,12 @@ robotnik_base_hw:
   joint_spin: [1,1,1,1,1,1,1,1]
 
   joint_home_required: [false, false, false, false, true, true, true, true]
+  
+  joint_home_at_startup: [false, false, false, false, true, true, true, true]
+
+  home_method: 2
+
+  check_hit_position_limit: true
 
   # Control loop params - don't change unless you know what you are doing
    
