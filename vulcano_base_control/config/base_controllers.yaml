@@ -10,32 +10,32 @@ base_controller:
   type: omni_drive_controller/OmniDriveController
   traction:
     front_right:
-      joint_name: front_right_wheel_joint
+      joint_name: front_right_wheel_steer_joint
       max_speed: 20.0 # rad/s
     front_left:
-      joint_name: front_left_wheel_joint
+      joint_name: front_left_wheel_steer_joint
       max_speed: 20.0 # rad/s
     back_right:
-      joint_name: back_right_wheel_joint
+      joint_name: back_right_wheel_steer_joint
       max_speed: 20.0 # rad/s
     back_left:
-      joint_name: back_left_wheel_joint
+      joint_name: back_left_wheel_steer_joint
       max_speed: 20.0 # rad/s
   steer:
     front_right:
-      joint_name: front_right_motor_wheel_joint
+      joint_name: front_right_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
     front_left:
-      joint_name: front_left_motor_wheel_joint
+      joint_name: front_left_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
     back_right:
-      joint_name: back_right_motor_wheel_joint
+      joint_name: back_right_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
     back_left:
-      joint_name: back_left_motor_wheel_joint
+      joint_name: back_left_wheel_steer_joint
       min_angle: -2.6 # rads
       max_angle: 2.6
   linear_speed_limit: 0.8
@@ -53,40 +53,40 @@ base_controller:
 
 front_left_wheel_traction_controller:
   type: velocity_controllers/JointVelocityController
-  joint: front_left_wheel_joint
+  joint: front_left_wheel_traction_joint
 
 front_left_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
-  joint: front_left_motor_wheel_joint
+  joint: front_left_wheel_steer_joint
 
 front_right_wheel_traction_controller:
   type: velocity_controllers/JointVelocityController
-  joint: front_right_wheel_joint
+  joint: front_right_wheel_traction_joint
 
 front_right_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
-  joint: front_right_motor_wheel_joint
+  joint: front_right_wheel_steer_joint
 
 back_left_wheel_traction_controller:
   type: velocity_controllers/JointVelocityController
-  joint: back_left_wheel_joint
+  joint: back_left_wheel_traction_joint
 
 back_left_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
-  joint: back_left_motor_wheel_joint
+  joint: back_left_wheel_steer_joint
 
 back_right_wheel_traction_controller:
   type: velocity_controllers/JointVelocityController
-  joint: back_right_wheel_joint
+  joint: back_right_wheel_traction_joint
 
 back_right_wheel_steer_joint_controller:
   type: position_controllers/JointPositionController
-  joint: back_right_motor_wheel_joint
+  joint: back_right_wheel_steer_joint
 
 base_steer_joint_trajectory_controller:
    type: position_controllers/JointTrajectoryController
    joints:
-     - front_left_motor_wheel_joint
-     - front_right_motor_wheel_joint
-     - back_left_motor_wheel_joint
-     - back_right_motor_wheel_joint
+     - front_left_wheel_steer_joint
+     - front_right_wheel_steer_joint
+     - back_left_wheel_steer_joint
+     - back_right_wheel_steer_joint
