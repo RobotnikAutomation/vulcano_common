@@ -40,15 +40,15 @@
         <xacro:pantilt prefix="${prefix}" parent="${prefix}torso_guidance_pantilt_link" hq="${hq}"/>
        
         <!-- TODO: check kinect2 position -->
-        <xacro:sensor_kinectv2 name="${prefix}torso_kinect" parent="${prefix}torso_pantilt_link" base="true">
+        <xacro:sensor_kinectv2 prefix="${prefix}torso_kinect" parent="${prefix}torso_pantilt_link" base="true">
             <origin xyz="0.01255 0 0.066" rpy="0 0 0"/>
         </xacro:sensor_kinectv2>
         
-        <xacro:sensor_ueye_cp_gige name="${prefix}torso_ueye_left" parent="${prefix}torso_pantilt_link">
+        <xacro:sensor_ueye_cp_gige prefix="${prefix}torso_ueye_left" parent="${prefix}torso_pantilt_link">
             <origin xyz="0.0258 -0.14975 0.0165" rpy="0 0 0"/>
         </xacro:sensor_ueye_cp_gige> 
         
-        <xacro:sensor_ueye_cp_gige name="${prefix}torso_ueye_right" parent="${prefix}torso_pantilt_link">
+        <xacro:sensor_ueye_cp_gige prefix="${prefix}torso_ueye_right" parent="${prefix}torso_pantilt_link">
             <origin xyz="0.0258 0.14975 0.0165" rpy="0 0 0"/>
         </xacro:sensor_ueye_cp_gige> 
 

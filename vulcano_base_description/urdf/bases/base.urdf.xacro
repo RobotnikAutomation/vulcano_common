@@ -6,6 +6,12 @@
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:property name="wheel_width" value="0.075" />
+  
+  <xacro:macro name="box_inertia" params="m x y z">
+    <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(x*x+z*z)/12}" iyz = "0"
+              izz="${m*(x*x+y*y)/12}" /> 
+  </xacro:macro>
 
   <!-- BASE FOOTPRINT -->
   <xacro:if value="${publish_bf}">
@@ -18,7 +24,7 @@
       </visual>
     </link>
 
-    <joint name="base_footprint_joint" type="fixed">
+    <joint name="${prefix}base_footprint_joint" type="fixed">
       <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
       <parent link="${prefix}base_footprint"/>
       <child link="${prefix}base_link" />

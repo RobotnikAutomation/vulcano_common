@@ -55,24 +55,24 @@
         </xacro:motor_wheel>
       
         <!-- SENSORS see robotnik_sensors for the specific configuration -->
-        <xacro:sensor_imu name="imu" parent="${prefix}base_link">
+        <xacro:sensor_imu prefix="${prefix}imu" parent="${prefix}base_link">
           <origin xyz="-0.40 0.06 0.75" rpy="0 0 0"/>
         </xacro:sensor_imu>
 
-        <xacro:sensor_sick_s300 name="front_left_laser" parent="${prefix}base_link">
+        <xacro:sensor_sick_s300 prefix="${prefix}front_left_laser" parent="${prefix}base_link">
             <origin xyz="0.606321 0.345821 0.3095" rpy="${180*deg2rad} 0 ${45*deg2rad}"/>
         </xacro:sensor_sick_s300>
         
-        <xacro:sensor_sick_s300 name="back_right_laser" parent="${prefix}base_link">
+        <xacro:sensor_sick_s300 prefix="${prefix}back_right_laser" parent="${prefix}base_link">
             <origin xyz="-0.606321 -0.345821 0.3095" rpy="${180*deg2rad} 0 ${225*deg2rad}"/>
         </xacro:sensor_sick_s300>
         
-        <joint name="merged_base_laser_joint" type="fixed"> <!-- front and back laser will be merged into this link -->
+        <joint name="${prefix}merged_base_laser_joint" type="fixed"> <!-- front and back laser will be merged into this link -->
             <origin xyz="0 0 0.234" rpy="0 0 0" /> 
             <parent link="${prefix}base_link"/>
             <child link="${prefix}merged_base_laser_link" />
         </joint>
-        <link name="merged_base_laser_link" />
+        <link name="${prefix}merged_base_laser_link" />
    </xacro:macro>    
 </robot>
 

@@ -38,18 +38,18 @@
     <include file="$(find vulcano_arm_control)/launch/ur10_controllers.launch">
       <arg name="prefix" value="left_arm_"/>
     </include>
-    <include file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >
-      <arg name="prefix" value="left_arm_"/>
-    </include>
+    <!--<include file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >-->
+      <!--<arg name="prefix" value="left_arm_"/>-->
+    <!--</include>-->
   </group>
   
   <group if="$(arg arms)">
     <include file="$(find vulcano_arm_control)/launch/ur10_controllers.launch">
       <arg name="prefix" value="right_arm_"/>
     </include>
-    <include file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >
-      <arg name="prefix" value="right_arm_"/>
-    </include>
+    <!--<include file="$(find vulcano_arm_pad)/launch/vulcano_arm_pad.launch" >-->
+      <!--<arg name="prefix" value="right_arm_"/>-->
+    <!--</include>-->
   </group>
     <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
