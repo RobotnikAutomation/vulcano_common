@@ -186,8 +186,8 @@ var torso_status_codes = ["SBM (SYSTEM READY)", //0
 ];
 
 var ros = new ROSLIB.Ros({
-    url : 'ws://vulcano:9090'
-    //url: 'ws://localhost:9090'
+    //url : 'ws://vulcano:9090'
+    url: 'ws://192.168.0.200:9090'
 });
 
 

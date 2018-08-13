@@ -5,7 +5,7 @@
   <!-- remap from="scan" to="hokuyo_laser_topic" / -->
   <remap from="cmd_vel" to="cmd_vel" />
   
-  <remap from="scan" to="laser/scan" />
+  <remap from="scan" to="/front_laser/scan_filtered" />
 
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="odom_model_type" value="diff"/>
@@ -42,8 +42,8 @@
   <param name="recovery_alpha_slow" value="0.0"/>
   <param name="recovery_alpha_fast" value="0.0"/>
 
-  <param name="initial_pose_x" value ="0.0"/>
-  <param name="initial_pose_y" value ="0.0"/>
+  <param name="initial_pose_x" value ="-4.895"/>
+  <param name="initial_pose_y" value ="-5.487"/>
   <param name="initial_pose_a" value ="0.0"/>
 
 </node>

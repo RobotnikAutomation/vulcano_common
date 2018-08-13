@@ -9,7 +9,7 @@
 
   <!--- Run AMCL -->
   <include file="$(find vulcano_base_navigation)/launch/navigation_amcl/amcl_vulcano_base.launch" />
-  <remap from="cmd_vel" to="cmd_vel" />
+  <remap from="cmd_vel" to="/move_base/cmd_vel" />
 
 	<!-- for moving -->
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">

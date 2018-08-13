@@ -1,0 +1,13 @@
+num_of_buttons: 15 
+axis_linear_z: 5
+scale_linear_z: 0.1
+axis_angular_z: 2
+scale_angular_z: 0.1
+axis_pan: 0
+scale_pan: 1.0
+axis_tilt: 1
+scale_tilt: -3.1416
+button_speed_up: 3
+button_speed_down: 1
+button_dead_man_torso: 4
+cmd_topic:  /joint_commands

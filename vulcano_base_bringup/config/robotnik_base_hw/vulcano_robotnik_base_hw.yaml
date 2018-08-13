@@ -3,7 +3,7 @@ robotnik_base_hw:
   
   # Be carefull if motors don't have enconders and you put motors_enconder: true speed will increase x 4000
   motors_encoder: true
-  motors_encoder_factor: 4000
+  motors_encoder_factor: 4096
   
   joint_name:  [front_left_wheel_traction_joint,
             back_left_wheel_traction_joint,
@@ -15,6 +15,8 @@ robotnik_base_hw:
             back_right_wheel_steer_joint]
   
   joint_can_id: [1,2,3,4,5,6,7,8]
+
+  home_method: 2
   
   joint_type: [vel,vel,vel,vel,pos,pos,pos,pos]
   
@@ -22,9 +24,18 @@ robotnik_base_hw:
    
   gearbox_ratio: [20,20,20,20,232,232,232,232]
 
-  joint_spin: [1,1,1,1,1,1,1,1]
+  joint_spin: [-1,-1,-1,-1,1,1,1,1]
+  
+  check_hit_position_limit: false
 
   joint_home_required: [false, false, false, false, true, true, true, true]
+
+  joint_home_at_startup: [false, false, false, false, true, true, true, true]
+
+  low_position_limit: [-1.79769e+300, -1.79769e+300, -1.79769e+300, -1.79769e+300, -5000000, -5000000, -5000000, -5000000]
+
+  high_position_limit: [1.79769e+300, 1.79769e+300, 1.79769e+300, 1.79769e+300, 5000000, 5000000, 5000000, 5000000]
+
 
   # Control loop params - don't change unless you know what you are doing
    

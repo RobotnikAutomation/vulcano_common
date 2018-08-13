@@ -3,7 +3,7 @@
 
   <node pkg="joy" type="joy_node" name="base_joy" output="screen" respawn="true">
     <!-- joy node -->
-    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="dev" type="string" value="/dev/input/js_base" />
     <param name="deadzone" value="0.12" />
     <param name="autorepeat_rate" value="10.0" type="double" />
   </node>

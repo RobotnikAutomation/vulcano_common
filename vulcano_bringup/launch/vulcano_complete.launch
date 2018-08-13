@@ -15,7 +15,7 @@
         
         <group if="$(arg guidance)">
             <node name="torso_pad" pkg="vulcano_torso_pad" type="vulcano_torso_pad" output="screen">    
-                <rosparam command="load" file="$(find vulcano_torso_pad)/config/torso_ps3.yaml" />
+                <rosparam command="load" file="$(find vulcano_torso_pad)/config/torso_ps4.yaml" />
                 <remap from="pantilt_position_joint_trajectory_controller/command" to="torso_pantilt/pantilt_position_joint_trajectory_controller/command" />
                 <remap from="torso_guidance_position_joint_trajectory_controller/command" to="torso_guidance/torso_guidance_position_joint_trajectory_controller/command" />
             </node>
@@ -47,6 +47,10 @@
                 <arg name="reverse_port" value="50002" />
                 <arg name="prefix" value="right_arm_" />
             </include>
+        </group>
+        
+        <group ns="torso_realsense">
+			<include file="$(find realsense2_camera)/launch/rs_camera.launch"></include>
         </group>
         
         <group if="$(arg arms)">

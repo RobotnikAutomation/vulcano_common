@@ -14,6 +14,16 @@ right_arm_position_joint_trajectory_controller:
      - right_arm_wrist_1_joint
      - right_arm_wrist_2_joint
      - right_arm_wrist_3_joint
+    ######
+    # TODO: Esto no va aquí, hay que testearlo
+    #joint_limits:
+    #  right_arm_shoulder_pan_joint:
+    #    has_position_limits: true
+        # No debería dejarme poner el brazo por la derecha
+    #    max_position: 1.5
+    #    min_position: -1.5
+        ######
+
    constraints:
       goal_time: 0.6
       stopped_velocity_tolerance: 0.05

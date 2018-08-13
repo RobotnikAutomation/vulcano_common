@@ -41,11 +41,11 @@
         <hardwareInterface>PositionJointInterface</hardwareInterface> 
       </joint>
       <actuator name="${prefix}torso_guidance_revolution_motor">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
-
-    
+  
     <link name="${prefix}torso_guidance_revolution_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -84,6 +84,7 @@
         <hardwareInterface>PositionJointInterface</hardwareInterface> 
       </joint>
       <actuator name="${prefix}torso_guidance_elevation_motor">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>

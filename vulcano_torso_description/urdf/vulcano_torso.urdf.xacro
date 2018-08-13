@@ -11,7 +11,6 @@
     <xacro:include filename="$(find vulcano_torso_description)/urdf/guidance/guidance.urdf.xacro"/>
     <xacro:include filename="$(find vulcano_torso_description)/urdf/pantilt/pantilt.urdf.xacro"/>
     <xacro:include filename="$(find vulcano_torso_description)/urdf/tube_support/tube_support.urdf.xacro"/>
-    <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
     
     <xacro:macro name="vulcano_torso" params="prefix hq"> <!-- TODO: check hq variable -->
         <link name="${prefix}torso_base_link">
@@ -39,18 +38,18 @@
         </link>
         <xacro:pantilt prefix="${prefix}" parent="${prefix}torso_guidance_pantilt_link" hq="${hq}"/>
        
-        <!-- TODO: check kinect2 position -->
-        <xacro:sensor_kinectv2 prefix="${prefix}torso_kinect" parent="${prefix}torso_pantilt_link" base="true">
+        <!-- TODO: check realsense position -->
+        <xacro:sensor_r430 prefix="${prefix}torso_realsense" parent="${prefix}torso_pantilt_link">
             <origin xyz="0.01255 0 0.066" rpy="0 0 0"/>
-        </xacro:sensor_kinectv2>
+        </xacro:sensor_r430>
         
-        <xacro:sensor_ueye_cp_gige prefix="${prefix}torso_ueye_left" parent="${prefix}torso_pantilt_link">
+        <!--xacro:sensor_ueye_cp_gige prefix="${prefix}torso_ueye_left" parent="${prefix}torso_pantilt_link">
             <origin xyz="0.0258 -0.14975 0.0165" rpy="0 0 0"/>
         </xacro:sensor_ueye_cp_gige> 
         
         <xacro:sensor_ueye_cp_gige prefix="${prefix}torso_ueye_right" parent="${prefix}torso_pantilt_link">
             <origin xyz="0.0258 0.14975 0.0165" rpy="0 0 0"/>
-        </xacro:sensor_ueye_cp_gige> 
+        </xacro:sensor_ueye_cp_gige--> 
 
 
     </xacro:macro>

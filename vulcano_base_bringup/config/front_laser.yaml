@@ -1,0 +1,35 @@
+# UDP communication channel at microScan3 side (currently, only 0 is supported)
+channel: 0
+
+# HostIP that the UDP packets shall be sent to
+host_ip_address: 192.168.0.200
+
+# UDP port on the host that the AppBase receives the data at. If using multiple sensors, make sure to choose different values here!
+host_udp_port: 6667
+
+# IP address of the sensor
+sensor_ip_address: 192.168.0.11
+
+# TCP port of the sensor
+sensor_tcp_port: 2122
+
+# EFIPro, EthernetIP, Profinet, Ethernet
+interface_type: EFIPro
+
+# 1: all scans; 2: every second scan; ...
+every_x_scan: 1
+
+# Timeout in seconds. Automatic restart after not having received any UDP data.
+reception_timeout: 10
+
+
+# This is a vector of strings that enables which sensor data shall be transmitted.
+# Possible values (please use ','' as delimiter):
+# GeneralSystemState, DerivedSettings, MeasurementData,
+# IntrusionData, ApplicationIOData, LocalIOData
+#
+# To be able to receive scan data, at least DerivedSettings and MeasurementData need to be set.
+features: GeneralSystemState, DerivedSettings, MeasurementData, IntrusionData, ApplicationIOData, LocalIOData
+
+frame_id: front_left_laser_base_link
+
