@@ -11,13 +11,23 @@
   <author email="info@robotnik.es">Robotnik</author>
 
   <maintainer email="info@robotnik.es">Robotnik</maintainer>
-  
+
   <buildtool_depend>catkin</buildtool_depend>
 
+  <run_depend>vulcano_arm_control</run_depend>
+  <run_depend>vulcano_base_bringup</run_depend>
+  <run_depend>vulcano_base_control</run_depend>
+  <run_depend>vulcano_base_description</run_depend>
+  <run_depend>vulcano_base_navigation</run_depend>
+  <run_depend>vulcano_base_pad</run_depend>
+  <run_depend>vulcano_bringup</run_depend>
   <run_depend>vulcano_description</run_depend>
-  <run_depend>vulcano_torso_description</run_depend>
-  <run_depend>vulcano_pad_description</run_depend>
   <run_depend>vulcano_moveit_config</run_depend>
+  <run_depend>vulcano_sim_bringup</run_depend>
+  <run_depend>vulcano_torso_control</run_depend>
+  <run_depend>vulcano_torso_description</run_depend>
+  <run_depend>vulcano_torso_pad</run_depend>
+  <run_depend>vulcano_web</run_depend>
 
   <export>
     <metapackage/>
