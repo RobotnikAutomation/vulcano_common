@@ -33,7 +33,7 @@
 		<!------------------ -->
 		<div id="robot_status">
 			  <br>
-			  <table border="0px">
+			  <table border="0px" >
 				  <tr >
 					<td>	  
 						IMU state &nbsp;&nbsp;&nbsp;&nbsp;    
@@ -64,7 +64,7 @@
 			  <br><br>
 			  <div id="battery_status">Battery level = <span></span></div>
 			  <div id="battery_voltage_drive">Battery voltage drive = <span></span></div>
-			  <div id="battery_voltage_inverter">Battery voltage inverter = <span></span></div>
+			  <!--div id="battery_voltage_inverter">Battery voltage inverter = <span></span></div-->
 		  </div>
 		  
 		  <h3>Odometry</h3>
@@ -245,7 +245,8 @@
 				  padding:0 15px 0 15px;
 			  }
 		  </style>
-		  <table border="0px" id="digital_io_table">
+		  <h4>PLC</h4>
+		  <table border="0px" id="digital_io_table" >
 			  <tr><td>INPUTS</td><td>OUTPUTS</td></tr>
 			<tr>
 				<td>
@@ -260,7 +261,43 @@
 					</table>
 				</td>
 			</tr>		   		
-		  </table>		   		  
+		  </table>
+		  
+		  <h4>BR Base</h4>
+		  <table border="0px" id="br_base_digital_io_table">
+			<tr><td>INPUTS</td><td>OUTPUTS</td></tr>
+		  <tr>
+			  <td>
+				  <table border="1px" id="br_base_digital_inputs_table">
+					  <tr><td>NUMBER</td><td>NAME</td><td>STATUS</td></tr>
+				  </table>
+			  </td>
+			  
+			  <td>
+				  <table border="1px" id="br_base_digital_outputs_table">
+					  <tr><td>NUMBER</td><td>NAME</td><td>STATUS</td></tr>
+				  </table>
+			  </td>
+		  </tr>		   		
+		</table>	
+
+		<h4>BR Torso</h4>
+		<table border="0px" id="br_torso_digital_io_table">
+			<tr><td>INPUTS</td><td>OUTPUTS</td></tr>
+		  <tr>
+			  <td>
+				  <table border="1px" id="br_torso_digital_inputs_table">
+					  <tr><td>NUMBER</td><td>NAME</td><td>STATUS</td></tr>
+				  </table>
+			  </td>
+			  
+			  <td>
+				  <table border="1px" id="br_torso_digital_outputs_table">
+					  <tr><td>NUMBER</td><td>NAME</td><td>STATUS</td></tr>
+				  </table>
+			  </td>
+		  </tr>		   		
+		</table>
 		  
 		  <br>
 		  
