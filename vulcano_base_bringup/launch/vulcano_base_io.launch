@@ -14,7 +14,7 @@
     <param name="big_endian" value="false"/>
   </node-->
   
-  <node pkg="robotnik_modbus_io" type="robotnik_modbus_io_node" name="br1" output="screen">
+  <node pkg="robotnik_modbus_io" type="robotnik_modbus_io_node" name="br_torso" output="screen">
     <param name="ip_address" type="string" value="192.168.0.220" />
     <param name="port" value="502"/>
     <param name="digital_inputs_addr" value="8192" />
@@ -24,7 +24,7 @@
 	<param name="big_endian" value="true"/>
   </node>
   
-  <node pkg="robotnik_modbus_io" type="robotnik_modbus_io_node" name="br2" output="screen">
+  <node pkg="robotnik_modbus_io" type="robotnik_modbus_io_node" name="br_base" output="screen">
     <param name="ip_address" type="string" value="192.168.0.221" />
     <param name="port" value="502"/>
     <param name="digital_inputs_addr" value="8192" />

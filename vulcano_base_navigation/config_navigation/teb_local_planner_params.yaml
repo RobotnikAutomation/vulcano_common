@@ -32,18 +32,18 @@ TebLocalPlannerROS:
     #type: "line"
     #line_start: [-0.6, 0.0] 
     #line_end: [0.6, 0.0] 
-    #type: "two_circles"
-    #front_offset: 0.2 
-    #front_radius: 0.2 
-    #rear_offset: 0.2 
-    #rear_radius: 0.2 
-    type: "polygon"
-    vertices: [[1.2, 0.65], [0.2, 0.65], [0.2, 0.5], [-0.8, 0.5], [-0.8, -0.5], [0.2, -0.5], [0.2, -0.65], [1.2, -0.65]]
+    type: "two_circles"
+    front_offset: 0.7 
+    front_radius: 0.65 
+    rear_offset: -0.3 
+    rear_radius: 0.5 
+    #type: "polygon"
+    #vertices: [[1.2, 0.65], [0.2, 0.65], [0.2, 0.5], [-0.8, 0.5], [-0.8, -0.5], [0.2, -0.5], [0.2, -0.65], [1.2, -0.65]]
  
   # GoalTolerance
      
-  xy_goal_tolerance: 0.25 #0.5
-  yaw_goal_tolerance: 0.5
+  xy_goal_tolerance: 0.1 #0.5
+  yaw_goal_tolerance: 0.1
   free_goal_vel: False
      
   # Obstacles
