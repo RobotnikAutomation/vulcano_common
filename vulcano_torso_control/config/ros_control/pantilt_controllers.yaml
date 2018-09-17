@@ -1,8 +1,8 @@
-pantilt_joint_state_controller:
+torso_pantilt_joint_state_controller:
    type:         joint_state_controller/JointStateController
    publish_rate: 50
 
-pantilt_position_joint_trajectory_controller:
+torso_pantilt_position_joint_trajectory_controller:
    type: position_controllers/JointTrajectoryController
    joints:
       - torso_pantilt_pan_joint
@@ -16,10 +16,10 @@ pantilt_position_joint_trajectory_controller:
           trajectory: 0.60
           goal:       0.15
 
-tilt_position_controller:
+torso_tilt_position_controller:
    type: position_controllers/JointPositionController
    joint: torso_pantilt_tilt_joint
 
-pan_position_controller:
+torso_pan_position_controller:
    type: position_controllers/JointPositionController
    joint: torso_pantilt_pan_joint

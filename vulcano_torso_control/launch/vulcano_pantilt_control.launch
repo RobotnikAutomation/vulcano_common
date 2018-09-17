@@ -4,7 +4,7 @@
    <rosparam command="load" file="$(find vulcano_torso_control)/config/ros_control/pantilt_controllers.yaml"/>
 
    <node name="pantilt_controller_spawner" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" 
-        args="spawn pantilt_position_joint_trajectory_controller pantilt_joint_state_controller" />
+        args="spawn torso_pantilt_position_joint_trajectory_controller torso_pantilt_joint_state_controller" />
 
 	<!--node name="pan_controller_spawner" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" 
         args="spawn pan_position_controller" />
