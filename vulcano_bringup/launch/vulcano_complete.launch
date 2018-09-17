@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="guidance" default="true" />
+    <arg name="realsense" default="true" />
+    <arg name="guidance" default="true" /> 
     <arg name="pantilt" default="true" />
     <arg name="arms" default="true" /> <!-- By default the arms are not launched, because the real controllers must be powered on  before launching it -->
 
@@ -49,8 +50,9 @@
             </include>
         </group>
         
-        <group ns="torso_realsense">
-			<include file="$(find realsense2_camera)/launch/rs_camera.launch"></include>
+        <group ns="torso_realsense" if="$(arg realsense)" >
+            <!-- Launches the realsense node after resetting the camera -->
+            <node name="reset_camera" pkg="realsense2_camera" type="realsense" output="screen"/>
         </group>
         
         <group if="$(arg arms)">
