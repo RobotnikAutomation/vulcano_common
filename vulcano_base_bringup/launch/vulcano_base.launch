@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="omni" default="true" />
+    <include file="$(find vulcano_base_bringup)/launch/robotnik_base_hw.launch">
+        <!--<arg name="debug" value="true" />-->
+    </include>
+    <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
+        <arg name="omni" value="$(arg omni)" />
+    </include>
+</launch>

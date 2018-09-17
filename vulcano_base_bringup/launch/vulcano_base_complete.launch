@@ -3,7 +3,7 @@
 
     <arg name="publish_state" default="true" />    
     <arg name="omni" default="true" />
-   
+    <arg name="base" default="true" /> 
     <!-- load description and publish state-->
     <param name="robot_description"
         command="$(find xacro)/xacro.py '$(find vulcano_base_description)/robots/vulcano_base_standalone.urdf.xacro'" />
@@ -15,13 +15,8 @@
         </node>
     </group>
       
-    <group ns="base"> 
-        <include file="$(find vulcano_base_bringup)/launch/robotnik_base_hw.launch">
-            <!--<arg name="debug" value="true" />-->
-        </include>
-        <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch">
-            <arg name="omni" value="$(arg omni)" />
-        </include>
+    <group ns="base" if="$(arg base)" >
+        <include file="$(find vulcano_base_bringup)/launch/vulcano_base.launch"/>
     </group>
     
     <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
