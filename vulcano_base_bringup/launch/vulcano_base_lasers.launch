@@ -39,8 +39,7 @@
         <param name="cloud_destination_topic" value="merged_laser/cloud"/> 
         <param name="scan_destination_topic" value="merged_laser/scan"/>
         <param name="check_topic_type" value="false" />
-
-        <param name="laserscan_topics" value="back_right_laser/scan_filtered front_left_laser/scan_filtered" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+        <param name="laserscan_topics" value="/back_right_laser/scan_filtered /front_left_laser/scan_filtered" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
     </node>
 
 </launch>
