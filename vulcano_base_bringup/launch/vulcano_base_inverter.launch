@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
     <node pkg="meanwell_inverter" type="meanwell_inverter_node.py" name="inverter" output="screen">
-	<param name="port" value="/dev/ttyS0" />
+	<param name="port" value="/dev/ttyUSB_INVERTER" />
     </node>
 </launch>
