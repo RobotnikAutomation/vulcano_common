@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot name="vulcano" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:arg name="joint_limited" default="false"/>
   <!-- ***************** -->
   <!-- Imported elements -->
   <!-- ***************** -->
@@ -38,7 +39,7 @@
     <parent link="torso_tkd668_link"/>
     <child link="right_arm_base_link"/>
   </joint>
-  <xacro:ur10_robot prefix="right_arm_" joint_limited="true"/>
+  <xacro:ur10_robot prefix="right_arm_" joint_limited="$(arg joint_limited)"/>
 
   <!-- Fix left arm to torso -->
   <joint name="torso_left_arm_base_joint" type="fixed">
@@ -46,7 +47,7 @@
     <parent link="torso_tkd668_link"/>
     <child link="left_arm_base_link"/>
   </joint>
-  <xacro:ur10_robot prefix="left_arm_" joint_limited="true"/>
+  <xacro:ur10_robot prefix="left_arm_" joint_limited="$(arg joint_limited)"/>
 
   <xacro:tube_support prefix="left_arm_ee_" parent="left_arm_ee_link">
     <origin xyz="0.012 0 0.0975" rpy="0 0 0"/>
